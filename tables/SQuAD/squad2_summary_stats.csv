@@ -1,0 +1,3 @@
+Dataset,Total Questions,Answerable Questions,Unanswerable Questions,Avg Answers per Answerable Question,Avg Question Length (words),Avg Context Length (words)
+Train,130319,86821,43498,1.0,9.893822082735442,119.61431564085053
+Dev,11873,5928,5945,3.4247638326585697,10.019624357786574,127.90718436789354
