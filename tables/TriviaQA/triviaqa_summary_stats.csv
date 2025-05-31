@@ -1,0 +1,3 @@
+Dataset,Total Questions,Avg Answers per Question,Avg Question Length (words)
+Train,87622,24.84635137294287,13.98826778662893
+Dev,11313,25.40829134623884,13.978166710863608
