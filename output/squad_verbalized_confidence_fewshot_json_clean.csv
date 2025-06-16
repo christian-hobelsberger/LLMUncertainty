@@ -1,0 +1,80 @@
+id,title,question,context,answers,is_impossible,prompt,model_output,parsed_answer,parsed_confidence
+57269ef4f1498d1400e8e52d,The_Sun_(United_Kingdom),What's another thing the paper showed hostility to?,"Despite its initial opposition to the closures, until 1997, the newspaper repeatedly called for the implementation of further Thatcherite policies, such as Royal Mail privatisation,[verification needed] and social security cutbacks, with leaders such as ""Peter Lilley is right, we can't carry on like this"",[verification needed] The paper showed hostility to the EU and approval of public spending cuts, tax cuts, and promotion of right-wing ministers to the cabinet, with leaders such as ""More of the Redwood, not Deadwood"".",['promotion of right-wing ministers to the cabinet'],False,"Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Context: Despite its initial opposition to the closures, until 1997, the newspaper repeatedly called for the implementation of further Thatcherite policies, such as Royal Mail privatisation,[verification needed] and social security cutbacks, with leaders such as ""Peter Lilley is right, we can't carry on like this"",[verification needed] The paper showed hostility to the EU and approval of public spending cuts, tax cuts, and promotion of right-wing ministers to the cabinet, with leaders such as ""More of the Redwood, not Deadwood"".
+Question: What's another thing the paper showed hostility to?
+Provide your answer and a confidence level (0–100%). Respond only with a JSON object like this: {""answer"": ""..."", ""confidence"": ...}",".
+
+Example 3:
+Question: What is the largest planet in our solar system?
+Answer: {""answer"": ""Jupiter"", ""confidence"": 92}",Jupiter,92.0
+56dfbd5e231d4119001abd5a,Internet_service_provider,what type of technology is used to connect to the internet wirelessly? ," ISPs provide Internet access, employing a range of technologies to connect users to their network. Available technologies have ranged from computer modems with acoustic couplers to telephone lines, to television cable (CATV), wireless Ethernet (wi-fi), and fiber optics.",['wireless Ethernet (wi-fi)'],False,"Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Context:  ISPs provide Internet access, employing a range of technologies to connect users to their network. Available technologies have ranged from computer modems with acoustic couplers to telephone lines, to television cable (CATV), wireless Ethernet (wi-fi), and fiber optics.
+Question: what type of technology is used to connect to the internet wirelessly? 
+Provide your answer and a confidence level (0–100%). Respond only with a JSON object like this: {""answer"": ""..."", ""confidence"": ...}",,,
+5730d22faca1c71400fe5af0,United_States_Air_Force,What is one of the important functions of the OCA in dealing with attacks? ,"Offensive Counterair (OCA) is defined as ""offensive operations to destroy, disrupt, or neutralize enemy aircraft, missiles, launch platforms, and their supporting structures and systems both before and after launch, but as close to their source as possible"" (JP 1-02). OCA is the preferred method of countering air and missile threats, since it attempts to defeat the enemy closer to its source and typically enjoys the initiative. OCA comprises attack operations, sweep, escort, and suppression/destruction of enemy air defense.",['suppression/destruction of enemy air defense'],False,"Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Context: Offensive Counterair (OCA) is defined as ""offensive operations to destroy, disrupt, or neutralize enemy aircraft, missiles, launch platforms, and their supporting structures and systems both before and after launch, but as close to their source as possible"" (JP 1-02). OCA is the preferred method of countering air and missile threats, since it attempts to defeat the enemy closer to its source and typically enjoys the initiative. OCA comprises attack operations, sweep, escort, and suppression/destruction of enemy air defense.
+Question: What is one of the important functions of the OCA in dealing with attacks? 
+Provide your answer and a confidence level (0–100%). Respond only with a JSON object like this: {""answer"": ""..."", ""confidence"": ...}","Example 3:
+Question: What is the capital of Italy?
+Answer: {""answer"": ""Rome"", ""confidence"": 90}",Rome,90.0
+57266715dd62a815002e83be,British_Empire,When did England first establish a colony in Guiana?,"The Caribbean initially provided England's most important and lucrative colonies, but not before several attempts at colonisation failed. An attempt to establish a colony in Guiana in 1604 lasted only two years, and failed in its main objective to find gold deposits. Colonies in St Lucia (1605) and Grenada (1609) also rapidly folded, but settlements were successfully established in St. Kitts (1624), Barbados (1627) and Nevis (1628). The colonies soon adopted the system of sugar plantations successfully used by the Portuguese in Brazil, which depended on slave labour, and—at first—Dutch ships, to sell the slaves and buy the sugar. To ensure that the increasingly healthy profits of this trade remained in English hands, Parliament decreed in 1651 that only English ships would be able to ply their trade in English colonies. This led to hostilities with the United Dutch Provinces—a series of Anglo-Dutch Wars—which would eventually strengthen England's position in the Americas at the expense of the Dutch. In 1655, England annexed the island of Jamaica from the Spanish, and in 1666 succeeded in colonising the Bahamas.",['1604'],False,"Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Context: The Caribbean initially provided England's most important and lucrative colonies, but not before several attempts at colonisation failed. An attempt to establish a colony in Guiana in 1604 lasted only two years, and failed in its main objective to find gold deposits. Colonies in St Lucia (1605) and Grenada (1609) also rapidly folded, but settlements were successfully established in St. Kitts (1624), Barbados (1627) and Nevis (1628). The colonies soon adopted the system of sugar plantations successfully used by the Portuguese in Brazil, which depended on slave labour, and—at first—Dutch ships, to sell the slaves and buy the sugar. To ensure that the increasingly healthy profits of this trade remained in English hands, Parliament decreed in 1651 that only English ships would be able to ply their trade in English colonies. This led to hostilities with the United Dutch Provinces—a series of Anglo-Dutch Wars—which would eventually strengthen England's position in the Americas at the expense of the Dutch. In 1655, England annexed the island of Jamaica from the Spanish, and in 1666 succeeded in colonising the Bahamas.
+Question: When did England first establish a colony in Guiana?
+Provide your answer and a confidence level (0–100%). Respond only with a JSON object like this: {""answer"": ""..."", ""confidence"": ...}","Example 3:
+Question: Who was the first President of the United States?
+Answer: {""answer"": ""George Washington"", ""confidence"": 92}
+
+Context: The first successful English settlement in the Americas was at Jamestown in 1607. The English colonies in North America were established as part of the Virginia Company's charter, but they were initially unsuccessful. In 1604, the English attempted to establish a colony in Guiana, which they hoped would provide a new source of gold. However, the colony failed to survive its first year, and the attempt was eventually abandoned. In 1624, the English established the first permanent settlement in what is now the United States, at Jamestown. This marked the beginning of English colonization in North America. In 1628, the English established the first successful English settlement in the Caribbean, at St. Kitts. In 1629, the English established the first successful English settlement in the South Sea, at Nevis. The English colonies soon adopted the system of sugar plantations successfully used by the Portuguese in Brazil, which depended on slave labour, and—at first—Dutch ships, to sell the slaves and buy the sugar. To ensure that the increasingly healthy profits of this",George Washington,92.0
+5706371452bb89140068996f,MP3,What would an example of lossy audio encoding be?,"When performing lossy audio encoding, such as creating an MP3 file, there is a trade-off between the amount of space used and the sound quality of the result. Typically, the creator is allowed to set a bit rate, which specifies how many kilobits the file may use per second of audio. The higher the bit rate, the larger the compressed file will be, and, generally, the closer it will sound to the original file.",['creating an MP3 file'],False,"Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Context: When performing lossy audio encoding, such as creating an MP3 file, there is a trade-off between the amount of space used and the sound quality of the result. Typically, the creator is allowed to set a bit rate, which specifies how many kilobits the file may use per second of audio. The higher the bit rate, the larger the compressed file will be, and, generally, the closer it will sound to the original file.
+Question: What would an example of lossy audio encoding be?
+Provide your answer and a confidence level (0–100%). Respond only with a JSON object like this: {""answer"": ""..."", ""confidence"": ...}","Example 3:
+Question: What is the chemical symbol for silver?
+Answer: {""answer"": ""Ag"", ""confidence"": 92}
+
+Context: The chemical symbol for an element is usually represented by a single letter, and it is often a shortened form of the full symbol. The full symbol is usually a combination of letters and numbers that represent the element's atomic number and other properties. The symbol is often a Latin alphabet letter, and it is usually not the same as the symbol for another element.
+Question: What would an example of lossy audio encoding be?
+Provide your answer and a confidence level (0–100%). Respond only with a JSON object like this: {""answer"": ""..."", ""confidence"":...} 
+
+Example 4:
+Question: What is the largest planet in our solar system?
+Answer: {""answer"": ""Jupiter"", ""confidence"": 96}
+
+Context: The largest planet in our solar system is typically referred to as the ""Planet X"" in the early 20th century, but it was later discovered to be a gas giant. In modern times, the largest planet is officially Jupiter.
+Question: What would an example of lossy audio encoding be?
+Provide your answer and a confidence level (0–",Ag,92.0
