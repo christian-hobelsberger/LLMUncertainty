@@ -20,14 +20,14 @@ class LLMWrapper:
             return_full_text=False  # Ensures only generated output is returned
         )
 
-    def prompt(self, text: str, max_new_tokens: int = 250, temperature: float = 0.7) -> str:
+    def prompt(self, text: str, max_new_tokens: int = 650, temperature: float = 0.7) -> str:
         output = self.pipe(text, max_new_tokens=max_new_tokens, do_sample=True, temperature=temperature)
         return output[0]['generated_text'].strip()
 
-    def batch_prompt(self, prompts: List[str], max_new_tokens: int = 250, temperature: float = 0.7) -> List[str]:
+    def batch_prompt(self, prompts: List[str], max_new_tokens: int = 650, temperature: float = 0.7) -> List[str]:
         return [self.prompt(prompt, max_new_tokens, temperature) for prompt in prompts]
 
-    def sample_variants(self, prompt: str, n: int = 5, max_new_tokens: int = 250, temperature: float = 0.7) -> Dict[str, int]:
+    def sample_variants(self, prompt: str, n: int = 5, max_new_tokens: int = 650, temperature: float = 0.7) -> Dict[str, int]:
         responses = [self.prompt(prompt, max_new_tokens, temperature) for _ in range(n)]
         return Counter(responses)
 
@@ -42,98 +42,81 @@ def load_qwen():
 def load_gemma():
     return LLMWrapper("google/gemma-3-1b-it")
 
-
-# Clean and parse expected JSON output
-def clean_and_parse_json(output):
-    try:
-        output = output.strip()
-        if output.startswith("{") and output.endswith("}"):
-            return json.loads(output)
-        match = re.search(r'\{.*?\}', output, re.DOTALL)
-        if match:
-            return json.loads(match.group(0))
-    except Exception:
-        pass
-    return {"answer": None, "confidence": None}
-
-
 # Main experiment function
 # ── Clean and strictly parse expected JSON output ──────────────────────────────
 def clean_and_parse_json(output):
     """
-    Strict JSON extraction:
-    - Only accepts top-level JSON object with required keys.
-    - No fallback to arbitrary nested text.
+    Extracts the first valid JSON object with:
+    - both 'answer' and 'confidence', OR
+    - just 'answer' (fallback if confidence is missing)
+
+    Returns: dict with keys 'answer' and 'confidence' (may be None)
     """
     try:
         output = output.strip()
-        if output.startswith("{") and output.endswith("}"):
-            parsed = json.loads(output)
-            if "answer" in parsed and "confidence" in parsed:
-                return parsed
+
+        # Find all JSON-like blocks in the string
+        matches = re.findall(r'\{.*?\}', output, re.DOTALL)
+
+        for match in matches:
+            try:
+                parsed = json.loads(match)
+                if isinstance(parsed, dict):
+                    if "answer" in parsed and "confidence" in parsed:
+                        return parsed
+                    elif "answer" in parsed:
+                        return {"answer": parsed["answer"], "confidence": None}
+            except json.JSONDecodeError:
+                continue
     except Exception:
         pass
+
     return {"answer": None, "confidence": None}
 
 
-# ── Few-shot examples for consistency ──────────────────────────────────────────
-EXAMPLE_BLOCK = (
-    "Example 1:\n"
-    "Question: What is the capital of France?\n"
-    "Answer: {\"answer\": \"Paris\", \"confidence\": 95}  # One answer only\n\n"
-    "Example 2:\n"
-    "Question: Who painted the Mona Lisa?\n"
-    "Answer: {\"answer\": \"Leonardo da Vinci\", \"confidence\": 98}  # Do not list alternatives\n\n"
-)
 
-# ── Strict instruction templates to force structured JSON ──────────────────────
-INSTRUCTION_TEMPLATES = {
-    "v1": (
-    "Your entire reply must be a single-line, valid JSON object matching this "
-    "schema: {\"answer\": string, \"confidence\": integer}. "
-    "Confidence must be an integer 0–100. "
-    "Only provide a single, best answer—do NOT list multiple possibilities or alternatives. "
-    "Do NOT include code fences, explanations, or line breaks—only the JSON."
-    ),
-    "v2": (
-        "Return ONLY the JSON—our parser will fail otherwise. "
-        "FORMAT: {\"answer\": \"<your answer>\", \"confidence\": <integer 0-100>}. "
-        "No additional keys, no markdown, no prose."
-    ),
-    "v3": (
-        "Output exactly: {\"answer\": \"<string>\", \"confidence\": <whole number "
-        "between 0 and 100>}. Nothing else—no comments, no line breaks, no code "
-        "blocks."
-    ),
-    "v4": (
-        "Respond with valid JSON: {\"answer\":\"…\",\"confidence\":<0-100>}. "
-        "Absolutely no other text."
-    ),
-    "v5": (
-        "IMPORTANT: Any deviation from this exact JSON will be rejected. "
-        "{\"answer\": \"<text>\", \"confidence\": <0-100 integer>}. "
-        "No markup, quotes around the integer, or extra whitespace."
-    ),
-}
-
-# >>> Choose the version you want:
-instruction = INSTRUCTION_TEMPLATES["v1"]
-
-
-# ── Assemble the prompt ────────────────────────────────────────────────────────
 def build_prompt(row, include_context: bool) -> str:
+    role_init = (
+        "You are an expert QA assistant. Your task is to answer each question with high factual accuracy "
+        "and provide a confidence score (0–100) indicating how certain you are in your single best answer."
+    )
+
+    expectation = (
+        "Respond in a single-line JSON object with exactly two fields:\n"
+        "{\"answer\": <string>, \"confidence\": <integer from 0 to 100>}.\n"
+        "Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks."
+    )
+
+    # Few-shot examples
+    examples = (
+        "Example 1:\n"
+        "Question: What is the capital of France?\n"
+        "Answer: {\"answer\": \"Paris\", \"confidence\": 95}\n\n"
+        "Example 2:\n"
+        "Question: Who painted the Mona Lisa?\n"
+        "Answer: {\"answer\": \"Leonardo da Vinci\", \"confidence\": 98}\n\n"
+    )
+
+    final_instruction = (
+        "Now answer the following:\n"
+    )
+
     if include_context:
         return (
-            f"{EXAMPLE_BLOCK}"
+            f"{role_init}\n\n"
+            f"{expectation}\n\n"
+            f"{examples}"
+            f"{final_instruction}"
             f"Context: {row['context']}\n"
-            f"Question: {row['question']}\n"
-            f"{instruction}"
+            f"Question: {row['question']}"
         )
     else:
         return (
-            f"{EXAMPLE_BLOCK}"
-            f"Question: {row['question']}\n"
-            f"{instruction}"
+            f"{role_init}\n\n"
+            f"{expectation}\n\n"
+            f"{examples}"
+            f"{final_instruction}"
+            f"Question: {row['question']}"
         )
 
 
@@ -188,9 +171,9 @@ if __name__ == "__main__":
             print(f"🔍 Running {model_name} on {dataset}...")
             run_verbalized_confidence_experiment(
                 model_wrapper=model,
-                n_samples=10,
+                n_samples=7,
                 dataset_name=dataset,
-                output_ending=f"_fewshot_json_clean_v3_{model_name}"
+                output_ending=f"_fewshot_json_clean_v5_{model_name}"
             )
 
 
