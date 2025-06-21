@@ -42,6 +42,15 @@ def load_qwen():
 def load_gemma():
     return LLMWrapper("google/gemma-3-1b-it")
 
+def load_cogito():
+    return LLMWrapper("deepcogito/cogito-v1-preview-qwen-14B", trust_remote_code=True)
+
+# def load_deepseek_r1_0528():
+#     return LLMWrapper("deepseek-ai/DeepSeek-R1-0528", trust_remote_code=True)
+
+def load_phi2():
+    return LLMWrapper("microsoft/phi-2", trust_remote_code=True)
+
 # Main experiment function
 # ── Clean and strictly parse expected JSON output ──────────────────────────────
 def clean_and_parse_json(output):
@@ -162,6 +171,9 @@ if __name__ == "__main__":
         "llama": load_llama(),
         "qwen": load_qwen(),
         "gemma": load_gemma(),
+        "cogito": load_cogito(),
+        # "deepseek_r1_0528": load_deepseek_r1_0528(),
+        "phi2": load_phi2()
     }
 
     datasets = ["squad", "trivia"]

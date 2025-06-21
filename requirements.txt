@@ -1,3 +1,16 @@
-transformers>=4.40.0
-torch>=2.1.0
-accelerate>=0.25.0
+# Hugging Face core packages
+transformers>=4.41.0
+datasets>=2.20.0
+accelerate>=0.30.0
+huggingface_hub>=0.23.0
+tokenizers>=0.19.0
+
+# common packages
+scipy
+numpy
+pandas
+tqdm
+
+# log
+tensorboard
+python-dotenv
