@@ -1,0 +1,50 @@
+question,question_id,question_source,answers,prompt,model_output,parsed_answer,parsed_confidence
+"The result of dividing a number into one is called the what, of that number?",odql_11465,http://www.odquiz.org.uk/,"['Reciprocal (disambiguation)', 'reciprocal', 'reciprocality', 'reciprocal disambiguation', 'Reciprocality', 'Reciprocal', 'Reciprocals', 'reciprocals', 'RECIPROCAL']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks.
+
+Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Now answer the following:
+Question: The result of dividing a number into one is called the what, of that number?","Answer: {""answer"": ""Quotient"", ""confidence"": 90}",Quotient,90
+In which London pub did Ronnie Kray murder George Cornell?,bb_32,http://www.businessballs.com/,"['blind beggar', 'Blind Beggar', 'The Blind Beggar']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks.
+
+Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Now answer the following:
+Question: In which London pub did Ronnie Kray murder George Cornell?","Answer: {""answer"": ""The King & Sxure"", ""confidence"": 92}",The King & Sxure,92
+What is the most exclusive hotel in Brook Street London,bt_1653,http://billturnbull.quiz4free.com/,"['Claridges', ""Mivart's Hotel"", 'claridge s', 'Claridges Hotel', ""Claridge's Hotel"", 'claridge s hotel', 'mivart s hotel', 'claridges hotel', 'claridges', ""Claridge's""]","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks.
+
+Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Now answer the following:
+Question: What is the most exclusive hotel in Brook Street London","?
+Answer: {""answer"": ""The Savoy"", ""confidence"": 99}",The Savoy,99

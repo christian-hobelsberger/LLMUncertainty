@@ -1,0 +1,265 @@
+question,title,answer,passage,context,prompt,model_output,parsed_answer,parsed_confidence
+is systemic functional grammar a contemporary language theory,Systemic functional grammar,True,"Systemic functional grammar (SFG) is a form of grammatical description originated by Michael Halliday. It is part of a social semiotic approach to language called systemic functional linguistics. In these two terms, systemic refers to the view of language as ``a network of systems, or interrelated sets of options for making meaning''; functional refers to Halliday's view that language is as it is because of what it has evolved to do (see Metafunction). Thus, what he refers to as the multidimensional architecture of language ``reflects the multidimensional nature of human experience and interpersonal relations.''","Systemic functional grammar (SFG) is a form of grammatical description originated by Michael Halliday. It is part of a social semiotic approach to language called systemic functional linguistics. In these two terms, systemic refers to the view of language as ``a network of systems, or interrelated sets of options for making meaning''; functional refers to Halliday's view that language is as it is because of what it has evolved to do (see Metafunction). Thus, what he refers to as the multidimensional architecture of language ``reflects the multidimensional nature of human experience and interpersonal relations.''","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks.
+
+Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Now answer the following:
+Context: Systemic functional grammar (SFG) is a form of grammatical description originated by Michael Halliday. It is part of a social semiotic approach to language called systemic functional linguistics. In these two terms, systemic refers to the view of language as ``a network of systems, or interrelated sets of options for making meaning''; functional refers to Halliday's view that language is as it is because of what it has evolved to do (see Metafunction). Thus, what he refers to as the multidimensional architecture of language ``reflects the multidimensional nature of human experience and interpersonal relations.''
+Question: is systemic functional grammar a contemporary language theory","?
+Answer: True
+""""""
+
+# Define a function that takes a question and a corpus of sentences and returns a list of possible answers with their confidence scores
+def get_answers(question, corpus):
+	# Split the question into words
+	words = question.split()
+	# Initialize an empty list to store the answers
+	answers = []
+	# Loop through each sentence in the corpus
+	for sentence in corpus:
+		# Split the sentence into words
+		sentence_words = sentence.split()
+		# Check if all the words in the question are in the sentence
+		if all(word in sentence_words for word in words):
+			# Extract the words in the sentence that are not in the question
+			sentence_words = [word for word in sentence_words if word not in words]
+			# Join the words in the sentence into a string
+			sentence = "" "".join(sentence_words)
+			# Assign a confidence score based on the number of words in the sentence
+			confidence = len(sentence_words)
+			# Append a dictionary with the sentence as the answer and the confidence score as the value to the answers list
+			answers.append({""answer"": sentence, ""confidence"": confidence})
+	# Return the answers list
+	return answers
+
+# Load the corpus of sentences
+corpus = [
+	""The capital of France is Paris."",
+	""The capital of Germany is Berlin."",
+	""The capital of Spain is Madrid."",
+	""The capital of Italy is Rome."",
+	""The capital of Belgium is Brussels."",
+	""The capital of Netherlands is Amsterdam."",
+	""The capital of Luxembourg is Luxembourg."",
+	""The capital of Switzerland is Bern."",
+	""The capital of Norway is Oslo."",
+	""The capital of Denmark is Copenhagen."",
+]
+
+# Define the question to answer
+question = ""What is the capital of Norway?""
+
+# Call the function and get the answers
+answers = get_answers(question, corpus)
+
+# Print the answers and the question
+print(answers)
+print(question)
+
+# Define a function that takes a list of answers and a confidence threshold and returns the best answer
+def get_best_answer(answers, threshold):
+	# Initialize a variable to store the best answer and its confidence
+	best_answer = None
+	best_confidence = 0
+	# Loop through each answer in the answers list
+	for answer in answers:
+		# If the confidence score of the answer is higher than the threshold, update the best answer and its confidence
+		if answer[""confidence""] > threshold:
+			best_answer = answer
+			best_confidence = answer[""confidence""]
+	# Return the best answer
+	return best_answer
+
+# Define the confidence threshold
+threshold = 80
+
+# Call the function and get the best answer
+best_answer = get_best",,
+is season 7 the final season of true blood,True Blood (season 7),True,"The seventh and final season of the HBO supernatural drama series True Blood premiered on June 22, 2014 and contained ten episodes. The season was ordered on July 15, 2013. At the beginning of September it was announced that it would be the final season. The season was preceded by a farewell special entitled ``Farewell to Bon Temps'', in which executive producers Alan Ball and Brian Buckner united with various cast members to reminisce about the series and gave a special preview of the final season.","The seventh and final season of the HBO supernatural drama series True Blood premiered on June 22, 2014 and contained ten episodes. The season was ordered on July 15, 2013. At the beginning of September it was announced that it would be the final season. The season was preceded by a farewell special entitled ``Farewell to Bon Temps'', in which executive producers Alan Ball and Brian Buckner united with various cast members to reminisce about the series and gave a special preview of the final season.","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks.
+
+Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Now answer the following:
+Context: The seventh and final season of the HBO supernatural drama series True Blood premiered on June 22, 2014 and contained ten episodes. The season was ordered on July 15, 2013. At the beginning of September it was announced that it would be the final season. The season was preceded by a farewell special entitled ``Farewell to Bon Temps'', in which executive producers Alan Ball and Brian Buckner united with various cast members to reminisce about the series and gave a special preview of the final season.
+Question: is season 7 the final season of true blood","?
+""""""
+# Input
+input_data = """"""
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+""""""
+
+# Output
+output_data = """"""
+{""answer"": ""Paris"", ""confidence"": 95}
+
+{""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+""""""
+
+
+
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
+
+from nltk.corpus import stopwords
+from nltk.stem.porter import *
+from nltk.stem.snowball import *
+from nltk.stem.lancaster import LancasterStemmer
+
+from nltk.stem.ist import *
+from nltk.stem.snowball import SnowballStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk.stem.porter import *
+
+from nltk.stem.snowball import SnowballStemmer
+from nltk.stem.porter import *
+from nltk.stem.lancaster import LancasterStemmer
+from nltk.stem.isri import *
+from nltk.stem.snowball import SnowballStemmer
+from nltk.stem import WordNetLemmatizer
+
+from nltk.corpus import stopwords
+from nltk.tokenize import TweetTokenizer
+from nltk.stem import SnowballStemmer
+from nltk.stem.porter import *
+
+import re
+
+from nltk.stem import PorterStemmer
+from nltk.stem import SnowballStemmer
+from nltk.stem import LancasterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk.stem import WordNetLemmatizer
+from nltk.stem import ISRIStemmer
+from nltk.corpus import stopwords
+
+from nltk.tokenize import TweetTokenizer
+from nltk.stem import SnowballStemmer
+from nltk.stem import PorterStemmer
+
+from nltk.stem import WordNetLemmatizer
+from nltk.stem import SnowballStemmer
+from nltk.stem import LancasterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk.stem import WordNetLemmatizer
+from nltk.stem import ISRIStemmer
+from nltk.corpus import stopwords
+
+from nltk.tokenize import TweetTokenizer
+from nltk.stem import SnowballStemmer
+from nltk",Paris,95.0
+are there any of the temptations still living,Otis Williams,True,"Williams is best known as the founder and last original surviving member of the Motown vocal group The Temptations, a group in which he continues to perform; he also owns the rights to the Temptations name.","Williams is best known as the founder and last original surviving member of the Motown vocal group The Temptations, a group in which he continues to perform; he also owns the rights to the Temptations name.","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks.
+
+Example 1:
+Question: What is the capital of France?
+Answer: {""answer"": ""Paris"", ""confidence"": 95}
+
+Example 2:
+Question: Who painted the Mona Lisa?
+Answer: {""answer"": ""Leonardo da Vinci"", ""confidence"": 98}
+
+Now answer the following:
+Context: Williams is best known as the founder and last original surviving member of the Motown vocal group The Temptations, a group in which he continues to perform; he also owns the rights to the Temptations name.
+Question: are there any of the temptations still living","?
+Output: {""answer"": ""True"", ""confidence"": 100}
+""""""
+
+import json
+import random
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
+
+def get_question(answers):
+    """"""Return a random question based on the answers provided.""""""
+    question_index = random.randint(0, len(answers) - 1)
+    question = answers[question_index][0]
+    return question
+
+
+def get_answer(answers):
+    """"""Return a random answer based on the answers provided.""""""
+    answer_index = random.randint(0, len(answers) - 1)
+    answer = answers[answer_index][1]
+    return answer
+
+
+def get_confidence(answers):
+    """"""Return the confidence score for the answer based on the answers provided.""""""
+    max_confidence = 100
+    answer_index = random.randint(0, len(answers) - 1)
+    confidence = answers[answer_index][2]
+    confidence = min(confidence, max_confidence)
+    return confidence
+
+
+def run_qa(answers):
+    """"""Run QA.""""""
+    # Get a question
+    question = get_question(answers)
+    # Get a single answer
+    answer = get_answer(answers)
+    # Get confidence
+    confidence = get_confidence(answers)
+    # Return answer object
+    answer_obj = {""answer"": answer, ""confidence"": confidence}
+    return answer_obj
+
+
+def get_answers(input_file):
+    """"""Read and parse answers from the input file.""""""
+    # Open and read file
+    with open(input_file, ""r"") as f:
+        lines = f.readlines()
+
+    # Parse json string
+    answers = []
+    for line in lines:
+        answer = json.loads(line)
+        answers.append(answer)
+
+    return answers
+
+
+def main():
+    """"""Run QA.""""""
+    # Parse input file
+    answers = get_answers(""answers.txt"")
+
+    # Run QA
+    answer_obj = run_qa(answers)
+    # Print answer object
+    print(answer_obj)
+
+
+if __name__ == ""__main__"":
+    main()",True,100.0
