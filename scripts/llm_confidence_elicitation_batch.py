@@ -178,7 +178,7 @@ if __name__ == "__main__":
     }
 
     datasets = ["squad", "trivia", "gsm8k", "boolq"]
-    folder_name = "llm_confidence_elicitation/batch_test_15/"
+    folder_name = "llm_confidence_elicitation/batch_75/"
 
     # 🧱 Ensure the output directory exists
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
@@ -191,10 +191,10 @@ if __name__ == "__main__":
             print(f"🔍 Running {model_name} on {dataset}...")
             run_verbalized_confidence_experiment(
                 model_wrapper=model,
-                n_samples=50,
+                n_samples=2,
                 dataset_name=dataset,
                 folder_name=folder_name,
-                output_ending=f"_{model_name}_batch_test_15",
+                output_ending=f"_{model_name}batch_75",
                 batch_size=4
             )
 
