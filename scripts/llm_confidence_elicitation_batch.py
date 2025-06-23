@@ -22,7 +22,7 @@ class LLMWrapper:
 
         self.model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", trust_remote_code=trust_remote_code)
 
-    def prompt(self, text: str, max_new_tokens: int = 650, temperature: float = 0.7) -> str:
+    def prompt(self, text: str, max_new_tokens: int = 300, temperature: float = 0.7) -> str:
         inputs = self.tokenizer(text, return_tensors="pt").to(self.model.device)
         with torch.no_grad():
             output = self.model.generate(
@@ -34,7 +34,7 @@ class LLMWrapper:
             )
         return self.tokenizer.decode(output[0], skip_special_tokens=True).strip()
 
-    def batch_prompt(self, prompts: List[str], max_new_tokens: int = 650, temperature: float = 0.7, batch_size: int = 4) -> List[str]:
+    def batch_prompt(self, prompts: List[str], max_new_tokens: int = 300, temperature: float = 0.7, batch_size: int = 4) -> List[str]:
         outputs = []
         for i in range(0, len(prompts), batch_size):
             batch = prompts[i:i + batch_size]
