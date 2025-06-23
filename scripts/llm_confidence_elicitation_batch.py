@@ -9,6 +9,11 @@ import gc
 from pathlib import Path
 from tqdm import tqdm
 
+# Disable TorchDynamo for compatibility
+import torch._dynamo
+torch._dynamo.config.suppress_errors = True
+torch._dynamo.config.cache_size_limit = 256
+
 
 class LLMWrapper:
     def __init__(self, model_id: str, trust_remote_code: bool = False, is_batchable: bool = True):
@@ -25,6 +30,7 @@ class LLMWrapper:
             device_map="auto",
             trust_remote_code=trust_remote_code
         )
+        self.model.eval()  # Safe: avoids graph tracing overhead
 
     def prompt(self, text: str, max_new_tokens: int = 300, temperature: float = 0.7) -> str:
         inputs = self.tokenizer(text, return_tensors="pt").to(self.model.device)
@@ -43,7 +49,9 @@ class LLMWrapper:
         for i in range(0, len(prompts), batch_size):
             batch = prompts[i:i + batch_size]
             try:
-                inputs = self.tokenizer(batch, return_tensors="pt", padding=True, truncation=True).to(self.model.device)
+                inputs = self.tokenizer(batch, return_tensors="pt", padding=True, truncation=True)
+                inputs = {k: v.to(self.model.device) for k, v in inputs.items()}
+
                 with torch.no_grad():
                     generated = self.model.generate(
                         **inputs,
@@ -105,7 +113,6 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
             "{\"answer\": <string>, \"confidence\": <integer from 0 to 100>}\n"
             f"Question: {row['question']}\n\n"
         )
-
     elif dataset_name == "boolq":
         return (
             "You are a reading comprehension assistant. Read the following passage and determine whether the answer "
@@ -183,13 +190,13 @@ def run_verbalized_confidence_experiment(
     if getattr(model_wrapper, "is_batchable", True):
         df["model_output"] = model_wrapper.batch_prompt(prompts, batch_size=batch_size)
     else:
-        df["model_output"] = [model_wrapper.prompt(p) for p in tqdm(prompts, desc=f"{dataset} (no batching)")]
+        df["model_output"] = [model_wrapper.prompt(p) for p in tqdm(prompts, desc=f"{dataset_name} (no batching)")]
 
     parsed = df["model_output"].apply(clean_and_parse_json)
     df["parsed_answer"] = parsed.apply(lambda x: x.get("answer"))
     df["parsed_confidence"] = pd.to_numeric(parsed.apply(lambda x: x.get("confidence")), errors="coerce")
 
-    Path("output").mkdir(parents=True, exist_ok=True)
+    Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
     output_file = f"output/{folder_name}{dataset_name}_verbalized_confidence{output_ending}.csv"
     df.to_csv(output_file, index=False)
     print(f"✅ Saved to {output_file}")
@@ -206,7 +213,6 @@ if __name__ == "__main__":
 
     datasets = ["squad", "trivia", "gsm8k", "boolq"]
     folder_name = "llm_confidence_elicitation/batch_75/"
-
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
 
     for model_name, model_loader in models.items():
