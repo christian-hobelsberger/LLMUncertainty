@@ -11,16 +11,20 @@ from tqdm import tqdm
 
 
 class LLMWrapper:
-    def __init__(self, model_id: str, trust_remote_code: bool = False):
+    def __init__(self, model_id: str, trust_remote_code: bool = False, is_batchable: bool = True):
         self.model_id = model_id
+        self.is_batchable = is_batchable
         self.tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=trust_remote_code)
 
-        # Fix padding issues
         self.tokenizer.padding_side = "left"
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
-        self.model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", trust_remote_code=trust_remote_code)
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_id,
+            device_map="auto",
+            trust_remote_code=trust_remote_code
+        )
 
     def prompt(self, text: str, max_new_tokens: int = 300, temperature: float = 0.7) -> str:
         inputs = self.tokenizer(text, return_tensors="pt").to(self.model.device)
@@ -68,7 +72,7 @@ def load_gemma():
     return LLMWrapper("google/gemma-3-1b-it")
 
 def load_cogito():
-    return LLMWrapper("deepcogito/cogito-v1-preview-qwen-14B", trust_remote_code=True)
+    return LLMWrapper("deepcogito/cogito-v1-preview-qwen-14B", trust_remote_code=True, is_batchable=False)
 
 def load_phi2():
     return LLMWrapper("microsoft/phi-2", trust_remote_code=True)
@@ -94,6 +98,25 @@ def clean_and_parse_json(output):
 
 
 def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
+    if dataset_name == "gsm8k":
+        return (
+            "You are a math tutor. Solve the following problem carefully and provide a numerical answer.\n\n"
+            "Respond in the following format:\n"
+            "{\"answer\": <string>, \"confidence\": <integer from 0 to 100>}\n"
+            f"Question: {row['question']}\n\n"
+        )
+
+    elif dataset_name == "boolq":
+        return (
+            "You are a reading comprehension assistant. Read the following passage and determine whether the answer "
+            "to the question is 'yes' or 'no'. Also include a confidence score (0–100).\n\n"
+            "Respond in JSON format with exactly two fields:\n"
+            "{\"answer\": <yes/no>, \"confidence\": <integer from 0 to 100>}\n\n"
+            f"Passage: {row['passage']}\n"
+            f"Question: {row['question']}"
+        )
+
+    # Default prompt style
     role_init = (
         "You are an expert QA assistant. Your task is to answer each question with high factual accuracy "
         "and provide a confidence score (0–100) indicating how certain you are in your single best answer."
@@ -156,7 +179,11 @@ def run_verbalized_confidence_experiment(
 
     print("🧠 Generating responses...")
     prompts = df["prompt"].tolist()
-    df["model_output"] = model_wrapper.batch_prompt(prompts, batch_size=batch_size)
+
+    if getattr(model_wrapper, "is_batchable", True):
+        df["model_output"] = model_wrapper.batch_prompt(prompts, batch_size=batch_size)
+    else:
+        df["model_output"] = [model_wrapper.prompt(p) for p in tqdm(prompts, desc=f"{dataset} (no batching)")]
 
     parsed = df["model_output"].apply(clean_and_parse_json)
     df["parsed_answer"] = parsed.apply(lambda x: x.get("answer"))
@@ -180,7 +207,6 @@ if __name__ == "__main__":
     datasets = ["squad", "trivia", "gsm8k", "boolq"]
     folder_name = "llm_confidence_elicitation/batch_75/"
 
-    # 🧱 Ensure the output directory exists
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
 
     for model_name, model_loader in models.items():
@@ -191,7 +217,7 @@ if __name__ == "__main__":
             print(f"🔍 Running {model_name} on {dataset}...")
             run_verbalized_confidence_experiment(
                 model_wrapper=model,
-                n_samples=2,
+                n_samples=75,
                 dataset_name=dataset,
                 folder_name=folder_name,
                 output_ending=f"_{model_name}batch_75",
@@ -203,4 +229,3 @@ if __name__ == "__main__":
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
             torch.cuda.ipc_collect()
-

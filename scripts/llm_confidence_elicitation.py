@@ -87,17 +87,34 @@ def clean_and_parse_json(output):
 
 
 def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
+    if dataset_name == "gsm8k":
+        return (
+            "You are a math tutor. Solve the following problem carefully and provide a numerical answer.\n\n"
+            "Respond in the following format:\n"
+            "{\"answer\": <string>, \"confidence\": <integer from 0 to 100>}\n"
+            f"Question: {row['question']}\n\n"
+        )
+
+    elif dataset_name == "boolq":
+        return (
+            "You are a reading comprehension assistant. Read the following passage and determine whether the answer "
+            "to the question is 'yes' or 'no'. Also include a confidence score (0–100).\n\n"
+            "Respond in JSON format with exactly two fields:\n"
+            "{\"answer\": <yes/no>, \"confidence\": <integer from 0 to 100>}\n\n"
+            f"Passage: {row['passage']}\n"
+            f"Question: {row['question']}"
+        )
+
+    # Default prompt style
     role_init = (
         "You are an expert QA assistant. Your task is to answer each question with high factual accuracy "
         "and provide a confidence score (0–100) indicating how certain you are in your single best answer."
     )
-
     expectation = (
         "Respond in a single-line JSON object with exactly two fields:\n"
         "{\"answer\": <string>, \"confidence\": <integer from 0 to 100>}.\n"
         "Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks."
     )
-
     examples = (
         "Example 1:\n"
         "Question: What is the capital of France?\n"
@@ -106,27 +123,18 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
         "Question: Who painted the Mona Lisa?\n"
         "Answer: {\"answer\": \"Leonardo da Vinci\", \"confidence\": 98}\n\n"
     )
-
     final_instruction = "Now answer the following:\n"
 
-    # Context field logic
     if include_context:
         context = row["context"] if dataset_name == "squad" else row["passage"]
         return (
-            f"{role_init}\n\n"
-            f"{expectation}\n\n"
-            f"{examples}"
-            f"{final_instruction}"
-            f"Context: {context}\n"
-            f"Question: {row['question']}"
+            f"{role_init}\n\n{expectation}\n\n{examples}"
+            f"{final_instruction}Context: {context}\nQuestion: {row['question']}"
         )
     else:
         return (
-            f"{role_init}\n\n"
-            f"{expectation}\n\n"
-            f"{examples}"
-            f"{final_instruction}"
-            f"Question: {row['question']}"
+            f"{role_init}\n\n{expectation}\n\n{examples}"
+            f"{final_instruction}Question: {row['question']}"
         )
 
         
@@ -184,6 +192,9 @@ if __name__ == "__main__":
     "phi2": load_phi2
     }
     datasets = ["squad", "trivia", "gsm8k", "boolq"]
+    folder_name = "llm_confidence_elicitation/batch_2_test/"
+
+    Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
 
 for model_name, model_loader in models.items():
     print(f"\n🚀 Loading model: {model_name}")
@@ -193,10 +204,10 @@ for model_name, model_loader in models.items():
         print(f"🔍 Running {model_name} on {dataset}...")
         run_verbalized_confidence_experiment(
             model_wrapper=model,
-            n_samples=50,
+            n_samples=2,
             dataset_name=dataset,
-            folder_name=f"llm_confidence_elicitation/batch_50/",
-            output_ending=f"_{model_name}_batch_50"
+            folder_name=folder_name,
+            output_ending=f"_{model_name}_batch_2_test"
         )
 
     # 🔻 Clean up
