@@ -226,7 +226,7 @@ if __name__ == "__main__":
                 n_samples=75,
                 dataset_name=dataset,
                 folder_name=folder_name,
-                output_ending=f"_{model_name}batch_75",
+                output_ending=f"_{model_name}_batch_75",
                 batch_size=4
             )
 
