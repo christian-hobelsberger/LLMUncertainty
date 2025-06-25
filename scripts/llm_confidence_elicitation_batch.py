@@ -30,7 +30,7 @@ class LLMWrapper:
             device_map="auto",
             trust_remote_code=trust_remote_code
         )
-        self.model.eval()  # Safe: avoids graph tracing overhead
+        self.model.eval()
 
     def prompt(self, text: str, max_new_tokens: int = 300, temperature: float = 0.7) -> str:
         inputs = self.tokenizer(text, return_tensors="pt").to(self.model.device)
@@ -42,7 +42,8 @@ class LLMWrapper:
                 temperature=temperature,
                 pad_token_id=self.tokenizer.pad_token_id
             )
-        return self.tokenizer.decode(output[0], skip_special_tokens=True).strip()
+        decoded = self.tokenizer.decode(output[0], skip_special_tokens=True)
+        return decoded[len(text):].strip() if decoded.startswith(text) else decoded.strip()
 
     def batch_prompt(self, prompts: List[str], max_new_tokens: int = 300, temperature: float = 0.7, batch_size: int = 4) -> List[str]:
         outputs = []
@@ -50,8 +51,8 @@ class LLMWrapper:
             batch = prompts[i:i + batch_size]
             try:
                 inputs = self.tokenizer(batch, return_tensors="pt", padding=True, truncation=True)
+                input_ids = inputs["input_ids"]
                 inputs = {k: v.to(self.model.device) for k, v in inputs.items()}
-
                 with torch.no_grad():
                     generated = self.model.generate(
                         **inputs,
@@ -61,7 +62,9 @@ class LLMWrapper:
                         pad_token_id=self.tokenizer.pad_token_id
                     )
                 decoded = self.tokenizer.batch_decode(generated, skip_special_tokens=True)
-                outputs.extend([text.strip() for text in decoded])
+                for prompt, out_text in zip(batch, decoded):
+                    cleaned = out_text[len(prompt):].strip() if out_text.startswith(prompt) else out_text.strip()
+                    outputs.append(cleaned)
             except Exception as e:
                 print(f"⚠️ Batching failed: {e}. Falling back to sequential prompting.")
                 for prompt in tqdm(batch, desc="Fallback"):
@@ -110,20 +113,21 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
         return (
             "You are a math tutor. Solve the following problem carefully and provide a numerical answer.\n\n"
             "Respond in the following format:\n"
-            "{\"answer\": <string>, \"confidence\": <integer from 0 to 100>}\n"
+            "{\"answer\": \"<string>,\" \"confidence\": <integer from 0 to 100>}\n"
             f"Question: {row['question']}\n\n"
         )
+
     elif dataset_name == "boolq":
         return (
-            "You are a reading comprehension assistant. Read the following passage and determine whether the answer "
-            "to the question is 'yes' or 'no'. Also include a confidence score (0–100).\n\n"
-            "Respond in JSON format with exactly two fields:\n"
-            "{\"answer\": <yes/no>, \"confidence\": <integer from 0 to 100>}\n\n"
-            f"Passage: {row['passage']}\n"
-            f"Question: {row['question']}"
+        "You are a reading comprehension assistant. Given a passage and a yes/no question, respond only with one JSON object.\n\n"
+        "Format strictly:\n"
+        "{\"answer\": \"True\" or \"False\", \"confidence\": integer from 0 to 100}\n\n"
+        "No explanation. No extra text. Only JSON.\n\n"
+        f"Passage: {row['passage']}\n"
+        f"Question: {row['question']}"
         )
 
-    # Default prompt style
+    # Default prompt style for squad, trivia
     role_init = (
         "You are an expert QA assistant. Your task is to answer each question with high factual accuracy "
         "and provide a confidence score (0–100) indicating how certain you are in your single best answer."
@@ -131,28 +135,21 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
     expectation = (
         "Respond in a single-line JSON object with exactly two fields:\n"
         "{\"answer\": <string>, \"confidence\": <integer from 0 to 100>}.\n"
-        "Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks."
-    )
-    examples = (
-        "Example 1:\n"
-        "Question: What is the capital of France?\n"
-        "Answer: {\"answer\": \"Paris\", \"confidence\": 95}\n\n"
-        "Example 2:\n"
-        "Question: Who painted the Mona Lisa?\n"
-        "Answer: {\"answer\": \"Leonardo da Vinci\", \"confidence\": 98}\n\n"
+        "Only provide one answer. Do not list alternatives."
     )
     final_instruction = "Now answer the following:\n"
 
     if include_context:
         context = row["context"] if dataset_name == "squad" else row["passage"]
         return (
-            f"{role_init}\n\n{expectation}\n\n{examples}"
-            f"{final_instruction}Context: {context}\nQuestion: {row['question']}"
+            f"{role_init}\n\n{expectation}\n\n{final_instruction}"
+            f"Context: {context}\n"
+            f"Question: {row['question']}"
         )
     else:
         return (
-            f"{role_init}\n\n{expectation}\n\n{examples}"
-            f"{final_instruction}Question: {row['question']}"
+            f"{role_init}\n\n{expectation}\n\n{final_instruction}"
+            f"Question: {row['question']}"
         )
 
 
@@ -205,14 +202,14 @@ def run_verbalized_confidence_experiment(
 if __name__ == "__main__":
     models = {
         "llama": load_llama,
-        "qwen": load_qwen,
-        "gemma": load_gemma,
-        "cogito": load_cogito,
-        "phi2": load_phi2
+        # "qwen": load_qwen,
+        # "gemma": load_gemma,
+        # "cogito": load_cogito,
+        # "phi2": load_phi2
     }
 
     datasets = ["squad", "trivia", "gsm8k", "boolq"]
-    folder_name = "llm_confidence_elicitation/batch_75/"
+    folder_name = "llm_confidence_elicitation/batch_50_llama_exp/"
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
 
     for model_name, model_loader in models.items():
@@ -226,8 +223,8 @@ if __name__ == "__main__":
                 n_samples=75,
                 dataset_name=dataset,
                 folder_name=folder_name,
-                output_ending=f"_{model_name}_batch_75",
-                batch_size=4
+                output_ending=f"_{model_name}_batch_50_llama_exp",
+                batch_size=15
             )
 
         del model

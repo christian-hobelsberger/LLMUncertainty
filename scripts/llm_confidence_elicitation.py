@@ -105,7 +105,7 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
             f"Question: {row['question']}"
         )
 
-    # Default prompt style
+    # Default prompt style for squad, trivia
     role_init = (
         "You are an expert QA assistant. Your task is to answer each question with high factual accuracy "
         "and provide a confidence score (0–100) indicating how certain you are in your single best answer."
@@ -113,28 +113,21 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
     expectation = (
         "Respond in a single-line JSON object with exactly two fields:\n"
         "{\"answer\": <string>, \"confidence\": <integer from 0 to 100>}.\n"
-        "Only provide one answer. Do not list alternatives. No markdown, no prose, no code blocks."
-    )
-    examples = (
-        "Example 1:\n"
-        "Question: What is the capital of France?\n"
-        "Answer: {\"answer\": \"Paris\", \"confidence\": 95}\n\n"
-        "Example 2:\n"
-        "Question: Who painted the Mona Lisa?\n"
-        "Answer: {\"answer\": \"Leonardo da Vinci\", \"confidence\": 98}\n\n"
+        "Only provide one answer. Do not list alternatives."
     )
     final_instruction = "Now answer the following:\n"
 
     if include_context:
         context = row["context"] if dataset_name == "squad" else row["passage"]
         return (
-            f"{role_init}\n\n{expectation}\n\n{examples}"
-            f"{final_instruction}Context: {context}\nQuestion: {row['question']}"
+            f"{role_init}\n\n{expectation}\n\n{final_instruction}"
+            f"Context: {context}\n"
+            f"Question: {row['question']}"
         )
     else:
         return (
-            f"{role_init}\n\n{expectation}\n\n{examples}"
-            f"{final_instruction}Question: {row['question']}"
+            f"{role_init}\n\n{expectation}\n\n{final_instruction}"
+            f"Question: {row['question']}"
         )
 
         

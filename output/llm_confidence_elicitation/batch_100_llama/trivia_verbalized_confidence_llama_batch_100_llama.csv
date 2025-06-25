@@ -1,0 +1,910 @@
+question,question_id,question_source,answers,prompt,model_output,parsed_answer,parsed_confidence
+"The result of dividing a number into one is called the what, of that number?",odql_11465,http://www.odquiz.org.uk/,"['Reciprocal (disambiguation)', 'reciprocal', 'reciprocality', 'reciprocal disambiguation', 'Reciprocality', 'Reciprocal', 'Reciprocals', 'reciprocals', 'RECIPROCAL']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: The result of dividing a number into one is called the what, of that number?","Answer: 1. 
+Confidence: 90.5",,
+In which London pub did Ronnie Kray murder George Cornell?,bb_32,http://www.businessballs.com/,"['blind beggar', 'Blind Beggar', 'The Blind Beggar']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: In which London pub did Ronnie Kray murder George Cornell?","Answer: The Eagle. 
+Confidence: 90% 
+
+{""answer"": ""The Eagle"", ""confidence"": 90}",The Eagle,90.0
+What is the most exclusive hotel in Brook Street London,bt_1653,http://billturnbull.quiz4free.com/,"['Claridges', ""Mivart's Hotel"", 'claridge s', 'Claridges Hotel', ""Claridge's Hotel"", 'claridge s hotel', 'mivart s hotel', 'claridges hotel', 'claridges', ""Claridge's""]","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What is the most exclusive hotel in Brook Street London","? 
+{""answer"": ""The Ritz London"", ""confidence"": 90}",The Ritz London,90.0
+Which US bus company was founded in Minnesota in 1914?,qb_7454,http://www.quizballs.com/,"['Greyhound Neon', 'greyhound lines', 'Greyhound México', 'Greyhound Buses', 'Greyhound Lines Inc.', 'Greyhound Lines, Inc.', 'greyhound méxico', 'YO! Bus', 'Greyhound (bus line)', 'Greyhound lines', 'Neon Bus', 'Greyhound Bus', 'greyhound buses', 'Greyhound Bus Lines', 'greyhound bus', 'greyhound usa', 'yo bus', 'Carolina Coach Company', 'Greyhound (Lines Inc)', 'greyhound express', 'greyhound lines inc', 'Greyhound USA', 'carolina coach company', 'greyhound bus lines', 'Greyhound bus', 'Greyhound Express', 'greyhound bus line', 'Yo! Bus', 'neon bus', 'greyhound neon', 'Greyhound Lines']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which US bus company was founded in Minnesota in 1914?","{""answer"": ""Greyhound"", ""confidence"": 90.5} 
+
+Note: Greyhound was founded in Minneapolis, Minnesota, but the company was originally named the Minnesota State Lines. It was renamed Greyhound in 1925.",Greyhound,90.5
+What was the surname of the woman who was the inspiration behind the Rolling Stones song Angie?,qz_1417,https://www.quiz-zone.co.uk/,"['bowie disambiguation', 'bowie', 'Bowie', 'Bowie (disambiguation)']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What was the surname of the woman who was the inspiration behind the Rolling Stones song Angie?","{""answer"": ""Blonde"", ""confidence"": 90}",Blonde,90.0
+Which US born blues musician has a Gibson guitar called Lucille?,sfq_22948,www.sfquiz.org.uk,"[""B.B. King's"", 'B.b. king', 'b b king blues club', 'bb king', 'B.B King', 'blues b b king album', 'B.B. Kings', 'B.B. King Blues Club & Grill', 'b b king', 'The Blues (B.B. King album)', 'B. B. King', 'BB King', 'BB king', 'riley b king', 'b b king s', 'Blues Boy King', 'b b king blues club grill', 'B B King', 'B.B. King', 'b b kings', 'riley king', 'Riley B. King', 'blues boy king', 'B.B.King', 'B.B. King Blues Club', 'Bb king', 'Riley King', 'The Blues (B. B. King album)']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which US born blues musician has a Gibson guitar called Lucille?","Eric Clapton is known to play this guitar. 
+
+{""answer"": ""B.B. King"", ""confidence"": 90.0}",B.B. King,90.0
+"On a regular clockface, which number lies opposite 5?",qb_9620,http://www.quizballs.com/,"['11', 'eleven']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: On a regular clockface, which number lies opposite 5?","{""answer"": ""9"", ""confidence"": 100} 
+
+(Note: This is a basic question about a clock, and the correct answer is a well-known fact.)",9,100.0
+What was the profession of Loretta Lynn's father?,jp_2767,www.jetpunk.com,"['Coal extraction', 'Highwall', 'Coalminer', 'Coal seam', 'environmental impacts of coal mining', 'Opencast coal mining', 'Surface coal mine', 'underground coal mine', 'Coalmining', 'coal field', 'Underground coal mine', 'Coal-mine', 'Coal miner', 'Environmental impacts of coal mining', 'Coal-miner', 'Coal pit', 'highwall', 'Underground coal mining', 'coal miner', 'colliery', 'coal mines', 'Mining coal', 'coal mine', 'Coalworks', 'Coal mined', 'coalmining', 'coal mined', 'Deep mine', 'Coal mining', 'Collieries', 'Coal-mining', 'coalmine', 'opencast coal mining', 'Coal field', 'Coal mines', 'coal extraction', 'Coal Mining', 'mining coal', 'coal production', 'Coal production', 'coalminer', 'coal mining', 'Opencast coalmine', 'surface coal mine', 'opencast coalmine', 'Coal mine', 'Coalmine', 'underground coal mining', 'environmental impact of coal mining', 'deep mine', 'Coal Miner', 'coal seam', 'collieries', 'Environmental impact of coal mining', 'Coal seams', 'Colliery', 'coal pit', 'coal seams', 'coalworks']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What was the profession of Loretta Lynn's father?",,,
+In criminal slang what is a peterman?,sfq_3154,www.sfquiz.org.uk,"['safe breaker', 'SAFE BREAKER']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: In criminal slang what is a peterman?","{""answer"": ""A Peterman is a slang term for a person who steals or steals something from someone else."", ""confidence"": 80}",A Peterman is a slang term for a person who steals or steals something from someone else.,80.0
+"What ""moderately famous"" ship left Southampton, England, before stopping at Cherbourg, France and Queenstown, Ireland before stopping floating?",qg_1015,https://quizguy.wordpress.com/,"['Titanic', 'RMS titanic', 'rms titanik', 'Titanick', 'S. S. Titanic', 'H.M.S. Titanic', 'RMS Titanik', 'Titantic', '100th anniversary of the sinking of the RMS Titanic', 'Rms titanic', 'Eliza Gladys Milvina Dean', 'Titanic Related Films', 'August Weikman', '100th anniversary of sinking of rms titanic', 'rms titanic', 'titanic related films', 'Provisioning of the RMS Titanic', 'eliza gladys milvina dean', 'rms titantic', 'rms 22titanic 22', 'The Titanic', 'RMS %22Titanic%22', 'RMS TITANIC', 'Titanic victim', 'Royal Mail Steamer Titanic', 'provisioning of rms titanic', 'titanick', 'titanic ship', 'TitaniC', 'titanicc', 'ss titanic', 'RMS Titanick', 'barbara joyce west', 'r m s titanic', 'john van billard', '3909 04', 'hms titanic', 'S.S. Titanic', 'John van Billard', 'HMS Titanic', 'R.M.S. Titanic', 'titantic', 'titanic', 'rms titanick', 's s titanic', 'royal mail steamer titanic', 'Titanicc', 'RMS Titanic', 'Titanic (ship)', 'Rms Titanic', 'Titanic passenger', 'august weikman', 'h m s titanic', 'R.M.S Titanic', 'titanic passenger', 'SS Titanic', 'Provisioning (RMS Titanic)', 'provisioning rms titanic', 'titanic victim', 'Barbara Joyce West', 'RMS TITANTIC', 'R. M. S. Titanic']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What ""moderately famous"" ship left Southampton, England, before stopping at Cherbourg, France and Queenstown, Ireland before stopping floating?","A) HMS Victory
+B) HMS Victory
+C) HMS Victory
+D) HMS Victory 
+E) HMS Victory 
+F) HMS Victory
+G) HMS Victory
+H) HMS Victory
+I) HMS Victory
+J) HMS Victory
+I am fairly confident in my answer. I am looking for a ship that left Southampton, England, before stopping at Cherbourg, France and Queenstown, Ireland before stopping floating. 
+
+{""answer"": ""HMS Victory"", ""confidence"": 90}",HMS Victory,90.0
+What is the more common name of the medical condition 'Otalgia'?,odql_2067,http://www.odquiz.org.uk/,"['Otalgia', 'Ipsilateral earache', 'ipsilateral earache', 'Ear pain', 'Earache', 'ear ache', 'EARACHE', 'ear pain', 'otalgia', 'Ear ache', 'earache']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What is the more common name of the medical condition 'Otalgia'?","{""answer"": ""Otitis media"", ""confidence"": 80} 
+{""answer"": ""Otitis externa"", ""confidence"": 90} 
+{""answer"": ""Otitis interna"", ""confidence"": 70} 
+{""answer"": ""Otitis media externa"", ""confidence"": 85} 
+{""answer"": ""Otitis media interna"", ""confidence"": 95} 
+{""answer"": ""Otitis media externa"", ""confidence"": 90} 
+{""answer"": ""Otitis interna"", ""confidence"": 95} 
+{""answer"": ""Otitis interna externa"", ""confidence"": 85} 
+{""answer"": ""Otitis interna externa"", ""confidence"": 95} 
+{""answer"": ""Otitis interna externa"", ""confidence"": 90} 
+{""answer"": ""Otitis media externa"", ""confidence"": 85} 
+{""answer"": ""Otitis media interna"", ""confidence"": 95} 
+{""answer"": ""Otitis media externa"", ""confidence"": 95} 
+{""answer"": ""Otitis interna"", ""confidence"": 80} 
+{""answer"": ""Otitis media externa"", ""confidence"": 90} 
+{""answer"": ""Otitis interna externa"", ""confidence"": 90} 
+{""answer"": ""Otitis media interna"", ""confidence",Otitis media,80.0
+Name a year in Lord Liverpool's tenure as Prime Minister.,sfq_3276,www.sfquiz.org.uk,"['1812-1827', '1812 1827']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Name a year in Lord Liverpool's tenure as Prime Minister.",,,
+Which pop group did Zayn Malik leave in March 2015?,sfq_24997,www.sfquiz.org.uk,"['One Chance to Dance', 'Directioner', 'directioners', 'ONE DIRECTION', '1D Day', 'directioner', 'One Direction', 'List of One Direction concert tours', '1direction', 'list of one direction concert tours', 'one direction boy band', 'One Direction merchandise', 'One Direction (boy band)', 'onedirection', 'just can t let her go', 'one direction merchandise', '1Direction', 'Onedirection', 'one chance to dance', '1D in 3D', '1d day', 'Directioners', '1 Direction', 'One direction', '1d in 3d', '1 direction', ""Just Can't Let Her Go"", 'one direction']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which pop group did Zayn Malik leave in March 2015?","{""answer"": ""One Direction"", ""confidence"": 90}",One Direction,90.0
+Who painted 'Girl With A White Dog'found in the Tate London?,odql_7131,http://www.odquiz.org.uk/,"['lucien freud', 'Lucian Freud', 'Lucien Freud', 'lucian freud', 'LUCIEN FREUD', 'Lucian Michael Freud', 'Lucian Freud-painter', 'lucian michael freud', 'lucian freud painter']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who painted 'Girl With A White Dog'found in the Tate London?","1900-1910.
+Answer: ""Vincent van Gogh"". 
+{""answer"": ""Vincent van Gogh"", ""confidence"": 100} 
+
+Note: I do not need any further information about the painting, only the artist.",Vincent van Gogh,100.0
+It was announced in April 2007 that Lord Justice Scott Baker would replace Baroness Butler-Sloss in what position?,bb_7375,http://www.businessballs.com/,"['coroner at inquests into deaths of princess diana and dodi al fayed', 'Coroner at the inquests into the deaths of Princess Diana and Dodi Al Fayed']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: It was announced in April 2007 that Lord Justice Scott Baker would replace Baroness Butler-Sloss in what position?","{""answer"": ""Lord Justice Baker"", ""confidence"": 100}",Lord Justice Baker,100.0
+Who wrote the book A Brief History Of Time?,qz_70,https://www.quiz-zone.co.uk/,"['stephen hawkin', 'hawking stephen william', 'Stephen W. Hawking', 'Stephen Hawking', 's w hawking', 'steven w hawking', 'top down cosmology', 'stephan hawking', 'Isobel Hawking', 'Stephen William Hawking', 'Stephen hawkin', 'stephen hawkings', 'stephen hawking space', 'Steveen Hawking', 'isobel hawking', 'Steven Hawkins', 'steven hawkings', 'stephen hawkins', 'stephen william hawking', 'steven hawkins', 'steve hawking', 'Steven hawkin', 'Top-down cosmology', 'S. W. Hawking', 'hawking stephen', 'Stephen Hawkings', 'stephen w hawking', 'Stephen hawking', 'Steve Hawking', 'Steven Hawkings', 'steven hawking', 'S.W. Hawking', 'Stephan hawking', 'Stephen hawkings', 'steveen hawking', 'stephen hawking', 'steven hawkin', 'Frank Hawking', 'Stephen hawkins', 'Stephen Hawking Space', 'Steven Hawking', 'Steven W. Hawking', 'Hawking, Stephen William', 'Steven hawking', 'frank hawking', 'Hawking, Stephen']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who wrote the book A Brief History Of Time?","Stephen Hawking? Neil Gaiman? Isaac Asimov? Stephen King? David Attenborough?
+
+{""answer"": ""Stephen Hawking"", ""confidence"": 100}",Stephen Hawking,100.0
+In golf what is the trophy contested for between teams of amateur women from the United States and Europe?,sfq_14823,www.sfquiz.org.uk,"['curtis cup', 'Curtis Cup', 'CURTIS CUP']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: In golf what is the trophy contested for between teams of amateur women from the United States and Europe?","The Masters Tournament.
+
+{""answer"": ""The Masters Trophy"", ""confidence"": 100}",The Masters Trophy,100.0
+Hircine refers to being like or related to what creature?,bb_3560,http://www.businessballs.com/,"['She-Goat', 'billygoat', 'goats milk', ""Goat's milk"", 'Billies', 'Goat milk', 'goatry', 'She goat', 'she goat', 'Capra hircus', 'kid goat', 'billy goat', 'Goats', 'Domestic goats', 'Domestic goat', 'Domestic Goat', 'Capra aegagrus hircus', 'Billy goat', 'she goats', 'billies', 'nanny goat', 'goatfighting', 'She-goats', 'Billygoat', 'Dairy Goats', 'Goat', 'Goat penis', 'She goats', ""Goats' milk"", 'goats', 'Kid (goat)', 'goat milk', 'he goat', 'capra hircus', 'Goatry', '🐐', 'dairy goats', 'Nanny Goat', 'goat penis', 'He-goat', 'domestic goat', 'goat', 'Nanny goat', 'Billy Goat', 'Goatfighting', 'goat s milk', 'dairy goat', 'capra aegagrus hircus', 'Dairy goat', 'domestic goats']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Hircine refers to being like or related to what creature?","{""answer"": ""Horse"", ""confidence"": 90}",Horse,90.0
+"Who is the only Formula 1, World Motor Racing Champion that represented an African country?",odql_6738,http://www.odquiz.org.uk/,"['jody schekter', 'Jody Schekter', 'jody schecter', 'Jody Schecter', 'jody scheckter', 'jody david scheckter', 'JODY SCHECKTER', 'Jody David Scheckter', 'Jody Scheckter']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who is the only Formula 1, World Motor Racing Champion that represented an African country?","{""answer"": ""Sebastian Vettel"", ""confidence"": 90} 
+
+Explanation: I am confident in my answer, as Sebastian Vettel is the only Formula 1 World Motor Racing Champion from an African country.",Sebastian Vettel,90.0
+Which North-west town or city has a daily newspaper called the Evening Leader?,sfq_2932,www.sfquiz.org.uk,"['Chester', 'cestrians', 'Cestrians', ""St Clare's Catholic Primary School (Chester)"", 'Chester, Cheshire', 'County Borough of Chester', 'chester cheshire', 'chester england', 'county borough of chester', 'chester', 'Legacæstir', 'cestrian', 'st clare s catholic primary school chester', 'Chester, England', 'Cestrian', 'legacæstir']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which North-west town or city has a daily newspaper called the Evening Leader?","{""answer"": ""Clydebank"", ""confidence"": 80} 
+
+Explanation: Clydebank has a daily newspaper called the Evening Leader. I am 80% certain about this.",Clydebank,80.0
+Which singer songwriter's new album is called Some Kind Of Trouble'. He made his name with his debut album Back to Bedlam' in 2005?,qz_4137,https://www.quiz-zone.co.uk/,"['JAMES BLUNT', 'james hillier blount', 'blunt james', 'james blunt', 'blunty', 'Blunty', 'Blunt, James', 'James blunt', 'James Hillier Blount', 'James Blunt', 'James bLUNT']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which singer songwriter's new album is called Some Kind Of Trouble'. He made his name with his debut album Back to Bedlam' in 2005?",,,
+Which British monarch produced the most legitimate children?,sfq_4183,www.sfquiz.org.uk,"['Edward I Longshanks of England', 'Edward I Plantagenet', 'edward i longshanks of england', 'king edward i of england', 'Lord Paramount of Scotland', 'edward i', 'King Edward I', 'Edward Longshanks, Hammer of the Scots', 'edward i king of england', 'edward i of england', 'Edward i of england', 'Edward I Longshanks', 'Edward I, King of England', 'longshanks', 'Edward the Longshanks', 'edward i plantagenet', 'edward 1', 'Malleus Scotorum', 'edward first', 'edward longshanks', 'malleus scotorum', 'King Edward 1st', 'Longshanks', 'Edward the First', 'King Edward I of England', 'lord paramount of scotland', 'edward i king of english', 'EDWARD I', 'Edward I, King of the English', 'Edward I', 'king edward 1st', 'king edward i', 'overlord of scotland', 'Edward 1', 'Overlord of Scotland', 'Edward I of England', 'edward i longshanks', 'edward i england', 'Edward Longshanks', 'Edward I (England)', 'edward longshanks hammer of scots']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which British monarch produced the most legitimate children?","Confidence: 90
+
+{""answer"": ""Victoria"", ""confidence"": 90}",Victoria,90.0
+"Name the popular writer, who died in 2010, and who rode the Queen Mother's horse Devon Loch when it inexplicably belly-flopped out of contention in the 1956 Grand National?",bb_985,http://www.businessballs.com/,"['dick francis', 'Shattered (Dick Francis novel)', 'Dick Francis', 'richard stanley francis', 'Richard Stanley Francis', 'Shattered (Dick Francis Novel)', 'shattered dick francis novel']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Name the popular writer, who died in 2010, and who rode the Queen Mother's horse Devon Loch when it inexplicably belly-flopped out of contention in the 1956 Grand National?","{""answer"": ""Ralph McTell"", ""confidence"": 90} 
+{""answer"": ""Alan Bennett"", ""confidence"": 70} 
+{""answer"": ""John Cooper Clarke"", ""confidence"": 40} 
+{""answer"": ""Iain MacMillan"", ""confidence"": 20} 
+{""answer"": ""Aidan Quinn"", ""confidence"": 10} 
+{""answer"": ""Cecil Parker"", ""confidence"": 5} 
+{""answer"": ""Peter Mayhew"", ""confidence"": 0} 
+{""answer"": ""Ralph McTell"", ""confidence"": 90} 
+{""answer"": ""Alan Bennett"", ""confidence"": 70} 
+{""answer"": ""John Cooper Clarke"", ""confidence"": 40} 
+{""answer"": ""Iain MacMillan"", ""confidence"": 20} 
+{""answer"": ""Aidan Quinn"", ""confidence"": 10} 
+{""answer"": ""Cecil Parker"", ""confidence"": 5} 
+{""answer"": ""Peter Mayhew"", ""confidence"": 0} 
+{""answer"": ""Ralph McTell"", ""confidence"": 90} 
+{""answer"": ""Alan Bennett"", ""confidence"": 70} 
+{""answer"": ""John Cooper Clarke"", ""confidence"": 40} 
+{""answer"": ""Iain MacMillan"", ""confidence"": 20} 
+{""answer"": ""Aidan Quinn"", ""confidence"": 10} 
+{""answer"": """,Ralph McTell,90.0
+"Which politician was portrayed in the satirical magazine, Private Eye, as The Vicar of St Albion?",sfq_1661,www.sfquiz.org.uk,"['Tony Blari', 'Tony Bliar', 'anthony charles lynton 22tony 22 blair', 'Tonyblair', 'Antony blair', 'Antony Blair', 'tony blairs', 'Tony Blairs', 'Tony Blaire', 'Anthony Charles Lynton Blair', 'Rt. Hon. Anthony Charles Lynton Blair', 'Family of Tony Blair', 'Tony Blair Sports Foundation', 'Anthony Charles Lynton %22Tony%22 Blair', 'Tony Blear', 'President Blair', 'Tony Balir', 'tony blear', 'Prime Minister Tony Blair', 'tory blair', 'Blairian', 'education education education', 'The Tony Blair Sports Foundation', 'anthony charles lynton blair', 'TONY BLAIR', 'prime minister tony blair', 'toney blair', 'Education, education, education', 'education education and education', 'president blair', ""Tony Blair's private life"", 'Tony blair', 'Education, education and education', 'Anthony (Tony) Blair', 'tony blair pm', 'tony bliar', 'family of tony blair', 'tony blair', 'Tory Blair', ""Tony Blair's Private life"", 'tony blari', 'Toney Blair', 'rt hon anthony blair mp', 'Anthony Charles Blair', 'Rt. Hon Tony Blair', 'antony blair', 'Tony Blair PM', 'tony balir', 'tony blair sports foundation', 'blair doctrine', 'rt hon anthony charles lynton blair', 'tony blaire', 'anthony c l blair', 'tony blair s private life', 'Herr Blair', 'Tony Blaer', 'Tony Blare', 'Blair doctrine', 'Tonie Blair', 'Tony Blair', 'anthony charles blair', 'tony blare', 'tony blaer', 'Anthony C. L. Blair', 'tonie blair', 'tonyblair', 'Rt Hon Anthony Blair MP', 'blairian', 'rt hon tony blair', 'herr blair', 'anthony tony blair']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which politician was portrayed in the satirical magazine, Private Eye, as The Vicar of St Albion?","{""answer"": ""David Cameron"", ""confidence"": 90} 
+
+Note: Private Eye has been a thorn in the side of the Conservative Party, and its editor, Martin Kortum, has been a vocal critic of the party. The Vicar of St Albans is a satirical character who is depicted as being rather unlikeable, and Private Eye's portrayal of him was widely seen as a caricature. The Vicar was a fictional character in Private Eye, and was used to lampoon the Church of England and the Conservative Party. 
+
+David Cameron was the Prime Minister of the United Kingdom from 2010 to 2016, and he is known for his liberal and centrist views. He was also a member of the Conservative Party and was known for his role as a parliamentary opposition leader. However, he was not known for his strong views on religion, and was not portrayed as a Vicar in Private Eye.",David Cameron,90.0
+The hunters phrase 'Big Five game' refers to what five African animals?,tb_883,http://triviabug.com/q-and-a-quizzes/,"['lion african elephant african buffalo leopard and black rhino', 'Lion, African elephant, African buffalo, leopard and black rhino']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: The hunters phrase 'Big Five game' refers to what five African animals?","{""answer"": ""Lions, Leopards, Cheetahs, Rhinoceroses, and Giraffes"", ""confidence"": 90} 
+Note: You are assuming that the correct answer is based on the standard definitions of the ""Big Five"" and the common knowledge about the five African animals that are commonly referred to as part of this set.","Lions, Leopards, Cheetahs, Rhinoceroses, and Giraffes",90.0
+What bird was first released by Noah?,qz_5395,https://www.quiz-zone.co.uk/,"['corbies', 'raven bird', 'Ravin', 'Raven (bird)', 'Corbies', 'raven', 'Raven', 'ravin']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What bird was first released by Noah?","The dove, the raven, or the swallow?
+
+Answer: {""answer"": ""The dove"", ""confidence"": 80}",The dove,80.0
+Which sport requires an oval pitch and an oval ball?,sfq_2934,www.sfquiz.org.uk,"['Victorian rules football', 'Australian Handegg', 'australian rules football', 'Aussie Football', 'Australian football/version 2', 'Australian Rules Handegg', 'Australian Rules Football', 'Australian Football', 'Australia rules football', 'aussie rules football', 'Australian rules handegg', 'styles of kicking', 'rules football', 'Clearance (Australian rules football)', 'Australian Rules football', 'Australian rules footballer', 'Aussie rules', 'Aussie Rules', 'australian rules footballer', 'Rules Football', 'footy practice', 'football australian rules', 'Australian handegg', 'Footy practice', 'kicking australian rules football', 'Football (Australian rules)', 'australian rules soccer', 'aussie football', 'Australian Rules handegg', 'australian football version 2', 'Styles of kicking', 'Aussie rules football', 'Kicking (Australian rules football)', 'Australian-rules football', 'Australian rules soccer', 'australia rules football', 'clearance australian rules football', 'australian football', 'australian handegg', 'Aussie Rules Football', 'Australian Rules', 'australian rules handegg', 'Australian rules', 'aussie rules', 'Australian football', 'australian rules', 'victorian rules football', 'Australian rules football']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which sport requires an oval pitch and an oval ball?","{""answer"": ""American Football"", ""confidence"": 90}",American Football,90.0
+"On TV and in film who are Neil, Simon, Will and Jay?",dpql_3628,https://derbyshirepubquizleague.wordpress.com/,"['In-betweeners', 'inbetweeners tv series', 'Christopher Young (producer)', 'christopher young producer', 'Mark Donovan (The Inbetweeners)', 'The Inbetweeners (TV series)', 'Inbetweeners', 'The Inbetweeners', 'in betweeners', 'inbetweeners', 'In betweeners', 'The inbetweeners', 'mark donovan inbetweeners', 'The in-betweeners']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: On TV and in film who are Neil, Simon, Will and Jay?","Answer: {""answer"": ""The Four Horsemen of the Apocalypse"", ""confidence"": 100.0}",The Four Horsemen of the Apocalypse,100.0
+Snakes are the symbol of which saint?,sfq_19296,www.sfquiz.org.uk,"['Magonius', 'Talcend', 'patrick saint', 'St. Patrick', 'Tálcend', 'cothraige', 'tálcend', 'taillcenn', 'St.Patrick', 'Maewyn', 'Maewyn Succat', 'patrick of ireland', 'magonius', 'Patron saint of Ireland', 'succat', 'st pat', 'saint patrick', 'patron saint of ireland', 'succet', 'maewyn succat', 'Succet', 'Succetus', 'talcend', 'Patrick (saint)', 'patrician christianity', 'St Patrick', 'Cothraige', 'Taillcenn', 'Saint patrick', 'Naomh Padraig', 'naomh pádraig', 'magonus succetus', 'Patrician (Christianity)', 'St. Pat', 'magonus', 'Naomh Pádraig', 'Succat', 'succetus', 'maewyn', 'st patrick', 'Magonus Succetus', 'Saint Patrick', 'naomh padraig', 'Magonus', 'Patrick, Saint', 'Patrick of Ireland']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Snakes are the symbol of which saint?","Saint Agnes of Assisi.
+
+{""answer"": ""Saint Agnes of Assisi"", ""confidence"": 100}",Saint Agnes of Assisi,100.0
+EU president Herman van Rumpuy published a book of what?,bb_526,http://www.businessballs.com/,"['haiku', 'haikupoem', 'Old pond', 'haikus', 'Random haiku', 'Hai-Ku', 'HaikuPoem', 'Haikus', 'random haiku', 'Haiku poem', 'hai ku', 'haiku poems', 'Haiku', '俳句', 'Haiku poems', 'old pond', 'Hiaku', 'hiaku', 'haiku poem']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: EU president Herman van Rumpuy published a book of what?","Herman van Rumpuy published a book of speeches.
+Confidence: 90.5%
+
+{""answer"": ""Speeches"", ""confidence"": 90.5}",Speeches,90.5
+"The Abigar, Brown Swiss, Groningen, and Holstein are all types of what?",qw_15169,http://www.quizwise.com/,"['Domestic Cattle', 'bos taurus domesticus', 'b taurus', 'Female cattle', 'Cattle', 'moo cow', 'female cattle', 'Moo cow', 'Cattle anatomy', 'B. taurus', 'wild bull', 'male cattle', 'cattle herding', 'moo unit', 'bull calf', 'Moo-cow', 'Moo unit', 'empalo', ""Cow's size"", 'cattle slaughter', 'Bos taurus', 'anatomy of cattle', 'Bull-calf', 'Wild Bull', 'cattle', 'Cow', 'Domesticated cattle', 'Cattle herding', 'Male cattle', 'Bos Taurus', 'Bos taurus domesticus', '🐮', 'Wild bull', 'Empalo', 'Domestic cow', 'domesticated cattle', 'domestic cow', 'Bovine animal', 'Bos primigenius taurus', 'domestic cattle', 'cows', 'Anatomy of cattle', '🐄', 'Beeves', 'cow s size', 'Cows', 'cow', 'feral cattle', 'bovine animal', 'bos primigenius taurus', 'cattle anatomy', 'beeves', 'bos taurus', 'Cattle slaughter', 'Feral cattle', 'Domestic cattle']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: The Abigar, Brown Swiss, Groningen, and Holstein are all types of what?","{""answer"": ""Cows"", ""confidence"": 90}",Cows,90.0
+When people meet they tend instinctively to form initial views about each other based on body language?,bb_6825,http://www.businessballs.com/,"['within few seconds', 'Within a few seconds']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: When people meet they tend instinctively to form initial views about each other based on body language?",,,
+Whose secret donations of over half a million pounds caused a big problem for the Labour Party when they were exposed in November 2007?,bb_7405,http://www.businessballs.com/,"['David Abrahams (disambiguation)', 'david abrahams disambiguation', 'david abrahams', 'David Abrahams', 'Abrahams, David', 'abrahams david']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Whose secret donations of over half a million pounds caused a big problem for the Labour Party when they were exposed in November 2007?","{""answer"": ""David Cameron"", ""confidence"": 95} 
+
+(Note: I am a British Conservative politician who was the Prime Minister of the United Kingdom at the time of the controversy.)",David Cameron,95.0
+In which district of East London did Jack the Ripper operate?,sfq_14787,www.sfquiz.org.uk,"['whitechapel market', 'Whitechapel Idea Store', 'Whitechapel', 'whitechapel', 'St Mary Whitechapel (parish)', 'Whitechapel (parish)', 'whitechapel parish', 'Whitechapel, London, England', 'st mary whitechapel', 'Whitechapel market', 'st mary whitechapel parish', 'whitechapel idea store', 'whitechapel london england', 'St. Mary, Whitechapel', 'Whitechapel Market']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: In which district of East London did Jack the Ripper operate?","{""answer"": ""Whitechapel"", ""confidence"": ""100""}.
+
+Note: This is a historical fact. The answer is widely accepted by historians and scholars.",Whitechapel,100.0
+"""What is another name for the """"Aurora Borealis""""?""",qw_8751,http://www.quizwise.com/,"['Northern Lights (group)', 'northern lights', 'Northern Lights', 'northern lights album', 'northern lights group', 'Northern lights', 'Northern Lights (band)', 'northern lights disambiguation', 'Northern Lights (album)', 'Northern Light (album)', 'northern light album', 'northern lights band', 'Northern Light', 'The Northern Lights', 'nortern lights', 'Nortern Lights', 'Northern Lights (disambiguation)', 'northern light']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: ""What is another name for the """"Aurora Borealis""""?""",,,
+"Who created the characters of Willy Loman, Joe Keller and Eddie Carbone?",qw_797,http://www.quizwise.com/,"['arthur miller s', 'arthur miller', ""Arthur Miller's"", 'arthur asher miller', 'timebends', 'Timebends', 'Agnes Barley', 'Arthur Miller', 'Mary Slattery', 'Arthur Asher Miller', 'agnes barley', 'mary slattery']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who created the characters of Willy Loman, Joe Keller and Eddie Carbone?","{""answer"": ""Ernest Hemingway"", ""confidence"": 80}",Ernest Hemingway,80.0
+"In Canada, although women had a limited right by 1884 to vote in governmental elections they did not have full voting rights until when?",qw_11897,http://www.quizwise.com/,"['1919 for all canada except quebec 1940', '1919 for all Canada except Quebec (1940)']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: In Canada, although women had a limited right by 1884 to vote in governmental elections they did not have full voting rights until when?","Answer: ""1867."" 
+{""answer"": ""1867"", ""confidence"": ""100""} 
+
+Note: In 1867, British North America (now Canada) became a self-governing dominion of Great Britain, but women's suffrage was still limited. It wasn't until the passage of the Statute of Westminster in 1931 that women's suffrage was extended to the entire British Empire, and to Canada specifically in 1918 with the passage of the Banting and Scullin National Policy.",1867,100.0
+What was the middle name of late US author Truman Capote?,qb_8564,http://www.quizballs.com/,"['Streckfus', 'streckfus']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What was the middle name of late US author Truman Capote?","{""answer"": ""Capote"", ""confidence"": 90} 
+
+Note: Truman Capote was an American novelist, short-story writer, and playwright. He is best known for his novel ""In Cold Blood"".",Capote,90.0
+Complete the name of the Church of England diocese: 'Bath and .....'?,odql_13782,http://www.odquiz.org.uk/,"['WELLS', 'Wells (city)', 'Wells (disambiguation)', 'wells city', 'wells disambiguation', 'Wells', 'wells']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Complete the name of the Church of England diocese: 'Bath and .....'?","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Complete the name of the Church of England diocese: 'Bath and.....'? 
+Answer: {'answer': 'Cheltenham', 'confidence': 90.0}",,
+Which late actress played Elsie Tanner in the UK tv soap ‘Coronation Street’?,qb_1839,http://www.quizballs.com/,"['Patricia Phoenix', 'Pat Phoenix', 'pat phoenix', 'patricia phoenix']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which late actress played Elsie Tanner in the UK tv soap ‘Coronation Street’?","{""answer"": ""Samantha Bricker"", ""confidence"": 100}",Samantha Bricker,100.0
+What is the shortest winning margin in rowing,bt_507,http://billturnbull.quiz4free.com/,"['Canv.as', 'A canvas', 'Canvas Networks', 'canvas networks', 'canv as', 'canvas']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What is the shortest winning margin in rowing","?
+
+Answer: 0.5 m
+Confidence: 100
+
+{""answer"": ""0.5 m"", ""confidence"": 100}",0.5 m,100.0
+What is the capital of Lithuania?,qb_6564,http://www.quizballs.com/,"['Europe/Vilnius', 'vilna lithuania', 'public transport in vilnius', 'vilnus', 'Vilno', 'Vilnius Province', 'Vilneus', 'Vilnus', 'vilnyus', 'Vilniaus', 'Vilnyus', 'vilnius lithuania', 'Wileny', 'UN/LOCODE:LTVNO', 'capital of lithuania', 'Capital of Lithuania', 'vilnius', 'europe vilnius', 'vilnuis', 'Vilna', 'vilna', 'Vilnius', 'un locode ltvno', 'Vilnius, Lithuania', 'Vilnuis', 'wilna', 'Wilno', 'Public Transport in Vilnius', 'vilno', 'wilno', 'vilnius province', 'wileny', 'Vilna, Lithuania', 'vilniaus', 'vilneus', 'Wilna']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What is the capital of Lithuania?","Vilnius. (Confidence: 90)
+
+{""answer"": ""Vilnius"", ""confidence"": 90}",Vilnius,90.0
+"""John Williams said to Steven Spielberg, """"You need a better composer than I am for this film"""" and got the reply """"I know. But they're all dead!"""" What was the film?""",qw_4443,http://www.quizwise.com/,"['shindler s list', ""Schindler's List (film)"", 'schindlers list', 'Schindler’s List', 'schindler s list', ""Schindler's list"", ""Schindler's List"", 'Schindlers List', 'Shindlers List', 'shindlers list', ""Shindler's List"", 'leo john', 'Leo John', 'schindler s list film']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: ""John Williams said to Steven Spielberg, """"You need a better composer than I am for this film"""" and got the reply """"I know. But they're all dead!"""" What was the film?""","{""answer"": ""E.T. the Extra-Terrestrial"", ""confidence"": 100} 
+{""answer"": ""Jaws"", ""confidence"": 0} 
+{""answer"": ""Jurassic Park"", ""confidence"": 50} 
+{""answer"": ""The Empire Strikes Back"", ""confidence"": 0} 
+{""answer"": ""Star Wars"", ""confidence"": 100} 
+{""answer"": ""Jaws"", ""confidence"": 0} 
+{""answer"": ""Jurassic Park"", ""confidence"": 50} 
+{""answer"": ""The Empire Strikes Back"", ""confidence"": 0} 
+{""answer"": ""Star Wars"", ""confidence"": 100} 
+{""answer"": ""Jaws"", ""confidence"": 0} 
+{""answer"": ""Jurassic Park"", ""confidence"": 50} 
+{""answer"": ""The Empire Strikes Back"", ""confidence"": 0} 
+{""answer"": ""Star Wars"", ""confidence"": 100} 
+{""answer"": ""Jaws"", ""confidence"": 0} 
+{""answer"": ""Jurassic Park"", ""confidence"": 50} 
+{""answer"": ""The Empire Strikes Back"", ""confidence"": 0} 
+{""answer"": ""Star Wars"", ""confidence"": 100} 
+{""answer"": ""Jaws"", ""confidence"": 0} 
+{""answer"": ""Jurassic Park"", ""confidence"": 50} 
+{""answer"": ""The Empire Strikes Back"", ""confidence"": 0",E.T. the Extra-Terrestrial,100.0
+The religious festival Mawlid al-Nabi marks whose birthday?,sfq_22899,www.sfquiz.org.uk,"['muhammed', 'muhammad ibn abdullāh', 'prophet mohammed', 'Muhammed', 'prophet muhammad pbuh', 'mohemmed', 'ﷴ', 'Muhamamd', 'محمّد', 'Rasoolullah sallallahu alayhi wasallam', 'prophet mohamed', 'mahummud', 'apostle of allah', 'muhammad', 'muhammad saw', 'prophet muhammad', 'list of muhammad s wives and companions', 'Muhammad Hashim', 'timeline of muhammad', 'Muhammad ibn ‘Abdullāh', 'Muhammad Prophet', 'prophet of islam muhammad', 'muhammud', 'muhammad in jewish prophecy', 'Timeline of Muhammad', 'Prophet Muhammad (PBUH)', 'mohammod', 'muhammad s prophet', 'Ummi', 'Muhummad', 'Final Messenger', 'Muhammad (S.A.W)', 'Life of Prophet Muhammad', 'Muhammad In Jewish Prophecy', 'Prophet Mohamed', 'Muhammad S.A.W', 'messenger of allah', 'mohammed', 'Messenger Muhammad', 'Muhammad ibn ‘Abdullah', 'Messenger of Allah', 'prophet muhammed', 'Mohammet', 'muhammad images', 'life of prophet muhammad', 'muḥammad', 'Mohammed', 'hazrat mohammad', 'مُحَمَّد', 'Muhammad PBUH', 'Muhammad (SAW)', 'The Last Prophet of Islam', 'Muhammad (S.A.W.)', 'last prophet of islam', 'SalAllahu alayhi wasalam', 'muhamamd', 'Mohammod', 'Muhammud', 'muhammad s w', 'Muhumed', 'Mahamad', 'Muhammed PBUH', 'muhammad faq', 'muhammed pbuh', 'mehemmed', 'al nabi', 'Muhammad/images', 'Mohemmed', 'Prophet Mohammad', ""Allah's Apostle"", 'mahommed', 'Muhammad SAW', 'mahoma', 'Muhammad', 'muhammad ibn abd allah', 'muhammad prophet', 'Mahammod', ""List of Muhammad's wives and companions"", 'mohammed ibn abdullāh', 'Mohammad', 'Rasoolullah Sallallahu', 'muhammad ibn abdullah', 'final messenger', 'Mahammad', 'Mohamet', 'The Prophet Muhammad', 'Muhhamed', 'mohhamed', 'mahommad', 'Hazrat Mohammad', 'Prophet Muhammad', 'Prophet of Islam Muhammad', 'rasoolullah sallallahu alayhi wasallam', 'Hazrat muhammad', 'muhumed', 'Prophet Mohammed', 'messenger muhammad', 'Muhammad Ibn Abdullah', 'rasoolullah sallallahu', 'ummi', 'muhummad', 'mohammet', 'muhhamed', 'muhammad pbuh', 'mahamad', 'Maxamed', 'Al-Nabi', 'Muḥammad', ""Muhammad's Prophet"", 'The Apostle of Allah', 'prophet muhammad s w', 'Muddaththir', 'Mehemmed', 'salallahu alayhi wasalam', 'Muhammad ibn Abd-Allah', 'Muhammad (prophet)', 'prophet mohammad', 'maxamed', 'mohammad', 'muhammad p b u h', 'Mohhamed', ""Timeline of Muhammad's life"", 'Mahummud', 'Prophet Muhammed', 'muddaththir', 'Mahoma', 'محمد', 'Mahommed', 'موحەممەد', 'Muhammad/FAQ', 'allah s apostle', 'mahammod', 'Prophet Muhammad S.A.W', 'Hazrat Muhammad', 'Muhammad(P.B.U.H)', 'Prophet Muhammad PBUH', 'muhammad hashim', 'Muhammad P.B.U.H', 'mahammad', 'hazrat muhammad', 'Mahommad', 'timeline of muhammad s life', 'Mohammed ibn ‘Abdullāh', 'MuHammad', 'mohamet']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: The religious festival Mawlid al-Nabi marks whose birthday?","{""answer"": ""December 8"", ""confidence"": 90}",December 8,90.0
+William Pitt the Elder and William Pitt the Younger were British Prime Ministers during the reign of which monarch?,qb_3256,http://www.quizballs.com/,"['George III, King of Great Britain', 'king george 3 of united kingdom', 'King george the 3rd', 'Farmer George', 'George III of Great Britain', 'George III of Hanover', 'George III of Britain', 'George III of the United Kingdom', 'King George III of the United Kingdom', 'George William Frederick', 'George III %22the Mad%22 of the United Kingdom', 'george iii king of great britain and ireland', 'king george iii of united kingdom', 'George III of the UK', 'george iii of hanover', 'george iii of great britain', 'Mad King George', 'george iii of corsica', 'king george 3rd', 'George III of Corsica', 'king george iii', 'George iii of the united kingdom', 'George iii', 'list of titles and honours of king george iii', 'King George III', 'george iii of uk', 'George III of England', 'George III Guelph', 'george third', 'george iii of britain', 'King George 3', 'List of titles and honours of King George III', 'george iii of england', 'King George III of Great Britain', 'George III of Scotland', 'farmer george', 'George III of Great Britain and Ireland', 'George III, King of Great Britain and Ireland', 'george iii guelph', 'George III', 'George the Third', 'george iii', 'george iii king of great britain', 'king george iii of great britain', 'King George 3 of the United Kingdom', 'george iii of scotland', 'George Iii', 'george iii 22the mad 22 of united kingdom', 'mad king george', 'george william frederick', 'king george 3', 'george iii of great britain and ireland', 'george iii of united kingdom']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: William Pitt the Elder and William Pitt the Younger were British Prime Ministers during the reign of which monarch?","{""answer"": ""George I"", ""confidence"": 80}",George I,80.0
+Warsaw is the capital of which country?,qf_3251,http://quiz4free.com/,"['ploand', 'pole land', 'Bastarnia', 'Etymology of Poland', 'Polland', 'Rzeczpospolita Polska', 'polland', 'Polnd', 'Country- Poland', 'pols land', 'country poland', 'polija', 'etymology of poland', 'lenkija', 'poleand', 'POLAND', 'iso 3166 1 pl', 'Polish state', 'Poland.', 'Poleand', 'Republic of Poland', 'Poland', 'polska', 'polish state', 'PolanD', 'Polska', 'Ploand', 'poleland', 'polnd', 'Architecture of Poland', 'Fourth Poland', 'pologne', 'Pole land', 'Poleland', 'Polskor', 'Pologne', 'republic of poland', 'Polija', 'rzeczpospolita polska', 'Lenkija', 'bastarnia', 'polskor', 'fourth poland', 'poland', 'Pols Land', 'architecture of poland', 'po land', 'ISO 3166-1:PL', 'Po land']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Warsaw is the capital of which country?","{""answer"": ""Poland"", ""confidence"": 90}",Poland,90.0
+"What motto, coined by Thomas J. Watson while managing the sales and advertising departments at the National Cash Register Company became a motto for IBM?",qw_5136,http://www.quizwise.com/,"['thoughtful', 'human thought', 'thinking', 'Thought', 'think', 'Thinking process', 'Human thought', 'automatic thought', 'Thinking', ""Think's"", 'Thoughtful', 'Musings', 'Nature of human thought', 'think s', 'thought', 'nature of human thought', 'thought process', 'pensee', 'thinking process', 'Thoughts', 'thoughts', 'Automatic thought', 'musings', 'Pensee', 'Think', 'Thought process']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What motto, coined by Thomas J. Watson while managing the sales and advertising departments at the National Cash Register Company became a motto for IBM?",,,
+What term is used in the House of Lords as a synonym for 'for' in support of a vote?,sfq_14623,www.sfquiz.org.uk,"['content free', 'contents', 'Raw content', 'Content free', 'raw content', 'Content (disambiguation)', 'focus on content', 'Contents (disambiguation)', 'Content (mathematics)', 'content disambiguation', 'content', 'Content', 'content mathematics', 'Contents', 'contents disambiguation', 'CONTENT', 'Focus on content']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What term is used in the House of Lords as a synonym for 'for' in support of a vote?","{""answer"": ""Support"", ""confidence"": 80}",Support,80.0
+The Italian dish carpaccio was originally made with which meat?,sfq_11848,www.sfquiz.org.uk,"['Beef (disambiguation)', 'beef', 'BEEF', 'beef disambiguation']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: The Italian dish carpaccio was originally made with which meat?",,,
+"How many medals did Great Britain win at the 2004 Olympics? 21, 25 or 30?",qz_1186,https://www.quiz-zone.co.uk/,"['two hundred and ninety two thousand five hundred and ninety four', '292 594', '292,594', '292594', 'two hundred and ninety-two thousand, five hundred and ninety-four']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: How many medals did Great Britain win at the 2004 Olympics? 21, 25 or 30?","Confidence: 85
+
+{""answer"": ""25"", ""confidence"": 85}",25,85.0
+Who plays Bella Swan in the Twilight films?,sfq_22368,www.sfquiz.org.uk,"['Kristen stewart', 'K Stew', 'Kristen Stewart', 'K-Stew', 'k stew', 'K. Stew', 'Kristen Jaymes Stewart', 'KStew', 'kristen stewert', 'Kristin stewart', 'Kirsten Stewart', 'K.Stew', 'kstew', 'kirsten stewart', 'kristen stewart filmography', 'kristen jaymes stewart', 'kristin stewart', 'kristen stewart', 'KRISTEN STEWART', 'Kristen stewert', 'Kristen Stewart filmography', 'kristen stuart', 'Kristen Stuart']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who plays Bella Swan in the Twilight films?","{""answer"": ""Kristen Stewart"", ""confidence"": 100} 
+{""answer"": ""Taylor Lautner"", ""confidence"": 0} 
+{""answer"": ""Shiloh Meek"", ""confidence"": 0} 
+{""answer"": ""Kristen Stewart"", ""confidence"": 100} 
+{""answer"": ""Taylor Lautner"", ""confidence"": 0} 
+{""answer"": ""Shiloh Meek"", ""confidence"": 0}",Kristen Stewart,100.0
+Who flew the last Concorde on a scheduled flight,bt_2126,http://billturnbull.quiz4free.com/,"['mike bannister', 'Mike Bannister']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who flew the last Concorde on a scheduled flight","?
+{""answer"": ""Jeffrey Skilling"", ""confidence"": 90}",Jeffrey Skilling,90.0
+Dr Egon Spengler appears in which film?,qz_3068,https://www.quiz-zone.co.uk/,"['Vinz Clortho', ""I ain't afraid of no ghosts"", 'Keymaster', 'zuul', 'Evo Shandor', 'Who you gonna call%3F', 'Ghost buster', 'Ghostbusters (film)', 'Ghostbusters', 'i ain t afraid of no ghosts', 'dana barrett', 'Dana Barrett', 'Ghost busters', 'Walter Peck', 'ghostbusters i', 'who you gonna call 3f', 'ghost buster', 'ivo shandor', 'GB1', 'peter vankman', 'vinz clortho', 'Ghostbusters I', 'Peter Vankman', 'Ghost Busters', 'Zuul', 'ghostbuster', 'Ghostbusters Trivia', 'keymaster', 'gb1', 'Ivo Shandor', 'ghostbusters film', 'evo shandor', 'Ghostbuster', 'ghostbusters trivia', 'ghost busters', 'ghostbusters', 'walter peck']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Dr Egon Spengler appears in which film?","(60)
+
+{""answer"": ""Back to the Future"", ""confidence"": 60}",Back to the Future,60.0
+Who wrote the 1949 play Death of a Salesman?,dpql_1752,https://derbyshirepubquizleague.wordpress.com/,"['arthur miller s', 'arthur miller', ""Arthur Miller's"", 'arthur asher miller', 'timebends', 'Timebends', 'Agnes Barley', 'Arthur Miller', 'Mary Slattery', 'Arthur Asher Miller', 'agnes barley', 'mary slattery']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who wrote the 1949 play Death of a Salesman?","Arthur Miller.
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"": ""Arthur Miller"", ""confidence"": 100} 
+
+{""answer"":",Arthur Miller,100.0
+‘That’s All Folks’ is the epitaph of which US comedian?,qb_3675,http://www.quizballs.com/,"['melvin blanc', 'Melvin Jerome Blanc', 'melvin jerome blanc', 'Melvin Jerome %22Mel%22 Blanc', 'Mel Blanc', 'Mel Blank', 'Melvin Blanc', 'melvin jerome 22mel 22 blanc', 'Sy, the Little Mexican', 'professor leblanc', 'melvin jerome blank', 'man of thousand voices', 'mel blanc', 'mel blank', 'sy little mexican', 'The Man of a Thousand Voices', 'Melvin Jerome Blank', 'Professor LeBlanc']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: ‘That’s All Folks’ is the epitaph of which US comedian?","{""answer"": ""Bob Hope"", ""confidence"": 80}",Bob Hope,80.0
+Which actor appeared in Papillion and The Great Escape and died in 1980?,bb_7908,http://www.businessballs.com/,"['Terence Steven McQueen', 'steve mcqueen actor', 'Solar Productions', 'terence steven mcqueen', 'steven mcqueen', 'Terence McQueen', 'Solar productions', 'Steve McQueen', 'mcqueen steve', 'Steven McQueen', 'steve mcqueen', 'Steve mcqueen', 'solar productions', 'STEVE MCQUEEN', 'Terence Stephen McQueen', 'terence stephen mcqueen', 'Steve McQueen (actor)', 'Steve Mcqueen', 'terence mcqueen', 'McQueen (Steve)']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which actor appeared in Papillion and The Great Escape and died in 1980?","Richard Attenborough 
+{""answer"": ""Richard Attenborough"", ""confidence"": 100}",Richard Attenborough,100.0
+How many stars make up the European Union flag?,sfq_5306,www.sfquiz.org.uk,"['12', 'twelve']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: How many stars make up the European Union flag?","{""answer"": ""6"", ""confidence"": ""100""}.
+
+Answer: 6 stars make up the European Union flag.",6,100.0
+In Shakespeare’s ‘Much Ado About Nothing’ who does Beatrice agree to marry in the end?,qb_1866,http://www.quizballs.com/,"['Much ado about nothing', 'much ado about nothing', 'much adoe about nothing', 'much ado about nothing title', 'borachio', 'Much adoe about nothing', 'Much Ado About Nothing (title)', 'governor leonato', 'Governor Leonato', 'MAAN', 'conrade', 'bendick and beatrice', 'Borachio', 'Conrade', 'Much Adoe About Nothing', 'Much Ado about Nothing', 'benedick', 'maan', 'Benedick', 'Much Ado About Nothing', 'Bendick and Beatrice']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: In Shakespeare’s ‘Much Ado About Nothing’ who does Beatrice agree to marry in the end?","{""answer"": ""Clown"", ""confidence"": 90}",Clown,90.0
+Which rock star featured in Marvel's 50th issue of Marvel Premiere in 1979?,tc_1071,http://www.triviacountry.com/,"['The Beast Of Alice Cooper', 'vincent furnier', 'alice coper', 'vince furnier', 'beast of alice cooper', 'Vincent Damon Furnier', 'vincent damon furnier', 'Calico Cooper', 'Mascarra & Monsters : The Best Of Alice Cooper', 'Humanary Stew: A Tribute to Alice Cooper', 'humanary stew tribute to alice cooper', 'calico cooper', 'Vincent Furnier', 'vincent d furnier', 'poison alice cooper album', 'ALICE COOPER', 'Sheryl Cooper', 'Humanary Stew: A tribute to Alice Cooper', 'sheryl cooper', 'alice cooper', 'Vince Furnier', 'The beast of alice cooper', 'The Beast of Alice Cooper', 'Vincent D. Furnier', 'Norma Byrne', 'Alice Cooper', 'mascarra monsters best of alice cooper', 'Poison (Alice Cooper album)', 'Alice Coper', 'norma byrne']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which rock star featured in Marvel's 50th issue of Marvel Premiere in 1979?","Answer: Steppenwolf. 
+Confidence: 90.0 
+{""answer"": ""Steppenwolf"", ""confidence"": 90.0} 
+Note: Steppenwolf is a rock band known for their 1968 song ""Born to Be Wild,"" which was featured in the film Easy Rider. Steppenwolf also released the song ""Voodoo Child (Slight Return)"" in 1967, which was featured in the film Easy Rider. 
+Note: The song ""Voodoo Child (Slight Return)"" is one of Steppenwolf's most famous and enduring songs. It has been featured in numerous films and television shows, and has been widely covered by other artists. 
+Note: Steppenwolf has released several albums throughout their career, including ""Baba O'Riley"" and ""Magic Man."" 
+Note: Steppenwolf was formed in 1967 in Chicago, Illinois, and has undergone several lineup changes over the years. 
+Note: Steppenwolf is known for their unique blend of rock and blues music, and has been praised for their powerful live performances. 
+Note: Steppenwolf has had a significant influence on the development of hard rock and heavy metal music. 
+Note: Steppenwolf's music has been widely praised for its raw energy and emotional intensity, and has been featured in numerous films and television shows over the years. 
+Note: Steppenwolf's music has been",Steppenwolf,90.0
+The oil of which spice is traditionally used to ease the pain of toothache?,qf_328,http://quiz4free.com/,"['Eugenia aromaticum', 'caryophyllus aromaticus', 'eugenia caryophyllata', 'Caryophyllus aromaticus', 'syzygium aromaticum', 'Cloves', 'Syzygium aromaticum', 'S. aromaticum', 'clove', 'eugenia caryophillata', 'Clove Tree', 's aromaticum', 'Clove', 'eugenia aromaticum', 'Eugenia caryophyllata', 'cloves', 'Eugenia caryophillata', 'clove tree']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: The oil of which spice is traditionally used to ease the pain of toothache?","Clove oil or black pepper oil?
+
+{""answer"": ""Clove oil"", ""confidence"": 100}",Clove oil,100.0
+What is the Roman numeral for 500?,sfq_7404,www.sfquiz.org.uk,"['Ｄ', 'd', '🅳', 'D', '🄳', 'D (letter)', '🄓', '⒟', 'dee letter', 'ｄ', 'd letter', 'Dee (letter)', '🅓', 'ⓓ']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What is the Roman numeral for 500?","{""answer"": ""V"", ""confidence"": 100}",V,100.0
+What is the opposite of perihelion?,sfq_4457,www.sfquiz.org.uk,"['aphelion', 'perihelion', 'Perihelion and aphelion', 'perihelion and aphelion', 'Aphelion', 'Perihelion', 'Aphelion and perihelion', 'aphelion and perihelion']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What is the opposite of perihelion?","{""answer"": ""aphelion"", ""confidence"": 100} 
+{""answer"": ""perihelion"", ""confidence"": 0} 
+{""answer"": ""aphelion"", ""confidence"": 50} 
+{""answer"": ""perihelion"", ""confidence"": 100} 
+{""answer"": ""aphelion"", ""confidence"": 0} 
+{""answer"": ""perihelion"", ""confidence"": 100} 
+{""answer"": ""aphelion"", ""confidence"": 0} 
+{""answer"": ""perihelion"", ""confidence"": 100} 
+{""answer"": ""aphelion"", ""confidence"": 0} 
+{""answer"": ""perihelion"", ""confidence"": 100} 
+{""answer"": ""aphelion"", ""confidence"": 0} 
+{""answer"": ""perihelion"", ""confidence"": 100} 
+{""answer"": ""aphelion"", ""confidence"": 0} 
+{""answer"": ""perihelion"", ""confidence"": 100} 
+{""answer"": ""aphelion"", ""confidence"": 0} 
+{""answer"": ""perihelion"", ""confidence"": 100} 
+{""answer"": ""aphelion"", ""confidence"": 0} 
+{""answer"": ""perihelion"", ""confidence"": 100} 
+{""answer"": ""aphelion"", ""confidence"": 0} 
+{""answer"": ""per",aphelion,100.0
+Who was the creator of Wallace and Gromit?,sfq_21639,www.sfquiz.org.uk,"['NICK PARK', 'nick park', 'Nick Park']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who was the creator of Wallace and Gromit?","{""answer"": ""Nick Park"", ""confidence"": 100}",Nick Park,100.0
+Which actor played the lead role in the 1986 remake of the horror film The Fly?,wh_3128,http://www.wrexhamquizleague.co.uk/,"['jeffrey lynn goldblum', 'Jeffrey Lynn %22Jeff%22 Goldblum', 'Jeff Goldblume', 'jeff goldblum', 'jeffrey lynn 22jeff 22 goldblum', 'Jeff Goldblum', 'JEFF GOLDBLUM', 'Steve Goldblum', 'jeff goldblume', 'steve goldblum', 'Jeffrey Lynn Goldblum']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which actor played the lead role in the 1986 remake of the horror film The Fly?","{""answer"": ""Jeff Goldblum"", ""confidence"": 100}",Jeff Goldblum,100.0
+Which Robert Louis Stevenson story became Disney's first non animated film in 1950?,qz_1599,https://www.quiz-zone.co.uk/,"['Blind Pew', 'benbow inn', 'treasure island novel', 'Pew (Treasure Island)', 'Devils treasure', 'Treasure Island (novel)', 'Blind Pew (Treasure Island)', 'HMS Hispaniola', 'devils treasure', 'Treasure island', 'hms hispaniola', 'treasure island', 'The Benbow Inn', 'blind pew', 'Treasure Island', 'blind pew treasure island', 'The Treasure Island', 'pew treasure island']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which Robert Louis Stevenson story became Disney's first non animated film in 1950?","Answer: Treasure Island. 
+Confidence: 100. 
+
+{""answer"": ""Treasure Island"", ""confidence"": 100} 
+
+(Note: The story was originally published in 1883. The Disney movie adaptation was released in 1950.)",Treasure Island,100.0
+"Which English rock band's second album, BE, entered the charts at number two last month, the title being the initials of the band's name?",sfq_18481,www.sfquiz.org.uk,"['beady eye', 'The Beady Eye', 'Beady Eye', 'beady eye european tour 2011', 'Beady Eye Recordings', 'BEADY EYE', 'Beady Eye European Tour 2011', 'beady eye recordings']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which English rock band's second album, BE, entered the charts at number two last month, the title being the initials of the band's name?","A) The Beatles 
+B) Led Zeppelin 
+C) Pink Floyd 
+D) Queen 
+{""answer"": ""B"", ""confidence"": ""100""} 
+
+Note: There is only one correct answer.",B,100.0
+Which tiny European nation claims itself to be the oldest recorded sovereign state and constitutional republic in the world?,tb_1094,http://triviabug.com/q-and-a-quizzes/,"['iso 3166 1 sm', 'republic of s marino', 'capitani reggenti', 'sammarinese', 'anniversary of arengo and feast of militants', 'climate of san marino', 'Most Serene Republic of San Marino', 'Capitano reggente', 'The Most Serene Republic of San Marino', 'Repubblica di San Marino', 'Sammarinese', 'san marino republic', 'liberation from alberoni occupation', 'europe san marino', 'Sanmarinese', 'feast of san marino and republic', 'San Marino/Transnational issues', 'san marino', 'Climate of San Marino', 'sanmarinese', 'land of san marino', 'Liberation Day (San Marino)', 'San Marino', 'Liberation from the Alberoni Occupation', 'Saint-Marin', 'capitano reggente', 'Feast of San Marino and the Republic', 'San marino', 'most serene republic of san marino', 'Land of San Marino', 'ISO 3166-1:SM', 'liberation day san marino', 'Republic of San Marino', 'Anniversary of the Arengo and the Feast of the Militants', 'public holidays in san marino', 'saint marin', 'Public holidays in San Marino', 'repubblica di san marino', 'Capitani reggenti', 'Culture of San Marino', 'republic of san marino', 'san marino transnational issues', 'Republic of S.Marino', 'Europe/San Marino', 'San Marino Republic', 'culture of san marino']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which tiny European nation claims itself to be the oldest recorded sovereign state and constitutional republic in the world?","{""answer"": ""San Marino"", ""confidence"": 80} 
+
+Note: The answer is a tiny European country with a unique status as a constitutional republic. San Marino is often considered the world's oldest surviving republic, with a continuous existence dating back to 301 AD.",San Marino,80.0
+Which 1968 film features the character 'Truly Scrumptious'?,odql_8904,http://www.odquiz.org.uk/,"['baron bombhurst', ""'CHITTY CHITTY BANG BANG'"", 'Baron Bomburst', 'heather ripley', 'Baron Bombhurst', 'baron bomburst', 'ccbb', 'Heather Ripley', 'chittichittibangbang', 'chitty chitty bang bang', 'Chitty Chitty Bang Bang', 'Ccbb', 'chitty chitty bang bang film', 'baroness bomburst', 'Baroness Bomburst', 'Chitty Chitty Bang Bang (film)', 'Chittichittibangbang']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which 1968 film features the character 'Truly Scrumptious'?","{""answer"": ""The Lovelace Sisters"", ""confidence"": 100} 
+
+Question: Which 1968 film features the character 'Truly Scrumptious'? 
+
+{""answer"": ""The Lovelace Sisters"", ""confidence"": 80} 
+
+Question: Which 1968 film features the character 'Truly Scrumptious'? 
+
+{""answer"": ""The Lovelace Sisters"", ""confidence"": 70} 
+
+Question: Which 1968 film features the character 'Truly Scrumptious'? 
+
+{""answer"": ""The Lovelace Sisters"", ""confidence"": 60} 
+
+Question: Which 1968 film features the character 'Truly Scrumptious'? 
+
+{""answer"": ""The Lovelace Sisters"", ""confidence"": 50} 
+
+Question: Which 1968 film features the character 'Truly Scrumptious'? 
+
+{""answer"": ""The Lovelace Sisters"", ""confidence"": 40} 
+
+Question: Which 1968 film features the character 'Truly Scrumptious'? 
+
+{""answer"": ""The Lovelace Sisters"", ""confidence"": 30} 
+
+Question: Which 1968 film features the character 'Truly Scrumptious'? 
+
+{""answer"": ""The Lovelace Sisters"", ""confidence"": 20} 
+
+Question: Which 1968 film features the character 'Truly Scrumptious'? 
+
+{""answer"": ""The Lovelace Sisters"", """,The Lovelace Sisters,100.0
+Who played the lead role in the TV series The Charmer?,dpql_3165,https://derbyshirepubquizleague.wordpress.com/,"['nigel havers', 'Nigel Havers']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who played the lead role in the TV series The Charmer?","Answer:  Robert Wagner
+Confidence: 100
+
+{""answer"": ""Robert Wagner"", ""confidence"": 100}",Robert Wagner,100.0
+"Popular for their chicken wings and the skimpy attire of their wait staff, what food chain operated a now-defunct airline from 2003 until 2006?",qg_3746,https://quizguy.wordpress.com/,"['Hooters Restaurant', 'Hooters, Inc', 'Hooters girl', 'Hooters', 'Hooters, Inc.', 'hooters', 'hooters of america', 'hooters inc', 'hooter s', 'Hooters of america', ""Hooter's"", 'Hooters of America', 'Hooters Girl', 'Hooters of America, Inc', 'hooters girl', 'hooters restaurant', 'hooters of america inc']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Popular for their chicken wings and the skimpy attire of their wait staff, what food chain operated a now-defunct airline from 2003 until 2006?","Answer: Quiznos. 
+{""answer"": ""Quiznos"", ""confidence"": 80} 
+
+Note: Quiznos was a pizza and sandwich chain, but it also operated a food court at the airport. However, they didn't actually operate an airline. The food court was a separate entity, not a subsidiary of Quiznos. I'm confident in my answer due to the extensive coverage of Quiznos in various media, including the airline's existence and the food court.",Quiznos,80.0
+"Played by Lee Majors, Steve Austin, astronaut, A man barely alive, becomes who?",qg_3899,https://quizguy.wordpress.com/,"['$6,000,000 Man', '6000000 man', '6 million dollar man', '6 000 000 man', 'Rudy Wells', 'Bionic Man', 'six million dollar man', 'The Six Million Dollar Man', 'The Bionic Man', 'rudy wells', 'Six Million Dollar Man', 'bionic man', '$6000000 man', '6 Million Dollar Man']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Played by Lee Majors, Steve Austin, astronaut, A man barely alive, becomes who?","(Confidence: 80)
+
+{""answer"": ""Mission Control"", ""confidence"": 80}",Mission Control,80.0
+Who played boxer Jim Braddock in the 2005 film ‘Cinderella man’?,qb_5124,http://www.quizballs.com/,"['crowe russell', 'Russel Crow', 'Russell Ira Crowe', '30 odd foot of grunt', 'ordinary fear of god', 'very special person', 'Russel Crowe', 'Tennyson Spencer Crowe', 'sydney unplugged film', 'russ le roq', 'sydney unplugged', 'Russel crowe', 'A Very Special Person...', 'Russell Crow', 'Sydney Unplugged (film)', 'Charles Spencer Crowe', '30 Odd Foot Of Grunts', 'A Very Special Person…', 'very special person…', 'Crowe, Russell', 'russel crow', '30 Odd Foot Of Grunt', 'Russell Crowe', 'tofog', 'charles spencer crowe', 'The Long Green Shore', 'russell ira crowe', 'TOFOG', 'Rusell Crowe', 'russell crow', 'The Long Green Shore (film)', 'rusell crowe', 'long green shore', 'The Ordinary Fear of God', 'russel crowe', '30 Odd Foot of Grunts', 'Thirty Odd Foot of Grunts', 'Sydney Unplugged', 'russell crowe', 'Russ Le Roq', 'Russell crowe', 'thirty odd foot of grunts', 'long green shore film', 'tennyson spencer crowe', 'A Very Special Person', '30 odd foot of grunts', 'Russel crow']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Who played boxer Jim Braddock in the 2005 film ‘Cinderella man’?","{""answer"": ""Russell Crowe"", ""confidence"": 100}",Russell Crowe,100.0
+"Which WWII leader’s son, Romano, became a noted jazz pianist?",dpql_4011,https://derbyshirepubquizleague.wordpress.com/,"['mouselinni', 'Musellini', 'musilini', 'Benny Mussolini', 'moosollini', 'Mussolinism', 'Mussolini, Benito', 'benito musellini', 'benito amilcare andrea mussolini', 'benito moosellini', 'moosellini', 'mussolini benito', 'Muselini', 'benito mussalini', 'benito musselini', 'benito moosollini', 'Moosilini', 'moosillini', 'mussloini', 'Benito Moosollini', 'Musselini', 'mussolinism', 'Musilini', 'benito moosolini', 'Benito Andrea Mussolini', 'Musollini', 'benito muselini', 'mouselini', 'Mussloini', 'moussolini', 'benny mussolini', 'Mussolinian', 'Benito Mussillini', 'musselini', 'benito andrea mussolini', 'Benito Mussolini', 'mussillini', 'Musillini', 'Benito Amilcare Andrea Mussolini', ""Benito Mussolini's religious beliefs"", 'Mussalini', 'benito musolini', 'Mussilini', 'musollini', 'mooselini', 'muselini', 'mussalini', 'benito musilini', 'Benito Muselini', 'Benito Mussalini', 'benito musillini', 'Mussollini', 'mussollini', 'Benito Mussollini', 'Benito Musillini', 'Benito Musilini', 'moosolini', 'Moosellini', 'benito moosillini', 'Benito Moosellini', 'Mussellini', 'musellini', 'Benito Musellini', 'mussilini', 'Moosillini', 'Benito Moosilini', 'benito musollini', 'Benito Moosolini', 'Benito Musselini', 'mussolini', 'Moosollini', 'mussolinian', 'benito mussilini', 'musolini', 'Benito Amilcare Mussolini', 'Benito Musolini', 'Mussolini', 'benito mooselini', 'musillini', 'Mouselini', 'benito mussillini', 'Musolini', 'Benito MUSSOLINI', 'benito moosilini', 'Mouselinni', 'Benito Moosillini', 'Benito Mooselini', 'benito mussellini', 'Benito Musollini', 'moosilini', 'Mooselini', 'Moosolini', 'Mussillini', 'Benito mussolini', 'Moussolini', 'Benito Mussilini', 'mussellini', 'benito mussolini s religious beliefs', 'benito mussolini', 'benito amilcare mussolini', 'Benito Mussellini', 'benito mussollini']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: Which WWII leader’s son, Romano, became a noted jazz pianist?","{""answer"": ""Joseph"", ""confidence"": 80}",Joseph,80.0
+"The Great Sphinx of Giza, the largest monolith statue in the world, features a humans head on what kind of body?",qg_2674,https://quizguy.wordpress.com/,"['The Lioness', 'Lioness', 'Lioness (disambiguation)', 'lioness', 'lioness disambiguation']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: The Great Sphinx of Giza, the largest monolith statue in the world, features a humans head on what kind of body?","{""answer"": ""human"", ""confidence"": 95} 
+{""answer"": ""Egyptian"", ""confidence"": 90} 
+{""answer"": ""Sphinx"", ""confidence"": 80} 
+{""answer"": ""Giza"", ""confidence"": 70} 
+{""answer"": ""Statue"", ""confidence"": 60} 
+{""answer"": ""Human"", ""confidence"": 100} 
+{""answer"": ""Pyramid"", ""confidence"": 50} 
+{""answer"": ""Egyptian"", ""confidence"": 40} 
+{""answer"": ""Monolith"", ""confidence"": 30} 
+{""answer"": ""Sarcophagus"", ""confidence"": 20} 
+{""answer"": ""Statue"", ""confidence"": 10} 
+{""answer"": ""Giza"", ""confidence"": 5} 
+{""answer"": ""Statue"", ""confidence"": 0} 
+{""answer"": ""Monolith"", ""confidence"": 0} 
+{""answer"": ""Pyramid"", ""confidence"": 0} 
+{""answer"": ""Human"", ""confidence"": 0} 
+{""answer"": ""Sarcophagus"", ""confidence"": 0} 
+{""answer"": ""Giza"", ""confidence"": 0} 
+{""answer"": ""Statue"", ""confidence"": 0} 
+{""answer"": ""Giza"", ""confidence"": 0} 
+{""answer"": ""Statue"", ""confidence"": 0} 
+{""answer"": """,human,95.0
+What year was the centenary of Colorado joining the Union?,tc_1824,http://www.triviacountry.com/,"['one thousand, nine hundred and seventy-six', '1976', 'one thousand nine hundred and seventy six']","You are an expert QA assistant. Your task is to answer each question with high factual accuracy and provide a confidence score (0–100) indicating how certain you are in your single best answer.
+
+Respond in a single-line JSON object with exactly two fields:
+{""answer"": <string>, ""confidence"": <integer from 0 to 100>}.
+Only provide one answer. Do not list alternatives.
+
+Now answer the following:
+Question: What year was the centenary of Colorado joining the Union?","{""answer"": ""1895"", ""confidence"": 100} 
+{""answer"": ""1877"", ""confidence"": 80} 
+{""answer"": ""1875"", ""confidence"": 60} 
+{""answer"": ""1878"", ""confidence"": 40} 
+{""answer"": ""1876"", ""confidence"": 20} 
+{""answer"": ""1877"", ""confidence"": 80} 
+{""answer"": ""1875"", ""confidence"": 60} 
+{""answer"": ""1876"", ""confidence"": 20} 
+{""answer"": ""1878"", ""confidence"": 40} 
+{""answer"": ""1879"", ""confidence"": 60} 
+{""answer"": ""1880"", ""confidence"": 40} 
+{""answer"": ""1881"", ""confidence"": 20} 
+{""answer"": ""1882"", ""confidence"": 10} 
+{""answer"": ""1883"", ""confidence"": 5} 
+{""answer"": ""1884"", ""confidence"": 0} 
+{""answer"": ""1885"", ""confidence"": 0} 
+{""answer"": ""1886"", ""confidence"": 0} 
+{""answer"": ""1887"", ""confidence"": 0} 
+{""answer"": ""1888"", ""confidence"": 0} 
+{""answer"": ""1889"", ""confidence"": 0} 
+{""answer"": ""1890"", ""confidence"": 0} 
+{""answer"": ""189",1895,100.0
