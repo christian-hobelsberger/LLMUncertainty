@@ -33,25 +33,47 @@ class LLMWrapper:
         self.model.eval()
 
     def prompt(self, text: str, max_new_tokens: int = 300, temperature: float = 0.7) -> str:
-        inputs = self.tokenizer(text, return_tensors="pt").to(self.model.device)
-        with torch.no_grad():
-            output = self.model.generate(
-                **inputs,
-                max_new_tokens=max_new_tokens,
-                do_sample=True,
-                temperature=temperature,
-                pad_token_id=self.tokenizer.pad_token_id
-            )
-        decoded = self.tokenizer.decode(output[0], skip_special_tokens=True)
-        return decoded[len(text):].strip() if decoded.startswith(text) else decoded.strip()
+        try:
+            inputs = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=2048)
+            # Check for truncation
+            original_tokens = len(self.tokenizer.encode(text))
+            if original_tokens > 2048:
+                print(f"⚠️ Warning: Individual prompt truncated from {original_tokens} to 2048 tokens")
+            
+            inputs = inputs.to(self.model.device)
+            with torch.no_grad():
+                output = self.model.generate(
+                    **inputs,
+                    max_new_tokens=max_new_tokens,
+                    do_sample=True,
+                    temperature=temperature,
+                    pad_token_id=self.tokenizer.pad_token_id
+                )
+            # Extract only new tokens
+            input_length = inputs["input_ids"].shape[1]
+            generated_tokens = output[0, input_length:]
+            decoded = self.tokenizer.decode(generated_tokens, skip_special_tokens=True)
+            return decoded.strip()
+        except Exception as e:
+            print(f"⚠️ Error in individual prompt: {e}")
+            return "?"
 
     def batch_prompt(self, prompts: List[str], max_new_tokens: int = 300, temperature: float = 0.7, batch_size: int = 4) -> List[str]:
         outputs = []
         for i in range(0, len(prompts), batch_size):
             batch = prompts[i:i + batch_size]
             try:
-                inputs = self.tokenizer(batch, return_tensors="pt", padding=True, truncation=True)
+                # Set max_length to prevent silent truncation issues
+                max_length = 2048  # Adjust based on your model's context window
+                inputs = self.tokenizer(batch, return_tensors="pt", padding=True, truncation=True, max_length=max_length)
                 input_ids = inputs["input_ids"]
+                
+                # Check for truncation and warn
+                for j, prompt in enumerate(batch):
+                    original_tokens = self.tokenizer(prompt, return_tensors="pt")["input_ids"].shape[1]
+                    if original_tokens > max_length:
+                        print(f"⚠️ Warning: Prompt {i+j+1} was truncated from {original_tokens} to {max_length} tokens")
+                
                 inputs = {k: v.to(self.model.device) for k, v in inputs.items()}
                 with torch.no_grad():
                     generated = self.model.generate(
@@ -61,10 +83,20 @@ class LLMWrapper:
                         temperature=temperature,
                         pad_token_id=self.tokenizer.pad_token_id
                     )
-                decoded = self.tokenizer.batch_decode(generated, skip_special_tokens=True)
-                for prompt, out_text in zip(batch, decoded):
-                    cleaned = out_text[len(prompt):].strip() if out_text.startswith(prompt) else out_text.strip()
+                
+                # Extract only the new generated tokens
+                input_length = input_ids.shape[1]
+                generated_tokens = generated[:, input_length:]
+                decoded = self.tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
+                
+                # Validate outputs and fallback if needed
+                for j, (prompt, output) in enumerate(zip(batch, decoded)):
+                    cleaned = output.strip()
+                    if not cleaned or cleaned == "?" or len(cleaned) < 5:
+                        print(f"⚠️ Poor output detected for prompt {i+j+1}, retrying individually...")
+                        cleaned = self.prompt(prompt, max_new_tokens, temperature)
                     outputs.append(cleaned)
+                    
             except Exception as e:
                 print(f"⚠️ Batching failed: {e}. Falling back to sequential prompting.")
                 for prompt in tqdm(batch, desc="Fallback"):
@@ -92,6 +124,12 @@ def load_phi2():
 def clean_and_parse_json(output):
     try:
         output = output.strip()
+        
+        # Handle empty or single character outputs
+        if not output or len(output) <= 1:
+            return {"answer": None, "confidence": None}
+        
+        # Try to find JSON objects in the output
         matches = re.findall(r'\{.*?\}', output, re.DOTALL)
         for match in matches:
             try:
@@ -103,6 +141,17 @@ def clean_and_parse_json(output):
                         return {"answer": parsed["answer"], "confidence": None}
             except json.JSONDecodeError:
                 continue
+        
+        # If no valid JSON found, try to extract from common patterns
+        # Look for "True"/"False" patterns
+        true_pattern = r'\b(?:true|True|TRUE)\b'
+        false_pattern = r'\b(?:false|False|FALSE)\b'
+        
+        if re.search(true_pattern, output):
+            return {"answer": "True", "confidence": None}
+        elif re.search(false_pattern, output):
+            return {"answer": "False", "confidence": None}
+            
     except Exception:
         pass
     return {"answer": None, "confidence": None}
@@ -119,13 +168,31 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
 
     elif dataset_name == "boolq":
         return (
-        "You are a reading comprehension assistant. Given a passage and a yes/no question, respond only with one JSON object.\n\n"
+        "You are a reading comprehension assistant. Given a passage and a yes/no question, respond only with one JSON object containing the answer and the confidence of the answer.\n\n"
         "Format strictly:\n"
-        "{\"answer\": \"True\" or \"False\", \"confidence\": integer from 0 to 100}\n\n"
+        "{\"answer\": \"True\" OR \"False\", \"confidence\": integer from 0 to 100}\n\n"
         "No explanation. No extra text. Only JSON.\n\n"
         f"Passage: {row['passage']}\n"
         f"Question: {row['question']}"
         )
+    elif dataset_name == "trivia":
+        return (
+            "You are a fact-checking assistant. Answer the following trivia question concisely and provide your confidence as a number from 0 to 100.\n\n"
+            "Respond in the following JSON format:\n"
+            "{\"answer\": \"<string>\", \"confidence\": <integer from 0 to 100>}\n\n"
+            "No explanation. No prose. Only JSON.\n\n"
+            f"Question: {row['question']}"
+        )
+    elif dataset_name == "squad":
+        return (
+            "You are a question answering assistant. Use the context below to answer the question as accurately as possible.\n\n"
+            "Respond in the following format:\n"
+            "{\"answer\": \"<short answer from the context>\", \"confidence\": <integer from 0 to 100>}\n\n"
+            "Answer concisely. Only output JSON — no explanation or extra text.\n\n"
+            f"Context: {row['context']}\n"
+            f"Question: {row['question']}"
+        )
+
 
     # Default prompt style for squad, trivia
     role_init = (
@@ -189,6 +256,21 @@ def run_verbalized_confidence_experiment(
     else:
         df["model_output"] = [model_wrapper.prompt(p) for p in tqdm(prompts, desc=f"{dataset_name} (no batching)")]
 
+    # Check for failed outputs and retry if needed
+    failed_indices = []
+    for idx, output in enumerate(df["model_output"]):
+        if not output or output.strip() == "?" or len(output.strip()) < 3:
+            failed_indices.append(idx)
+    
+    if failed_indices:
+        print(f"⚠️ Found {len(failed_indices)} failed outputs, retrying individually...")
+        for idx in tqdm(failed_indices, desc="Retrying failed prompts"):
+            retry_output = model_wrapper.prompt(prompts[idx])
+            if retry_output and retry_output.strip() != "?" and len(retry_output.strip()) >= 3:
+                df.loc[idx, "model_output"] = retry_output
+            else:
+                print(f"⚠️ Prompt {idx} failed even after retry. Prompt length: {len(prompts[idx])}")
+
     parsed = df["model_output"].apply(clean_and_parse_json)
     df["parsed_answer"] = parsed.apply(lambda x: x.get("answer"))
     df["parsed_confidence"] = pd.to_numeric(parsed.apply(lambda x: x.get("confidence")), errors="coerce")
@@ -208,8 +290,8 @@ if __name__ == "__main__":
         # "phi2": load_phi2
     }
 
-    datasets = ["squad", "trivia", "gsm8k", "boolq"]
-    folder_name = "llm_confidence_elicitation/batch_50_llama_exp/"
+    datasets = ["trivia", "squad"] # ["squad", "trivia", "gsm8k", "boolq"]
+    folder_name = "llm_confidence_elicitation/boolq_1000_llama_v2/"
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
 
     for model_name, model_loader in models.items():
@@ -220,11 +302,11 @@ if __name__ == "__main__":
             print(f"🔍 Running {model_name} on {dataset}...")
             run_verbalized_confidence_experiment(
                 model_wrapper=model,
-                n_samples=75,
+                n_samples=1000,
                 dataset_name=dataset,
                 folder_name=folder_name,
-                output_ending=f"_{model_name}_batch_50_llama_exp",
-                batch_size=15
+                output_ending=f"_{model_name}_batch_1000_llama_trivia_squad",
+                batch_size=4
             )
 
         del model
