@@ -205,7 +205,7 @@ def main():
                 sample_size_per_question=sample_size_per_question,
                 separate_prompting=separate_prompting,
                 output_path=output_file,
-                n_samples=5
+                n_samples=500
             )
 
         del model
