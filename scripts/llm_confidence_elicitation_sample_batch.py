@@ -183,7 +183,7 @@ def main():
         # "phi2": ("microsoft/phi-2", True),
     }
 
-    datasets = ["boolq"] # ["trivia", "squad", "gsm8k", "boolq"]
+    datasets = ["trivia", "squad"] # ["trivia", "squad", "gsm8k", "boolq"]
     sample_size_per_question = 5
     separate_prompting = False
     base_output_dir = "output/verbalized_confidence_multi_model_full_results"
