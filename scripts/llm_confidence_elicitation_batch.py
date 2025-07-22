@@ -315,8 +315,8 @@ if __name__ == "__main__":
         # "phi2": load_phi2
     }
 
-    datasets = ["gsm8k"] # ["squad", "trivia", "gsm8k", "boolq"]
-    folder_name = "llm_confidence_elicitation/batch_1000_llama_v2/"
+    datasets = ["squad", "trivia", "boolq"] # ["squad", "trivia", "gsm8k", "boolq"]
+    folder_name = "llm_confidence_elicitation/batch_1000_llama_vanilla/"
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
 
     for model_name, model_loader in models.items():
@@ -330,7 +330,7 @@ if __name__ == "__main__":
                 n_samples=1000,
                 dataset_name=dataset,
                 folder_name=folder_name,
-                output_ending=f"_{model_name}_batch_1000_llama",
+                output_ending=f"_{model_name}_batch_1000_llama_vanilla",
                 batch_size=4,
                 use_vanilla_prompt=True
             )
