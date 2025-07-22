@@ -331,7 +331,8 @@ if __name__ == "__main__":
                 dataset_name=dataset,
                 folder_name=folder_name,
                 output_ending=f"_{model_name}_batch_1000_llama",
-                batch_size=4
+                batch_size=4,
+                use_vanilla_prompt=True
             )
 
         del model
