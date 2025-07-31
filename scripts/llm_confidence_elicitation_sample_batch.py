@@ -67,90 +67,30 @@ class LLMWrapper:
 # ─────────────────────────────────────────────────────────────────────────────
 #                                Prompt Builder
 # ─────────────────────────────────────────────────────────────────────────────
-def build_prompt(row, include_context: bool, dataset_name: str = "", use_vanilla_prompt: bool = False) -> str:
-    """
-    Builds a dataset-specific prompt. Supports two styles:
-    - JSON style (default, your original prompts)
-    - Vanilla style (from screenshot) if use_vanilla_prompt=True
-    """
-    dataset_name = dataset_name.lower()
-
-    # --- VANILLA PROMPT STYLE (Screenshot) ---
-    if use_vanilla_prompt:
-        if dataset_name == "gsm8k":  # Open-number (math)
-            return (
-                "Read the question, provide your answer and your confidence in this answer.\n"
-                "The confidence indicates how likely you think your answer is true.\n\n"
-                "Use the following format to answer:\n"
-                "Answer and Confidence (0-100): [ONLY the number; not a complete sentence], [confidence]%\n\n"
-                f"Question: {row['question']}\n"
-                "Now, please answer this question and provide your confidence level."
-            )
-        elif dataset_name == "boolq":  # Multi-choice (True/False)
-            return (
-                "Read the passage and question, provide your answer (True or False) and your confidence.\n"
-                "The confidence indicates how likely you think your answer is true.\n\n"
-                "Use the following format to answer:\n"
-                "Answer and Confidence (0-100): [ONLY True or False], [confidence]%\n\n"
-                f"Passage: {row['passage']}\n"
-                f"Question: {row['question']}\n"
-                "Now, please answer this question and provide your confidence level."
-            )
-        elif dataset_name == "trivia":  # Multi-choice/short fact
-            return (
-                "Read the question, provide your factual answer and your confidence.\n"
-                "The confidence indicates how likely you think your answer is true.\n\n"
-                "Use the following format to answer:\n"
-                "Answer and Confidence (0-100): [ONLY the short answer; not a sentence], [confidence]%\n\n"
-                f"Question: {row['question']}\n"
-                "Now, please answer this question and provide your confidence level."
-            )
-        elif dataset_name == "squad":  # Context-based open answer
-            return (
-                "Read the context and question, provide your concise answer and your confidence.\n"
-                "The confidence indicates how likely you think your answer is true.\n\n"
-                "Use the following format to answer:\n"
-                "Answer and Confidence (0-100): [ONLY the short answer from the context], [confidence]%\n\n"
-                f"Context: {row['context']}\n"
-                f"Question: {row['question']}\n"
-                "Now, please answer this question and provide your confidence level."
-            )
-        else:
-            raise ValueError(f"Vanilla prompt not defined for dataset: {dataset_name}")
-
-    # --- ORIGINAL JSON PROMPT STYLE (Default) ---
+def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
     if dataset_name == "gsm8k":
         return (
             "You are a math tutor. Solve the following problem carefully and provide a numerical answer.\n\n"
-            "Respond in the following format:\n"
             "{\"answer\": \"<string>\", \"confidence\": <integer from 0 to 100>}\n"
-            f"Question: {row['question']}\n\n"
+            f"Question: {row['question']}"
         )
     elif dataset_name == "boolq":
         return (
-            "You are a reading comprehension assistant. Given a passage and a yes/no question, respond only with one JSON object containing the answer and the confidence.\n\n"
-            "Format strictly:\n"
-            "{\"answer\": \"True\" OR \"False\", \"confidence\": integer from 0 to 100}\n\n"
-            "No explanation. No extra text. Only JSON.\n\n"
-            f"Passage: {row['passage']}\n"
-            f"Question: {row['question']}"
+            "You are a reading comprehension assistant. Given a passage and a yes/no question, respond with one JSON object.\n\n"
+            "{\"answer\": \"True\" or \"False\", \"confidence\": integer from 0 to 100}\n"
+            f"Passage: {row['passage']}\nQuestion: {row['question']}"
         )
     elif dataset_name == "trivia":
         return (
-            "You are a fact-checking assistant. Answer the following trivia question concisely and provide your confidence as a number from 0 to 100.\n\n"
-            "Respond in the following JSON format:\n"
-            "{\"answer\": \"<string>\", \"confidence\": <integer from 0 to 100>}\n\n"
-            "No explanation. No prose. Only JSON.\n\n"
+            "You are a fact-checking assistant. Answer the following trivia question and provide a confidence score (0–100).\n\n"
+            "{\"answer\": \"<string>\", \"confidence\": <integer from 0 to 100>}\n"
             f"Question: {row['question']}"
         )
     elif dataset_name == "squad":
         return (
-            "You are a question answering assistant. Use the context below to answer the question as accurately as possible.\n\n"
-            "Respond in the following format:\n"
-            "{\"answer\": \"<short answer from the context>\", \"confidence\": <integer from 0 to 100>}\n\n"
-            "Answer concisely. Only output JSON — no explanation or extra text.\n\n"
-            f"Context: {row['context']}\n"
-            f"Question: {row['question']}"
+            "You are a QA assistant. Use the context to answer the question with a short span.\n\n"
+            "{\"answer\": \"<short answer>\", \"confidence\": <integer from 0 to 100>}\n"
+            f"Context: {row['context']}\nQuestion: {row['question']}"
         )
     else:
         raise ValueError(f"Unsupported dataset: {dataset_name}")
@@ -184,8 +124,7 @@ def run_verbalized_confidence_experiment(
     sample_size_per_question: int,
     separate_prompting: bool,
     output_path: str,
-    n_samples: int = 100,
-    use_vanilla_prompt: bool = True
+    n_samples: int = 100
 ):
     dataset_name = dataset_name.lower()
     if dataset_name == "squad":
@@ -204,7 +143,7 @@ def run_verbalized_confidence_experiment(
         raise ValueError("Unsupported dataset.")
 
     df = df.sample(n=n_samples, random_state=42).reset_index(drop=True)
-    df["prompt"] = df.apply(lambda row: build_prompt(row, include_context, dataset_name, use_vanilla_prompt), axis=1)
+    df["prompt"] = df.apply(lambda row: build_prompt(row, include_context, dataset_name), axis=1)
 
     outputs_per_question = model_wrapper.generate_samples(
         prompts=df["prompt"].tolist(),
@@ -266,8 +205,7 @@ def main():
                 sample_size_per_question=sample_size_per_question,
                 separate_prompting=separate_prompting,
                 output_path=output_file,
-                n_samples=500,
-                use_vanilla_prompt=True
+                n_samples=500
             )
 
         del model

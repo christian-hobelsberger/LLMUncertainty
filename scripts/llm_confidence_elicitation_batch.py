@@ -127,7 +127,7 @@ def clean_and_parse_json(output):
         
         # Handle empty or single character outputs
         if not output or len(output) <= 1:
-            return {"answer": None, "confidence": None}
+            return {"answer": None, "confidence": None, "needs_reprompt": True}
         
         # Try to find JSON objects in the output
         matches = re.findall(r'\{.*?\}', output, re.DOTALL)
@@ -136,9 +136,9 @@ def clean_and_parse_json(output):
                 parsed = json.loads(match)
                 if isinstance(parsed, dict):
                     if "answer" in parsed and "confidence" in parsed:
-                        return parsed
+                        return {"answer": parsed["answer"], "confidence": parsed["confidence"], "needs_reprompt": False}
                     elif "answer" in parsed:
-                        return {"answer": parsed["answer"], "confidence": None}
+                        return {"answer": parsed["answer"], "confidence": None, "needs_reprompt": False}
             except json.JSONDecodeError:
                 continue
         
@@ -148,82 +148,52 @@ def clean_and_parse_json(output):
         false_pattern = r'\b(?:false|False|FALSE)\b'
         
         if re.search(true_pattern, output):
-            return {"answer": "True", "confidence": None}
+            return {"answer": "True", "confidence": None, "needs_reprompt": True}
         elif re.search(false_pattern, output):
-            return {"answer": "False", "confidence": None}
+            return {"answer": "False", "confidence": None, "needs_reprompt": True}
             
     except Exception:
         pass
-    return {"answer": None, "confidence": None}
+    return {"answer": None, "confidence": None, "needs_reprompt": True}
 
 
-def build_prompt(row, include_context: bool, dataset_name: str = "", use_vanilla_prompt: bool = False) -> str:
-    """
-    Builds a dataset-specific prompt. Supports two styles:
-    - JSON style (default, your original prompts)
-    - Vanilla style (from screenshot) if use_vanilla_prompt=True
-    """
-    dataset_name = dataset_name.lower()
+def build_reprompt_for_json(original_output: str, dataset_name: str = "") -> str:
+    """Build a prompt to convert non-JSON output to proper JSON format"""
+    base_prompt = (
+        "The following text contains an answer but is not in the required JSON format. "
+        "Please convert it to the exact JSON format requested:\n\n"
+        f"Original response: {original_output}\n\n"
+        "Convert this to JSON format with exactly these fields:\n"
+        "{\"answer\": \"<the answer from above>\", \"confidence\": <integer from 0 to 100>}\n\n"
+    )
+    
+    if dataset_name == "boolq":
+        base_prompt += "For the answer field, use only \"True\" or \"False\".\n"
+    elif dataset_name == "gsm8k":
+        base_prompt += "For the answer field, provide only the numerical answer.\n"
+    
+    base_prompt += "Respond ONLY with the JSON object, no other text:"
+    
+    return base_prompt
 
-    # --- VANILLA PROMPT STYLE (Screenshot) ---
-    if use_vanilla_prompt:
-        if dataset_name == "gsm8k":  # Open-number (math)
-            return (
-                "Read the question, provide your answer and your confidence in this answer.\n"
-                "The confidence indicates how likely you think your answer is true.\n\n"
-                "Use the following format to answer:\n"
-                "Answer and Confidence (0-100): [ONLY the number; not a complete sentence], [confidence]%\n\n"
-                f"Question: {row['question']}\n"
-                "Now, please answer this question and provide your confidence level."
-            )
-        elif dataset_name == "boolq":  # Multi-choice (True/False)
-            return (
-                "Read the passage and question, provide your answer (True or False) and your confidence.\n"
-                "The confidence indicates how likely you think your answer is true.\n\n"
-                "Use the following format to answer:\n"
-                "Answer and Confidence (0-100): [ONLY True or False], [confidence]%\n\n"
-                f"Passage: {row['passage']}\n"
-                f"Question: {row['question']}\n"
-                "Now, please answer this question and provide your confidence level."
-            )
-        elif dataset_name == "trivia":  # Multi-choice/short fact
-            return (
-                "Read the question, provide your factual answer and your confidence.\n"
-                "The confidence indicates how likely you think your answer is true.\n\n"
-                "Use the following format to answer:\n"
-                "Answer and Confidence (0-100): [ONLY the short answer; not a sentence], [confidence]%\n\n"
-                f"Question: {row['question']}\n"
-                "Now, please answer this question and provide your confidence level."
-            )
-        elif dataset_name == "squad":  # Context-based open answer
-            return (
-                "Read the context and question, provide your concise answer and your confidence.\n"
-                "The confidence indicates how likely you think your answer is true.\n\n"
-                "Use the following format to answer:\n"
-                "Answer and Confidence (0-100): [ONLY the short answer from the context], [confidence]%\n\n"
-                f"Context: {row['context']}\n"
-                f"Question: {row['question']}\n"
-                "Now, please answer this question and provide your confidence level."
-            )
-        else:
-            raise ValueError(f"Vanilla prompt not defined for dataset: {dataset_name}")
 
-    # --- ORIGINAL JSON PROMPT STYLE (Default) ---
+def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
     if dataset_name == "gsm8k":
         return (
             "You are a math tutor. Solve the following problem carefully and provide a numerical answer.\n\n"
             "Respond in the following format:\n"
-            "{\"answer\": \"<string>\", \"confidence\": <integer from 0 to 100>}\n"
+            "{\"answer\": \"<string>,\" \"confidence\": <integer from 0 to 100>}\n"
             f"Question: {row['question']}\n\n"
         )
+
     elif dataset_name == "boolq":
         return (
-            "You are a reading comprehension assistant. Given a passage and a yes/no question, respond only with one JSON object containing the answer and the confidence.\n\n"
-            "Format strictly:\n"
-            "{\"answer\": \"True\" OR \"False\", \"confidence\": integer from 0 to 100}\n\n"
-            "No explanation. No extra text. Only JSON.\n\n"
-            f"Passage: {row['passage']}\n"
-            f"Question: {row['question']}"
+        "You are a reading comprehension assistant. Given a passage and a yes/no question, respond only with one JSON object containing the answer and the confidence of the answer.\n\n"
+        "Format strictly:\n"
+        "{\"answer\": \"True\" OR \"False\", \"confidence\": integer from 0 to 100}\n\n"
+        "No explanation. No extra text. Only JSON.\n\n"
+        f"Passage: {row['passage']}\n"
+        f"Question: {row['question']}"
         )
     elif dataset_name == "trivia":
         return (
@@ -244,11 +214,36 @@ def build_prompt(row, include_context: bool, dataset_name: str = "", use_vanilla
         )
 
 
+    # Default prompt style for squad, trivia
+    role_init = (
+        "You are an expert QA assistant. Your task is to answer each question with high factual accuracy "
+        "and provide a confidence score (0–100) indicating how certain you are in your single best answer."
+    )
+    expectation = (
+        "Respond in a single-line JSON object with exactly two fields:\n"
+        "{\"answer\": <string>, \"confidence\": <integer from 0 to 100>}.\n"
+        "Only provide one answer. Do not list alternatives."
+    )
+    final_instruction = "Now answer the following:\n"
+
+    if include_context:
+        context = row["context"] if dataset_name == "squad" else row["passage"]
+        return (
+            f"{role_init}\n\n{expectation}\n\n{final_instruction}"
+            f"Context: {context}\n"
+            f"Question: {row['question']}"
+        )
+    else:
+        return (
+            f"{role_init}\n\n{expectation}\n\n{final_instruction}"
+            f"Question: {row['question']}"
+        )
+
+
 def run_verbalized_confidence_experiment(
     model_wrapper,
     n_samples: int,
     dataset_name: str,
-    use_vanilla_prompt: bool,
     folder_name: str,
     output_ending: str,
     batch_size: int = 4
@@ -271,7 +266,7 @@ def run_verbalized_confidence_experiment(
         raise ValueError("dataset_name must be one of: 'squad', 'trivia', 'gsm8k', 'boolq'")
 
     df = df.sample(n=n_samples, random_state=42).reset_index(drop=True)
-    df["prompt"] = df.apply(lambda row: build_prompt(row, include_context, dataset_name, use_vanilla_prompt), axis=1)
+    df["prompt"] = df.apply(lambda row: build_prompt(row, include_context, dataset_name), axis=1)
 
     print("🧠 Generating responses...")
     prompts = df["prompt"].tolist()
@@ -296,9 +291,45 @@ def run_verbalized_confidence_experiment(
             else:
                 print(f"⚠️ Prompt {idx} failed even after retry. Prompt length: {len(prompts[idx])}")
 
+    # Parse JSON and identify responses that need reprompting
     parsed = df["model_output"].apply(clean_and_parse_json)
     df["parsed_answer"] = parsed.apply(lambda x: x.get("answer"))
     df["parsed_confidence"] = pd.to_numeric(parsed.apply(lambda x: x.get("confidence")), errors="coerce")
+    
+    # Find indices that need reprompting for JSON formatting
+    reprompt_indices = []
+    for idx, result in enumerate(parsed):
+        if result.get("needs_reprompt", False) and df.loc[idx, "model_output"] and df.loc[idx, "model_output"].strip():
+            reprompt_indices.append(idx)
+    
+    if reprompt_indices:
+        print(f"🔄 Found {len(reprompt_indices)} responses that need JSON reprompting...")
+        for idx in tqdm(reprompt_indices, desc="Reprompting for JSON format"):
+            original_output = df.loc[idx, "model_output"]
+            reprompt = build_reprompt_for_json(original_output, dataset_name)
+            
+            # Try reprompting for proper JSON format
+            json_output = model_wrapper.prompt(reprompt, max_new_tokens=150, temperature=0.3)
+            
+            # Parse the reprompted output
+            if json_output and json_output.strip():
+                reparsed = clean_and_parse_json(json_output)
+                if not reparsed.get("needs_reprompt", True):  # Successfully parsed
+                    df.loc[idx, "model_output"] = json_output
+                    df.loc[idx, "parsed_answer"] = reparsed.get("answer")
+                    df.loc[idx, "parsed_confidence"] = reparsed.get("confidence")
+                    continue
+            
+            # If reprompting failed, try to extract basic answer from original
+            original_parsed = clean_and_parse_json(original_output)
+            if original_parsed.get("answer") is not None:
+                df.loc[idx, "parsed_answer"] = original_parsed.get("answer")
+                # Set a default confidence if we found an answer but no confidence
+                if df.loc[idx, "parsed_confidence"] is None or pd.isna(df.loc[idx, "parsed_confidence"]):
+                    df.loc[idx, "parsed_confidence"] = 50  # Default moderate confidence
+                print(f"⚠️ Used fallback parsing for prompt {idx}")
+            else:
+                print(f"⚠️ Could not extract answer from prompt {idx} even after reprompting")
 
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
     output_file = f"output/{folder_name}{dataset_name}_verbalized_confidence{output_ending}.csv"
@@ -316,7 +347,7 @@ if __name__ == "__main__":
     }
 
     datasets = ["squad", "trivia", "boolq"] # ["squad", "trivia", "gsm8k", "boolq"]
-    folder_name = "llm_confidence_elicitation/batch_1000_llama_vanilla/"
+    folder_name = "llm_confidence_elicitation/batch_1000_llama_v3_parsed/"
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
 
     for model_name, model_loader in models.items():
@@ -330,9 +361,8 @@ if __name__ == "__main__":
                 n_samples=1000,
                 dataset_name=dataset,
                 folder_name=folder_name,
-                output_ending=f"_{model_name}_batch_1000_llama_vanilla",
-                batch_size=4,
-                use_vanilla_prompt=True
+                output_ending=f"_{model_name}_batch_1000_llama_parsed",
+                batch_size=4
             )
 
         del model
