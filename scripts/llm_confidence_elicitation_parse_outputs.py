@@ -393,7 +393,7 @@ if __name__ == "__main__":
     # Hard-coded file paths - modify these to match your specific files
     files_to_process = [
         {
-            "input_file": "output/verbalized_confidence_multi_model_full_results/trivia_llama_k5_topk.csv",
+            "input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/trivia_llama_k5_sep.csv",
             "output_file": None,  # Will auto-generate name with "_parsed" suffix
             "model_output_column": "model_output",
             "question_column": "question",
@@ -401,7 +401,7 @@ if __name__ == "__main__":
             "use_llm_parsing": True
         },
         {
-            "input_file": "output/verbalized_confidence_multi_model_full_results/squad_llama_k5_topk.csv",
+            "input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/squad_llama_k5_sep.csv",
             "output_file": None,  # Will auto-generate name with "_parsed" suffix
             "model_output_column": "model_output",
             "question_column": "question",
