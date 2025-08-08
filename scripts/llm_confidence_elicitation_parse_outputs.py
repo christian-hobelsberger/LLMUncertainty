@@ -393,30 +393,6 @@ if __name__ == "__main__":
     # Hard-coded file paths - modify these to match your specific files
     files_to_process = [
         {
-            "input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_sep.csv",
-            "output_file": None,  # Will auto-generate name with "_parsed" suffix
-            "model_output_column": "model_output",
-            "question_column": "question",
-            "context_column": None,
-            "use_llm_parsing": True
-        },
-        {
-            "input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_sep.csv",
-            "output_file": None,  # Will auto-generate name with "_parsed" suffix
-            "model_output_column": "model_output",
-            "question_column": "question",
-            "context_column": "passage",  # BoolQ has passage context
-            "use_llm_parsing": True
-        },
-        {
-            "input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_topk.csv",
-            "output_file": None,  # Will auto-generate name with "_parsed" suffix
-            "model_output_column": "model_output",
-            "question_column": "question",
-            "context_column": None,
-            "use_llm_parsing": True
-        },
-        {
             "input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_topk.csv",
             "output_file": None,  # Will auto-generate name with "_parsed" suffix
             "model_output_column": "model_output",
