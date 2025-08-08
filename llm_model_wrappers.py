@@ -34,7 +34,7 @@ class LLMWrapper:
 
 # Predefined model wrappers
 def load_llama():
-    return LLMWrapper("meta-llama/Llama-3.2-1B-Instruct")
+    return LLMWrapper("meta-llama/Llama-3.2-3B-Instruct")
 
 def load_qwen():
     return LLMWrapper("Qwen/Qwen3-8B", trust_remote_code=True)

@@ -178,15 +178,15 @@ def run_verbalized_confidence_experiment(
 # ─────────────────────────────────────────────────────────────────────────────
 def main():
     models = {
-        "llama": ("meta-llama/Llama-3.2-1B-Instruct", True),
+        "llama": ("meta-llama/Llama-3.2-3B-Instruct", True),
         # "qwen": ("Qwen/Qwen3-8B", True),
         # "phi2": ("microsoft/phi-2", True),
     }
 
-    datasets = ["trivia", "squad", "boolq", "gsm8k"] # ["trivia", "squad", "gsm8k", "boolq"]
+    datasets = ["trivia", "squad", "boolq"] # ["trivia", "squad", "gsm8k", "boolq"]
     sample_size_per_question = 5
-    separate_prompting = True
-    base_output_dir = "output/verbalized_confidence_multi_model_full_results/seperate_prompting/"
+    separate_prompting = False
+    base_output_dir = "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/"
 
     for model_name, (model_id, trust_remote_code) in models.items():
         print(f"\n🚀 Loading model: {model_name}")
@@ -194,9 +194,11 @@ def main():
 
         for dataset in datasets:
             print(f"🔍 Running {model_name} on {dataset}...")
+            # Sanitize model ID to be file-safe
+            safe_model_id = model.model_id.replace("/", "_").replace(" ", "_")
             output_file = os.path.join(
-                base_output_dir,
-                f"{dataset}_{model_name}_k{sample_size_per_question}_{'sep' if separate_prompting else 'topk'}.csv"
+            base_output_dir,
+            f"{dataset}_{safe_model_id}_k{sample_size_per_question}_{'sep' if separate_prompting else 'topk'}.csv"
             )
 
             run_verbalized_confidence_experiment(

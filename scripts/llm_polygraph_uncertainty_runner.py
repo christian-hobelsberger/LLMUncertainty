@@ -31,7 +31,7 @@ class LLMWrapper:
 # ----------- MODEL LOADERS -------------
 
 def load_llama():
-    return LLMWrapper("meta-llama/Llama-3.2-1B-Instruct")
+    return LLMWrapper("meta-llama/Llama-3.2-3B-Instruct")
 
 def load_qwen():
     return LLMWrapper("Qwen/Qwen3-8B", trust_remote_code=True)
@@ -67,7 +67,7 @@ def build_input_text(row, dataset_name: str) -> str:
     if dataset_name == "squad":
         return f"Context: {row['context']}\nQuestion: {row['question']}"
     elif dataset_name == "boolq":
-        return f"Passage: {row['passage']}\nQuestion: {row['question']}"
+        return f"You are a reading comprehension assistant. Given a passage and a yes/no question, respond with a single word: either 'yes' or 'no' — but not both.\nPassage: {row['passage']}\nQuestion: {row['question']}"
     elif dataset_name == "trivia":
         return f"Question: {row['question']}"
     elif dataset_name == "gsm8k":
@@ -114,6 +114,7 @@ def run_polygraph_inference(
         model_answers.append(output.generation_text.strip() if output.generation_text else "")
         uncertainties.append(output.uncertainty)
 
+    df["model_output"] = output
     df["model_answer"] = model_answers
     df["uncertainty_score"] = uncertainties
 

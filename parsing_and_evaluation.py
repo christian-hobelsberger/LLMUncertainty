@@ -37,7 +37,7 @@ def universal_answer_confidence_parser(output: str) -> Dict[str, Any]:
         try:
             parsed = json.loads(json_match)
             if isinstance(parsed, dict) and "answer" in parsed:
-                answer = parsed.get("answer", "").strip()
+                answer = str(parsed.get("answer", "")).strip()
                 confidence = _extract_confidence_value(parsed.get("confidence"))
                 if answer:  # Only return if we have a non-empty answer
                     return {"answer": answer, "confidence": confidence}
@@ -413,6 +413,10 @@ def parse_squad_output(output: str) -> dict:
     Parses SQuAD model output using universal parser, then normalizes for text answers.
     Returns dict with keys 'answer' and 'confidence'.
     """
+    # Force everything into a string
+    if not isinstance(output, str):
+        output = str(output)
+
     parsed = universal_answer_confidence_parser(output)
     answer = normalize_text_answer(parsed.get("answer")) if parsed.get("answer") else None
     return {"answer": answer, "confidence": parsed.get("confidence")}

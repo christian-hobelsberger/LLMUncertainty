@@ -106,7 +106,7 @@ class LLMWrapper:
 
 # Model Loaders
 def load_llama():
-    return LLMWrapper("meta-llama/Llama-3.2-1B-Instruct")
+    return LLMWrapper("meta-llama/Llama-3.2-3B-Instruct")
 
 def load_qwen():
     return LLMWrapper("Qwen/Qwen3-8B", trust_remote_code=True)
@@ -331,8 +331,10 @@ def run_verbalized_confidence_experiment(
             else:
                 print(f"⚠️ Could not extract answer from prompt {idx} even after reprompting")
 
+    # Sanitize model ID for use in filename
+    safe_model_id = model_wrapper.model_id.replace("/", "_").replace(" ", "_")
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
-    output_file = f"output/{folder_name}{dataset_name}_verbalized_confidence{output_ending}.csv"
+    output_file = f"output/{folder_name}{dataset_name}_verbalized_confidence_{safe_model_id}{output_ending}.csv"
     df.to_csv(output_file, index=False)
     print(f"✅ Saved to {output_file}")
 
@@ -346,8 +348,8 @@ if __name__ == "__main__":
         # "phi2": load_phi2
     }
 
-    datasets = ["squad", "trivia", "boolq"] # ["squad", "trivia", "gsm8k", "boolq"]
-    folder_name = "llm_confidence_elicitation/batch_1000_llama_v3_parsed/"
+    datasets = ["boolq", "squad", "trivia"] # ["squad", "trivia", "gsm8k", "boolq"]
+    folder_name = "llm_confidence_elicitation/batch_1000_llama_3B/"
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
 
     for model_name, model_loader in models.items():
@@ -361,7 +363,7 @@ if __name__ == "__main__":
                 n_samples=1000,
                 dataset_name=dataset,
                 folder_name=folder_name,
-                output_ending=f"_{model_name}_batch_1000_llama_parsed",
+                output_ending=f"_{model_name}_batch_3B_1000",
                 batch_size=4
             )
 
