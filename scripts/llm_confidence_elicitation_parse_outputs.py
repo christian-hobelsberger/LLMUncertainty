@@ -392,14 +392,33 @@ if __name__ == "__main__":
     
     # Hard-coded file paths - modify these to match your specific files
     files_to_process = [
-        {
-            "input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_topk.csv",
-            "output_file": None,  # Will auto-generate name with "_parsed" suffix
-            "model_output_column": "model_output",
-            "question_column": "question",
-            "context_column": "passage",  # BoolQ has passage context
-            "use_llm_parsing": True
-        }
+        # squad
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.1_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.3_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.5_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.7_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.9_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T1.1_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        
+        
+        # trivia
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.1_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.3_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.5_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.7_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.9_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T1.1_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        
+        
+
+        #{
+        #    "input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_topk.csv",
+        #    "output_file": None,  # Will auto-generate name with "_parsed" suffix
+        #    "model_output_column": "model_output",
+        #    "question_column": "question",
+        #    "context_column": "passage",  # BoolQ has passage context
+        #    "use_llm_parsing": True
+        #}
         # Add more files here as needed:
         # {
         #     "input_file": "path/to/your/file.csv",
@@ -410,6 +429,41 @@ if __name__ == "__main__":
         #     "use_llm_parsing": True  # Set to True if you want LLM-based parsing for difficult cases
         # }
     ]
+
+    '''
+    
+        # SQuAD - topk
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.1.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.3.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.5.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.7.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.9.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T1.1.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        
+        # SQuAD - sep
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.1.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.3.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.5.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.7.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.9.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/squad_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T1.1.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+
+        # Trivia - sep
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.1.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.3.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.5.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.7.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T0.9.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_sep_T1.1.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+
+        # Trivia - topk
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.1.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.3.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.5.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.7.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T0.9.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True},
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/trivia_meta-llama_Llama-3.2-3B-Instruct_k5_topk_T1.1.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": None, "use_llm_parsing": True}
+    '''
     
     # Process each file 
     for i, file_config in enumerate(files_to_process, 1):
