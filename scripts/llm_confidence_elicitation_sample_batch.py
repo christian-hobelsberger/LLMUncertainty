@@ -124,7 +124,8 @@ def run_verbalized_confidence_experiment(
     sample_size_per_question: int,
     separate_prompting: bool,
     output_path: str,
-    n_samples: int = 100
+    n_samples: int = 100,
+    temperature: float = 0.7
 ):
     dataset_name = dataset_name.lower()
     if dataset_name == "squad":
@@ -148,7 +149,8 @@ def run_verbalized_confidence_experiment(
     outputs_per_question = model_wrapper.generate_samples(
         prompts=df["prompt"].tolist(),
         n=sample_size_per_question,
-        separate=separate_prompting
+        separate=separate_prompting,
+        temperature=temperature
     )
 
     all_records = []
@@ -157,12 +159,15 @@ def run_verbalized_confidence_experiment(
         for j, out in enumerate(prompt_outputs):
             parsed = clean_and_parse_json(out)
             row_with_sample = {
-                **original_row,  # Includes all original columns
+                **original_row,  # original dataset row
                 "question_id": i,
                 "sample_id": j,
                 "model_output": out,
                 "parsed_answer": parsed.get("answer"),
-                "parsed_confidence": parsed.get("confidence")
+                "parsed_confidence": parsed.get("confidence"),
+                "temperature": temperature,       # NEW: track temp
+                "model_id": model_wrapper.model_id,
+                "dataset": dataset_name
             }
             all_records.append(row_with_sample)
 
@@ -170,6 +175,7 @@ def run_verbalized_confidence_experiment(
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     result_df.to_csv(output_path, index=False)
     print(f"✅ Saved results to {output_path}")
+
 
 
 
@@ -183,38 +189,41 @@ def main():
         # "phi2": ("microsoft/phi-2", True),
     }
 
-    datasets = ["trivia", "squad", "boolq"] # ["trivia", "squad", "gsm8k", "boolq"]
+    datasets = ["boolq", "squad", "trivia"]
     sample_size_per_question = 5
-    separate_prompting = False
-    base_output_dir = "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/"
+    separate_prompting = True
+    base_output_dir = "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/"
+    temperatures = [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]  # SWEEP LIST
 
     for model_name, (model_id, trust_remote_code) in models.items():
         print(f"\n🚀 Loading model: {model_name}")
         model = LLMWrapper(model_id=model_id, trust_remote_code=trust_remote_code)
 
-        for dataset in datasets:
-            print(f"🔍 Running {model_name} on {dataset}...")
-            # Sanitize model ID to be file-safe
-            safe_model_id = model.model_id.replace("/", "_").replace(" ", "_")
-            output_file = os.path.join(
-            base_output_dir,
-            f"{dataset}_{safe_model_id}_k{sample_size_per_question}_{'sep' if separate_prompting else 'topk'}.csv"
-            )
+        for T in temperatures:
+            for dataset in datasets:
+                print(f"🔍 Running {model_name} on {dataset} at T={T} ...")
+                safe_model_id = model.model_id.replace("/", "_").replace(" ", "_")
+                output_file = os.path.join(
+                    base_output_dir,
+                    f"{dataset}_{safe_model_id}_k{sample_size_per_question}_{'sep' if separate_prompting else 'topk'}_T{T}.csv"
+                )
 
-            run_verbalized_confidence_experiment(
-                model_wrapper=model,
-                dataset_name=dataset,
-                sample_size_per_question=sample_size_per_question,
-                separate_prompting=separate_prompting,
-                output_path=output_file,
-                n_samples=500
-            )
+                run_verbalized_confidence_experiment(
+                    model_wrapper=model,
+                    dataset_name=dataset,
+                    sample_size_per_question=sample_size_per_question,
+                    separate_prompting=separate_prompting,
+                    output_path=output_file,
+                    n_samples=125,
+                    temperature=T
+                )
 
         del model
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
             torch.cuda.ipc_collect()
+
 
 
 if __name__ == "__main__":

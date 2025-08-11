@@ -240,7 +240,8 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
         )
 
 
-def run_verbalized_confidence_experiment(
+# Previous function definition for run_verbalized_confidence_experiment
+""" def run_verbalized_confidence_experiment(
     model_wrapper,
     n_samples: int,
     dataset_name: str,
@@ -336,10 +337,125 @@ def run_verbalized_confidence_experiment(
     Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
     output_file = f"output/{folder_name}{dataset_name}_verbalized_confidence_{safe_model_id}{output_ending}.csv"
     df.to_csv(output_file, index=False)
+    print(f"✅ Saved to {output_file}") """
+
+
+
+def run_verbalized_confidence_experiment(
+    model_wrapper,
+    n_samples: int,
+    dataset_name: str,
+    folder_name: str,
+    output_ending: str,
+    batch_size: int = 4,
+    temperature: float = 0.7
+):
+    dataset_name = dataset_name.lower()
+
+    if dataset_name == "squad":
+        df = pd.read_csv("data/SQuAD2_merged.csv")
+        include_context = True
+    elif dataset_name == "trivia":
+        df = pd.read_csv("data/trivia_all.csv")
+        include_context = False
+    elif dataset_name == "gsm8k":
+        df = pd.read_csv("data/gsm8k_cleaned.csv")
+        include_context = False
+    elif dataset_name == "boolq":
+        df = pd.read_csv("data/boolQ.csv")
+        include_context = True
+    else:
+        raise ValueError("dataset_name must be one of: 'squad', 'trivia', 'gsm8k', 'boolq'")
+
+    df = df.sample(n=n_samples, random_state=42).reset_index(drop=True)
+    df["prompt"] = df.apply(lambda row: build_prompt(row, include_context, dataset_name), axis=1)
+
+    print(f"🧠 Generating responses at T={temperature} ...")
+    prompts = df["prompt"].tolist()
+
+    if getattr(model_wrapper, "is_batchable", True):
+        df["model_output"] = model_wrapper.batch_prompt(
+            prompts, batch_size=batch_size, temperature=temperature
+        )
+    else:
+        df["model_output"] = [
+            model_wrapper.prompt(p, temperature=temperature)
+            for p in tqdm(prompts, desc=f"{dataset_name} (no batching)")
+        ]
+
+    # Check for failed outputs and retry if needed
+    failed_indices = []
+    for idx, output in enumerate(df["model_output"]):
+        if not output or output.strip() == "?" or len(output.strip()) < 3:
+            failed_indices.append(idx)
+    
+    if failed_indices:
+        print(f"⚠️ Found {len(failed_indices)} failed outputs, retrying individually...")
+        for idx in tqdm(failed_indices, desc="Retrying failed prompts"):
+            # ✅ keep the same temperature on retry
+            retry_output = model_wrapper.prompt(prompts[idx], temperature=temperature)
+            if retry_output and retry_output.strip() != "?" and len(retry_output.strip()) >= 3:
+                df.loc[idx, "model_output"] = retry_output
+            else:
+                print(f"⚠️ Prompt {idx} failed even after retry. Prompt length: {len(prompts[idx])}")
+
+    # Parse JSON and identify responses that need reprompting
+    parsed = df["model_output"].apply(clean_and_parse_json)
+    df["parsed_answer"] = parsed.apply(lambda x: x.get("answer"))
+    df["parsed_confidence"] = pd.to_numeric(parsed.apply(lambda x: x.get("confidence")), errors="coerce")
+    
+    # Find indices that need reprompting for JSON formatting
+    reprompt_indices = []
+    for idx, result in enumerate(parsed):
+        if result.get("needs_reprompt", False) and df.loc[idx, "model_output"] and df.loc[idx, "model_output"].strip():
+            reprompt_indices.append(idx)
+    
+    if reprompt_indices:
+        print(f"🔄 Found {len(reprompt_indices)} responses that need JSON reprompting...")
+        for idx in tqdm(reprompt_indices, desc="Reprompting for JSON format"):
+            original_output = df.loc[idx, "model_output"]
+            reprompt = build_reprompt_for_json(original_output, dataset_name)
+            
+            # Try reprompting for proper JSON format (intentionally low/steady T)
+            json_output = model_wrapper.prompt(reprompt, max_new_tokens=150, temperature=0.3)
+            
+            # Parse the reprompted output
+            if json_output and json_output.strip():
+                reparsed = clean_and_parse_json(json_output)
+                if not reparsed.get("needs_reprompt", True):  # Successfully parsed
+                    df.loc[idx, "model_output"] = json_output
+                    df.loc[idx, "parsed_answer"] = reparsed.get("answer")
+                    df.loc[idx, "parsed_confidence"] = reparsed.get("confidence")
+                    continue
+            
+            # If reprompting failed, try to extract basic answer from original
+            original_parsed = clean_and_parse_json(original_output)
+            if original_parsed.get("answer") is not None:
+                df.loc[idx, "parsed_answer"] = original_parsed.get("answer")
+                if df.loc[idx, "parsed_confidence"] is None or pd.isna(df.loc[idx, "parsed_confidence"]):
+                    df.loc[idx, "parsed_confidence"] = 50  # default fallback
+                print(f"⚠️ Used fallback parsing for prompt {idx}")
+            else:
+                print(f"⚠️ Could not extract answer from prompt {idx} even after reprompting")
+
+    # 🧾 add metadata columns for easy merging/analysis
+    df["temperature"] = temperature
+    df["dataset"] = dataset_name
+    df["model_id"] = model_wrapper.model_id
+
+    safe_model_id = model_wrapper.model_id.replace("/", "_").replace(" ", "_")
+    Path(f"output/{folder_name}").mkdir(parents=True, exist_ok=True)
+    output_file = f"output/{folder_name}{dataset_name}_verbalized_confidence_{safe_model_id}_T{temperature}{output_ending}.csv"
+    df.to_csv(output_file, index=False)
     print(f"✅ Saved to {output_file}")
 
 
+
+
 if __name__ == "__main__":
+
+    """ 
+    # Verbalized Confidence Elicitation Batch Script
     models = {
         "llama": load_llama,
         # "qwen": load_qwen,
@@ -371,4 +487,37 @@ if __name__ == "__main__":
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
+            torch.cuda.ipc_collect() """
+
+    models = {
+        "llama": load_llama,
+        # other loaders...
+    }
+
+    datasets = ["boolq", "squad", "trivia"]
+    folder_name = "llm_confidence_elicitation/temp_sweep_llama3B/"
+    temperatures = [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]  # Sweep values
+
+    for model_name, model_loader in models.items():
+        print(f"\n🚀 Loading model: {model_name}")
+        model = model_loader()
+
+        for T in temperatures:
+            for dataset in datasets:
+                print(f"🔍 Running {model_name} on {dataset} at T={T} ...")
+                run_verbalized_confidence_experiment(
+                    model_wrapper=model,
+                    n_samples=1000,
+                    dataset_name=dataset,
+                    folder_name=folder_name,
+                    output_ending=f"_{model_name}_1000",
+                    batch_size=4,
+                    temperature=T
+                )
+
+        del model
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
             torch.cuda.ipc_collect()
+
