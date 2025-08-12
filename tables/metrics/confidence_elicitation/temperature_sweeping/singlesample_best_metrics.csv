@@ -1,0 +1,4 @@
+Dataset,Best Accuracy,Best ECE,Best AUROC
+boolq,0.775 (T=0.1),0.175 (T=0.1),0.682 (T=0.7)
+squad,0.889 (T=0.3),0.115 (T=0.3),0.598 (T=1.1)
+trivia,0.522 (T=0.1),0.295 (T=0.9),0.732 (T=0.9)
