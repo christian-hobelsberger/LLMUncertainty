@@ -147,15 +147,15 @@ def safe_answers_list(val):
             return [val]
     return [] if pd.isna(val) else [val]
 
-def to_model_output_json(answer_str: str, confidence_pct: float) -> str:
+def to_model_output_json(answer_str: str, unc_score: float) -> str:
     """
     Emit JSON-ish string to be compatible with your universal parser:
-      {"answer": "<text>", "confidence": 87}
+      {"answer": "<text>", "uncertainty_score": 0.8246}
     """
     # escape internal quotes in answer
     safe_ans = str(answer_str).replace('"', "'")
-    conf_int = int(np.clip(round(confidence_pct), 0, 100))
-    return json.dumps({"answer": safe_ans, "confidence": conf_int}, ensure_ascii=False)
+    unc_float = float(unc_score) if np.isfinite(unc_score) else None
+    return json.dumps({"answer": safe_ans, "uncertainty_score": unc_float}, ensure_ascii=False)
 
 
 # ------------------------- MAIN EXPERIMENT -------------------------
@@ -187,18 +187,13 @@ def run_polygraph_inference(
         pred = (out.generation_text or "").strip()
         unc  = float(out.uncertainty) if out.uncertainty is not None else np.nan
 
-        # convert uncertainty to [0..100] confidence
-        conf_pct = (1.0 - np.float64(unc)) * 100.0 if np.isfinite(unc) else np.nan
-        conf_pct = float(np.clip(conf_pct, 0.0, 100.0))
-
         preds.append(pred)
         uncs.append(unc)
-        outputs.append(to_model_output_json(pred, conf_pct))
+        outputs.append(to_model_output_json(pred, unc))
 
     # attach predictions
     df["model_answer"] = preds
     df["uncertainty_score"] = uncs
-    df["confidence_pct"] = [(1.0 - (u if np.isfinite(u) else np.nan)) * 100.0 for u in uncs]
     df["model_output"] = outputs  # parser-friendly string
 
     # gold labels (so you can evaluate later with your fuzzy matchers)
@@ -245,7 +240,7 @@ def main():
 
     # datasets you want to run
     datasets = ["boolq", "trivia", "squad"]   # extend with "gsm8k" if needed
-    sample_size = 1000
+    sample_size = 500
 
     ue_method_class = CocoaMSP
     output_dir = "output/polygraph/CocoaMSP/"
