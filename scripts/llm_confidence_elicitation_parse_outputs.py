@@ -393,22 +393,8 @@ if __name__ == "__main__":
     # Hard-coded file paths - modify these to match your specific files
     files_to_process = [
         # squad
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.1_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.3_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.5_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.7_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.9_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/squad_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T1.1_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        
-        
-        # trivia
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.1_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.3_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.5_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.7_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T0.9_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/llm_confidence_elicitation/temp_sweep_llama3B/trivia_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_T1.1_llama_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        
+        {"input_file": "output/polygraph/CocoaMSP/trivia_llama_3.2_3b_instruct_CocoaMSP_500.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/polygraph/CocoaMSP/squad_llama_3.2_3b_instruct_CocoaMSP_500.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True}
         
 
         #{
