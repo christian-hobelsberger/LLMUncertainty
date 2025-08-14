@@ -180,7 +180,7 @@ def build_reprompt_for_json(original_output: str, dataset_name: str = "") -> str
 def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
     if dataset_name == "gsm8k":
         return (
-            "You are a math tutor. Solve the following problem carefully and provide a numerical answer.\n\n"
+            "You are a math tutor. Solve the following problem carefully and provide only the numerical answer and the confidence of the answer.\n\n"
             "Respond in the following format:\n"
             "{\"answer\": \"<string>,\" \"confidence\": <integer from 0 to 100>}\n"
             f"Question: {row['question']}\n\n"
@@ -494,9 +494,9 @@ if __name__ == "__main__":
         # other loaders...
     }
 
-    datasets = ["boolq", "squad", "trivia"]
+    datasets = ["gsm8k"] # ["squad", "trivia", "gsm8k", "boolq"]
     folder_name = "llm_confidence_elicitation/temp_sweep_llama3B/"
-    temperatures = [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]  # Sweep values
+    temperatures = [0.9, 1.1, 0.5, 0.7, 0.1, 0.3]  # Sweep values
 
     for model_name, model_loader in models.items():
         print(f"\n🚀 Loading model: {model_name}")

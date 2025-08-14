@@ -189,11 +189,11 @@ def main():
         # "phi2": ("microsoft/phi-2", True),
     }
 
-    datasets = ["boolq", "squad", "trivia"]
+    datasets = ["gsm8k"] # "boolq", "squad", "trivia", "gms8k"
     sample_size_per_question = 5
-    separate_prompting = True
+    separate_prompting = True  # True for separate sampling, False for top-k sampling
     base_output_dir = "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/"
-    temperatures = [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]  # SWEEP LIST
+    temperatures = [1.1, 0.7, 0.1, 0.3, 0.9, 0.5]  # SWEEP LIST [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]
 
     for model_name, (model_id, trust_remote_code) in models.items():
         print(f"\n🚀 Loading model: {model_name}")
@@ -214,7 +214,7 @@ def main():
                     sample_size_per_question=sample_size_per_question,
                     separate_prompting=separate_prompting,
                     output_path=output_file,
-                    n_samples=125,
+                    n_samples=150,
                     temperature=T
                 )
 
