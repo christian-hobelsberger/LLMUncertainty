@@ -239,7 +239,7 @@ def main():
     }
 
     # datasets you want to run
-    datasets = ["boolq", "trivia", "squad"]   # extend with "gsm8k" if needed
+    datasets = ["gsm8k"]   # extend with "gsm8k" if needed
     sample_size = 500
 
     ue_method_class = CocoaMSP

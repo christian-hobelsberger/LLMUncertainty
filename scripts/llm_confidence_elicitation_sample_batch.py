@@ -24,7 +24,7 @@ class LLMWrapper:
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
-    def generate_samples(self, prompts: List[str], n: int = 5, max_new_tokens: int = 300,
+    def generate_samples(self, prompts: List[str], n: int = 5, max_new_tokens: int = 300, # 750 for gsm8k
                          temperature: float = 0.7, separate: bool = True) -> List[List[str]]:
         all_outputs = []
 
@@ -69,10 +69,11 @@ class LLMWrapper:
 # ─────────────────────────────────────────────────────────────────────────────
 def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
     if dataset_name == "gsm8k":
-        return (
-            "You are a math tutor. Solve the following problem carefully and provide a numerical answer.\n\n"
-            "{\"answer\": \"<string>\", \"confidence\": <integer from 0 to 100>}\n"
-            f"Question: {row['question']}"
+         return (
+            "You are a math tutor. Solve the following problem carefully and provide only the numerical answer and the confidence of the answer.\n\n"
+            "Respond in the following format:\n"
+            "{\"answer\": \"<string>,\" \"confidence\": <integer from 0 to 100>}\n"
+            f"Question: {row['question']}\n\n"
         )
     elif dataset_name == "boolq":
         return (
@@ -189,11 +190,11 @@ def main():
         # "phi2": ("microsoft/phi-2", True),
     }
 
-    datasets = ["gsm8k"] # "boolq", "squad", "trivia", "gms8k"
+    datasets = ["gsm8k"] # "boolq", "squad", "trivia", "gsm8k"
     sample_size_per_question = 5
-    separate_prompting = True  # True for separate sampling, False for top-k sampling
+    separate_prompting = False  # True for separate sampling, False for top-k sampling
     base_output_dir = "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/"
-    temperatures = [1.1, 0.7, 0.1, 0.3, 0.9, 0.5]  # SWEEP LIST [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]
+    temperatures = [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]  # SWEEP LIST [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]
 
     for model_name, (model_id, trust_remote_code) in models.items():
         print(f"\n🚀 Loading model: {model_name}")

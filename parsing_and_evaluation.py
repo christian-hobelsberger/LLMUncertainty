@@ -669,6 +669,202 @@ def parse_aggregate_evaluate_trivia_multi(df: pd.DataFrame, group_col: str = "qu
     return df_parsed, df_agg, eval_df, accuracy
 
 # =====================
+# GSM8K PARSING & EVAL
+# =====================
+def normalize_gsm8k_answer(answer: str) -> str:
+    """
+    Normalize GSM8K answers by extracting the numeric value.
+    Handles various formats like "$2", "2.0", "2", etc.
+    Returns the numeric string for exact comparison.
+    """
+    if not answer:
+        return ""
+    
+    answer = str(answer).strip()
+    
+    # Remove common currency symbols and formatting
+    answer = re.sub(r'[$,\s]', '', answer)
+    
+    # Extract numeric value (including decimals)
+    numeric_match = re.search(r'-?\d+\.?\d*', answer)
+    if numeric_match:
+        number = numeric_match.group()
+        # Convert to float then back to string to normalize (removes trailing zeros)
+        try:
+            normalized = str(float(number))
+            # Remove .0 if it's a whole number
+            if normalized.endswith('.0'):
+                normalized = normalized[:-2]
+            return normalized
+        except ValueError:
+            return number
+    
+    return answer
+
+def parse_gsm8k_output(output: str) -> dict:
+    """
+    Parses GSM8K model output using universal parser, then normalizes for numeric answers.
+    Returns dict with keys 'answer' and 'confidence'.
+    """
+    parsed = universal_answer_confidence_parser(output)
+    answer = normalize_gsm8k_answer(parsed.get("answer")) if parsed.get("answer") else None
+    return {"answer": answer, "confidence": parsed.get("confidence")}
+
+def evaluate_gsm8k_answer(predicted: str, gold_answer: str) -> bool:
+    """
+    Evaluates GSM8K answers using exact numeric match.
+    Both predicted and gold answers are normalized before comparison.
+    """
+    if not predicted or not gold_answer:
+        return False
+    
+    pred_norm = normalize_gsm8k_answer(predicted)
+    gold_norm = normalize_gsm8k_answer(str(gold_answer))
+    
+    return pred_norm == gold_norm
+
+def parse_and_evaluate_gsm8k(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Parses GSM8K outputs and evaluates correctness using exact numeric match.
+    Expects columns: model_output, numeric_answer (or answer)
+    Adds: parsed_answer, parsed_confidence, is_correct
+    """
+    parsed = df["model_output"].apply(parse_gsm8k_output)
+    df["parsed_answer"] = parsed.apply(lambda x: x.get("answer"))
+    df["parsed_confidence"] = pd.to_numeric(parsed.apply(lambda x: x.get("confidence")), errors="coerce")
+    
+    # Use numeric_answer if available, otherwise use answer
+    gold_col = "numeric_answer" if "numeric_answer" in df.columns else "answer"
+    
+    def evaluate_row(row):
+        pred = row["parsed_answer"]
+        gold = row[gold_col]
+        return evaluate_gsm8k_answer(pred, gold)
+    
+    df["is_correct"] = df.apply(evaluate_row, axis=1)
+    return df
+
+# =====================
+# MULTI-SAMPLE GSM8K PARSING & AGGREGATION
+# =====================
+def normalize_gsm8k_multi(ans):
+    """
+    Normalize GSM8K answers for multi-sample aggregation.
+    Returns normalized numeric string for consistency.
+    """
+    if pd.isna(ans):
+        return None
+    return normalize_gsm8k_answer(str(ans))
+
+def parse_and_evaluate_gsm8k_multi(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
+    """
+    Parse GSM8K outputs for multi-sample data and add parsed columns.
+    Expects columns: model_output, numeric_answer (or answer), and a grouping column (default: question_id)
+    Adds: parsed_answer, parsed_confidence
+    """
+    # Parse only if not already present
+    if "parsed_answer" not in df.columns or "parsed_confidence" not in df.columns:
+        parsed = df["model_output"].apply(parse_gsm8k_output)
+        df["parsed_answer"] = parsed.apply(lambda x: x.get("answer"))
+        df["parsed_confidence"] = pd.to_numeric(parsed.apply(lambda x: x.get("confidence")), errors="coerce")
+    else:
+        # Ensure parsed_confidence is numeric if it already exists
+        df["parsed_confidence"] = pd.to_numeric(df["parsed_confidence"], errors="coerce")
+    
+    return df
+
+def aggregate_confidence_gsm8k(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
+    """
+    Aggregate multi-sample GSM8K results using confidence-weighted voting.
+    Since GSM8K answers are exact numeric matches, we cluster identical normalized answers.
+    
+    Args:
+        df: DataFrame with parsed_answer and parsed_confidence columns
+        group_col: Column to group by (default: question_id)
+    
+    Returns:
+        DataFrame with aggregated results containing:
+        - agg_answer: The answer with highest total confidence
+        - agg_confidence: Relative confidence (0-100) of the chosen answer
+        - answer_variants: Number of unique answer variants
+    """
+    def agg_group(group):
+        # Only consider rows with both answer and confidence
+        group_valid = group.dropna(subset=["parsed_answer", "parsed_confidence"]).copy()
+        group_valid["norm_answer"] = group_valid["parsed_answer"].apply(normalize_gsm8k_multi)
+        group_valid = group_valid.dropna(subset=["norm_answer", "parsed_confidence"])
+
+        if group_valid.empty:
+            return pd.Series({
+                "agg_answer": None, 
+                "agg_confidence": 0,
+                "answer_variants": 0
+            })
+
+        # Sum confidence scores for each identical answer
+        conf_sum = group_valid.groupby("norm_answer")["parsed_confidence"].sum()
+        best_answer = conf_sum.idxmax()
+        total_conf = group_valid["parsed_confidence"].sum()
+        rel_conf = conf_sum[best_answer] / total_conf if total_conf > 0 else 0
+        
+        return pd.Series({
+            "agg_answer": best_answer, 
+            "agg_confidence": rel_conf * 100,
+            "answer_variants": len(conf_sum)
+        })
+
+    return df.groupby(group_col, as_index=False).apply(agg_group).reset_index(drop=True)
+
+def evaluate_gsm8k_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, 
+                             group_col: str = "question_id") -> tuple:
+    """
+    Evaluate aggregated GSM8K results against ground truth.
+    
+    Args:
+        df_agg: DataFrame with aggregated results (from aggregate_confidence_gsm8k)
+        df_full: Original DataFrame with ground truth answers
+        group_col: Column to group by (default: question_id)
+    
+    Returns:
+        Tuple of (evaluation_df, accuracy_score)
+    """
+    # Get ground truth answers (one per group)
+    gold_col = "numeric_answer" if "numeric_answer" in df_full.columns else "answer"
+    gold = df_full.drop_duplicates(group_col)[[group_col, gold_col]].copy()
+    gold["answer_norm"] = gold[gold_col].apply(normalize_gsm8k_multi)
+
+    # Merge with aggregated results
+    merged = df_agg.merge(gold, on=group_col, how="left")
+    
+    # Evaluate each aggregated answer against the gold answer
+    merged["is_correct"] = merged["agg_answer"] == merged["answer_norm"]
+    accuracy = merged["is_correct"].mean()
+    
+    return merged, accuracy
+
+def parse_aggregate_evaluate_gsm8k_multi(df: pd.DataFrame, group_col: str = "question_id") -> tuple:
+    """
+    Complete pipeline for multi-sample GSM8K: parse, aggregate, and evaluate.
+    
+    Args:
+        df: DataFrame with model_output, numeric_answer (or answer), and grouping column
+        group_col: Column to group by (default: question_id)
+    
+    Returns:
+        Tuple of (parsed_df, aggregated_df, evaluation_df, accuracy_score)
+    """
+    # Step 1: Parse individual outputs
+    df_parsed = parse_and_evaluate_gsm8k_multi(df, group_col)
+    
+    # Step 2: Aggregate by confidence
+    df_agg = aggregate_confidence_gsm8k(df_parsed, group_col)
+    
+    # Step 3: Evaluate aggregated results
+    eval_df, accuracy = evaluate_gsm8k_aggregated(df_agg, df_parsed, group_col)
+    
+    return df_parsed, df_agg, eval_df, accuracy
+
+# =====================
 # MULTI-SAMPLE SQUAD PARSING & AGGREGATION
 # =====================
 def normalize_squad_multi(ans):
