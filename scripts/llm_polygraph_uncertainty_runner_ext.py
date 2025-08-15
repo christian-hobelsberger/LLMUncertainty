@@ -119,7 +119,7 @@ def build_input_text(row, dataset_name: str) -> str:
             "Answer:"
         )
     elif dataset_name == "gsm8k":
-        return f"Solve the problem. Give only the final numeric answer.\nProblem: {row.get('question','')}\nAnswer:"
+        return f"You are a math tutor. Solve the following problem carefully and provide only the numerical answer.\nProblem: {row.get('question','')}"
     else:
         raise ValueError(f"Unsupported dataset: {dataset_name}")
 
