@@ -393,9 +393,9 @@ if __name__ == "__main__":
     # Hard-coded file paths - modify these to match your specific files
     files_to_process = [
         # squad
-        {"input_file": "output/llm_confidence_elicitation/batch_1000_llama_3B/gsm8k_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_llama_batch_3B_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
         {"input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/gsm8k_meta-llama_Llama-3.2-3B-Instruct_k5_sep.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
-        {"input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/gsm8k_meta-llama_Llama-3.2-3B-Instruct_k5_topk.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True}
+        {"input_file": "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/gsm8k_meta-llama_Llama-3.2-3B-Instruct_k5_topk.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True},
+        {"input_file": "output/llm_confidence_elicitation/batch_1000_llama_3B/gsm8k_verbalized_confidence_meta-llama_Llama-3.2-3B-Instruct_llama_batch_3B_1000.csv", "output_file": None, "model_output_column": "model_output", "question_column": "question", "context_column": "passage", "use_llm_parsing": True}
         
 
         #{
