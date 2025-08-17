@@ -11,6 +11,9 @@ import re
 import torch
 import gc
 
+# ─────────────────────────────────────────────────────────────────────────────
+#                                LLM Wrapper
+# ─────────────────────────────────────────────────────────────────────────────
 class LLMWrapper:
     def __init__(self, model_id: str, trust_remote_code: bool = False):
         self.model_id = model_id
@@ -60,7 +63,10 @@ class LLMWrapper:
                 all_outputs.append([text.strip() for text in decoded])
 
         return all_outputs
-    
+
+# ─────────────────────────────────────────────────────────────────────────────
+#                                Prompt Builder
+# ─────────────────────────────────────────────────────────────────────────────   
 def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
     if dataset_name == "gsm8k":
         return (
@@ -89,6 +95,9 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
     else:
         raise ValueError(f"Unsupported dataset: {dataset_name}")
 
+# ─────────────────────────────────────────────────────────────────────────────
+#                                JSON Parser
+# ─────────────────────────────────────────────────────────────────────────────
 def clean_and_parse_json(output: str) -> dict:
     try:
         output = output.strip()
@@ -99,6 +108,9 @@ def clean_and_parse_json(output: str) -> dict:
         pass
     return {"answer": None}
 
+# ─────────────────────────────────────────────────────────────────────────────
+#                            Experiment Runner
+# ─────────────────────────────────────────────────────────────────────────────
 def run_sample_consistency_experiment(
     model_wrapper: LLMWrapper,
     dataset_name: str,
@@ -151,6 +163,9 @@ def run_sample_consistency_experiment(
     result_df.to_csv(output_path, index=False)
     print(f"✅ Saved results to {output_path}")
 
+# ─────────────────────────────────────────────────────────────────────────────
+#                                   Main
+# ─────────────────────────────────────────────────────────────────────────────
 def main():
     models = {
         "llama": ("meta-llama/Llama-3.2-1B-Instruct", True),
@@ -158,7 +173,7 @@ def main():
         # "phi2": ("microsoft/phi-2", True),
     }
 
-    datasets = ["trivia"] # ["trivia", "squad", "gsm8k", "boolq"]
+    datasets = ["trivia", "squad"]
     sample_size_per_question = 5
     separate_prompting = False
     base_output_dir = "output/sample_consistency"
@@ -192,4 +207,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

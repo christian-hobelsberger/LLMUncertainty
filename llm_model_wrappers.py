@@ -62,3 +62,9 @@ if __name__ == "__main__":
 
     gemma = load_gemma()
     print("Gemma sample:\nQ:", gemma.prompt("What is the boiling point of water in Celsius? Include confidence as a percentage."))
+
+    cogito = load_cogito()
+    print("Cogito sample:\nQ:", cogito.prompt("What is the largest mammal on Earth? Include confidence as a percentage."))
+
+    phi = load_phi2()
+    print("Phi-2 sample:\nQ:", phi.prompt("What is the speed of light in vacuum? Include confidence as a percentage."))
