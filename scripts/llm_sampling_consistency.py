@@ -82,7 +82,7 @@ def build_prompt(row, include_context: bool, dataset_name: str = "") -> str:
         )
     elif dataset_name == "trivia":
         return (
-            "You are a fact-checking assistant. Answer the following trivia question.\n\n"
+            "You are a fact-checking assistant. Answer the following trivia question. Only provide the answer without any reasoning.\n\n"
             "{\"answer\": \"<string>\"}\n"
             f"Question: {row['question']}"
         )
@@ -154,7 +154,9 @@ def run_sample_consistency_experiment(
                 "question_id": i,
                 "sample_id": j,
                 "model_output": out,
-                "parsed_answer": parsed.get("answer")
+                "parsed_answer": parsed.get("answer"),
+                "model_id": model_wrapper.model_id,
+                "dataset": dataset_name,
             }
             all_records.append(row_with_sample)
 
@@ -168,15 +170,15 @@ def run_sample_consistency_experiment(
 # ─────────────────────────────────────────────────────────────────────────────
 def main():
     models = {
-        "llama": ("meta-llama/Llama-3.2-1B-Instruct", True),
+        "llama": ("meta-llama/Llama-3.2-3B-Instruct", True),
         # "qwen": ("Qwen/Qwen3-8B", True),
         # "phi2": ("microsoft/phi-2", True),
     }
 
-    datasets = ["trivia", "squad"]
+    datasets = ["trivia"] # "boolq", "squad", "trivia", "gsm8k"
     sample_size_per_question = 5
-    separate_prompting = False
-    base_output_dir = "output/sample_consistency"
+    separate_prompting = False # True for separate sampling, False for top-k sampling
+    base_output_dir = "output/sample_consistency/LLama3.2-3B-Instruct/"
 
     for model_name, (model_id, trust_remote_code) in models.items():
         print(f"\n🚀 Loading model: {model_name}")

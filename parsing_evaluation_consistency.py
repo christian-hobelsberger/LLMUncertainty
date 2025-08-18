@@ -114,7 +114,7 @@ def parse_trivia_output(output: str) -> dict:
     answer = normalize_text_answer(parsed.get("answer")) if parsed.get("answer") else None
     return {"answer": answer}
 
-'''
+
 def evaluate_trivia_answer(predicted: str, gold_answers: list, threshold: float = 0.8) -> bool:
     """
     Compares a predicted answer to a list of gold answers with fuzzy and substring matching.
@@ -160,7 +160,7 @@ def parse_and_evaluate_trivia(df: pd.DataFrame) -> pd.DataFrame:
         return evaluate_trivia_answer(pred, golds)
     df["is_correct"] = df.apply(evaluate_row, axis=1)
     return df
-'''
+
 
 # =====================
 # SQUAD PARSING & EVAL
@@ -176,7 +176,7 @@ def parse_squad_output(output: str) -> dict:
     answer = normalize_text_answer(parsed.get("answer")) if parsed.get("answer") else None
     return {"answer": answer}
 
-'''
+
 def evaluate_squad_answer(predicted: str, gold_answers: list, threshold: float = 0.8) -> bool:
     """
     Compares a predicted answer to a list of gold answers with fuzzy and substring matching.
@@ -255,7 +255,7 @@ def parse_and_evaluate_squad(df: pd.DataFrame, remove_unanswerable: bool = False
         return df_filtered
     
     return df
-'''
+
     
 # =====================
 # MULTI-SAMPLE TRIVIAQA PARSING & AGGREGATION
@@ -285,33 +285,20 @@ def parse_and_evaluate_trivia_multi(df: pd.DataFrame, group_col: str = "question
     
     return df
 
-'''
-def aggregate_confidence_trivia(df: pd.DataFrame, group_col: str = "question_id", 
-                               similarity_threshold: float = 0.8) -> pd.DataFrame:
+def aggregate_trivia(df: pd.DataFrame, group_col: str = "question_id", 
+                    similarity_threshold: float = 0.8) -> pd.DataFrame:
     """
-    Aggregate multi-sample TriviaQA results using confidence-weighted voting with answer clustering.
-    
-    Args:
-        df: DataFrame with parsed_answer and parsed_confidence columns
-        group_col: Column to group by (default: question_id)
-        similarity_threshold: Threshold for considering answers similar (0.8 default)
-    
-    Returns:
-        DataFrame with aggregated results containing:
-        - agg_answer: The answer with highest total confidence
-        - agg_confidence: Relative confidence (0-100) of the chosen answer
-        - answer_variants: Number of unique answer variants
+    xxx
     """
     def agg_group(group):
-        # Only consider rows with both answer and confidence
-        group_valid = group.dropna(subset=["parsed_answer", "parsed_confidence"]).copy()
+        # Only consider rows with valid answers
+        group_valid = group.dropna(subset=["parsed_answer"]).copy()
         group_valid["norm_answer"] = group_valid["parsed_answer"].apply(normalize_trivia_multi)
-        group_valid = group_valid.dropna(subset=["norm_answer", "parsed_confidence"])
+        group_valid = group_valid.dropna(subset=["norm_answer"])
 
         if group_valid.empty:
             return pd.Series({
-                "agg_answer": None, 
-                "agg_confidence": 0,
+                "agg_answer": None,
                 "answer_variants": 0
             })
 
@@ -319,41 +306,96 @@ def aggregate_confidence_trivia(df: pd.DataFrame, group_col: str = "question_id"
         answer_clusters = {}
         for _, row in group_valid.iterrows():
             answer = row["norm_answer"]
-            confidence = row["parsed_confidence"]
             
             # Find if this answer is similar to any existing cluster
             found_cluster = False
             for cluster_key in answer_clusters.keys():
                 if SequenceMatcher(None, answer, cluster_key).ratio() >= similarity_threshold:
-                    answer_clusters[cluster_key] += confidence
+                    answer_clusters[cluster_key] += 1  # Increment vote count
                     found_cluster = True
                     break
-            
             # If no similar cluster found, create a new one
             if not found_cluster:
-                answer_clusters[answer] = confidence
-        
+                answer_clusters[answer] = 1  # Initialize vote count
+
         if not answer_clusters:
             return pd.Series({
-                "agg_answer": None, 
-                "agg_confidence": 0,
+                "agg_answer": None,
                 "answer_variants": 0
             })
-        
-        # Find the answer with highest total confidence
+
+        # Find the answer with the highest vote count
         best_answer = max(answer_clusters.keys(), key=answer_clusters.get)
-        total_conf = sum(answer_clusters.values())
-        rel_conf = answer_clusters[best_answer] / total_conf if total_conf > 0 else 0
-        
+
         return pd.Series({
-            "agg_answer": best_answer, 
-            "agg_confidence": rel_conf * 100,
+            "agg_answer": best_answer,
+            "answer_variants": len(answer_clusters)
+        })
+    return df.groupby(group_col, as_index=False).apply(agg_group).reset_index(drop=True)
+                
+
+'''
+def aggregate_trivia(df: pd.DataFrame, group_col: str = "question_id", 
+                               similarity_threshold: float = 0.8) -> pd.DataFrame:
+    """
+    Aggregate multi-sample TriviaQA results using vote count of answers and answer clustering.
+    
+    Args:
+        df: DataFrame with parsed_answer column
+        group_col: Column to group by (default: question_id)
+        similarity_threshold: Threshold for considering answers similar (0.8 default)
+    
+    Returns:
+        DataFrame with aggregated results containing:
+        - agg_answer: The answer with highest total confidence
+        - answer_variants: Number of unique answer variants
+    """
+    def agg_group(group):
+        # Only consider rows with valid answers
+        group_valid = group.dropna(subset=["parsed_answer"]).copy()
+        group_valid["norm_answer"] = group_valid["parsed_answer"].apply(normalize_trivia_multi)
+        group_valid = group_valid.dropna(subset=["norm_answer"])
+
+        if group_valid.empty:
+            return pd.Series({
+                "agg_answer": None,
+                "answer_variants": 0
+            })
+
+        # Cluster similar answers together
+        answer_clusters = {}
+        for _, row in group_valid.iterrows():
+            answer = row["norm_answer"]
+            
+            # Find if this answer is similar to any existing cluster
+            found_cluster = False
+            for cluster_key in answer_clusters.keys():
+                if SequenceMatcher(None, answer, cluster_key).ratio() >= similarity_threshold:
+                    answer_clusters[cluster_key] += 1  # Increment vote count
+                    found_cluster = True
+                    break
+
+            # If no similar cluster found, create a new one
+            if not found_cluster:
+                answer_clusters[answer] = 1  # Initialize vote count
+
+        if not answer_clusters:
+            return pd.Series({
+                "agg_answer": None,
+                "answer_variants": 0
+            })
+
+        # Find the answer with the highest vote count
+        best_answer = max(answer_clusters.keys(), key=answer_clusters.get)
+
+        return pd.Series({
+            "agg_answer": best_answer,
             "answer_variants": len(answer_clusters)
         })
 
     return df.groupby(group_col, as_index=False).apply(agg_group).reset_index(drop=True)
 
-    
+
 def evaluate_trivia_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, 
                               group_col: str = "question_id") -> tuple:
     """
@@ -415,7 +457,7 @@ def parse_aggregate_evaluate_trivia_multi(df: pd.DataFrame, group_col: str = "qu
     df_parsed = parse_and_evaluate_trivia_multi(df, group_col)
     
     # Step 2: Aggregate by confidence with answer clustering
-    df_agg = aggregate_confidence_trivia(df_parsed, group_col, similarity_threshold)
+    df_agg = aggregate_trivia(df_parsed, group_col, similarity_threshold)
     
     # Step 3: Evaluate aggregated results
     eval_df, accuracy = evaluate_trivia_aggregated(df_agg, df_parsed, group_col)
