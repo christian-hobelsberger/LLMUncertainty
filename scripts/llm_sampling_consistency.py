@@ -175,7 +175,7 @@ def main():
         # "phi2": ("microsoft/phi-2", True),
     }
 
-    datasets = ["trivia"] # "boolq", "squad", "trivia", "gsm8k"
+    datasets = ["trivia"] # "squad", "trivia"
     sample_size_per_question = 5
     separate_prompting = False # True for separate sampling, False for top-k sampling
     base_output_dir = "output/sample_consistency/LLama3.2-3B-Instruct/"
