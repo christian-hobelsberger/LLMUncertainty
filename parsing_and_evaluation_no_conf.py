@@ -24,6 +24,7 @@ def normalize_text_answer(s: Optional[str]) -> Optional[str]:
         return None
     return _strip_punct_spaces(str(s))
 
+'''
 def normalize_bool_answer(s: Any) -> Optional[str]:
     """Normalize to "True", "False", or None."""
     if isinstance(s, bool):
@@ -47,6 +48,7 @@ def normalize_gsm8k_answer(s: Any) -> Optional[str]:
     if not nums:
         return None
     return nums[-1]
+'''
 
 def safe_parse_answers(x: Any) -> List[str]:
     """Return a list of gold answers from various formats (str, list, json string)."""
@@ -186,6 +188,7 @@ def parse_trivia_output(output: Any) -> Dict[str, Any]:
     ans = parsed.get('answer')
     return {"answer": normalize_text_answer(ans) if ans else None}
 
+'''
 def parse_boolq_output(output: Any) -> Dict[str, Any]:
     parsed = universal_answer_parser(output)
     ans = parsed.get('answer')
@@ -195,6 +198,7 @@ def parse_gsm8k_output(output: Any) -> Dict[str, Any]:
     parsed = universal_answer_parser(output)
     ans = parsed.get('answer')
     return {"answer": normalize_gsm8k_answer(ans) if ans else None}
+'''
 
 def parse_squad_output(output: Any) -> Dict[str, Any]:
     parsed = universal_answer_parser(output)
@@ -224,7 +228,7 @@ def evaluate_trivia_answer(predicted: Optional[str], gold_answers: List[str], th
 # =====================
 # Parse + evaluate (row-wise)
 # =====================
-
+'''
 def parse_and_evaluate_boolq_multi(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
     df = df.copy()
     if "parsed_answer" not in df.columns:
@@ -240,6 +244,7 @@ def parse_and_evaluate_boolq_multi(df: pd.DataFrame, group_col: str = "question_
             return bool(pred_norm and gold_norm and pred_norm == gold_norm)
         df["is_correct"] = df.apply(_eval, axis=1)
     return df
+'''
 
 def parse_and_evaluate_trivia(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
     df = df.copy()
@@ -253,6 +258,7 @@ def parse_and_evaluate_trivia(df: pd.DataFrame, group_col: str = "question_id") 
         ]
     return df
 
+'''
 def parse_and_evaluate_gsm8k_multi(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
     df = df.copy()
     if "parsed_answer" not in df.columns:
@@ -264,6 +270,7 @@ def parse_and_evaluate_gsm8k_multi(df: pd.DataFrame, group_col: str = "question_
             for p, g in zip(df["parsed_answer"], df["answer"])
         ]
     return df
+'''
 
 def parse_and_evaluate_squad_multi(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
     df = df.copy()
@@ -281,6 +288,7 @@ def parse_and_evaluate_squad_multi(df: pd.DataFrame, group_col: str = "question_
 # Aggregation (answers only)
 # =====================
 
+'''
 def aggregate_answers_boolq(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
     """Unweighted majority vote over parsed answers. Returns [group_col, 'agg_answer']."""
     def agg_group(group):
@@ -290,6 +298,7 @@ def aggregate_answers_boolq(df: pd.DataFrame, group_col: str = "question_id") ->
         counts = answers.value_counts()
         return pd.Series({'agg_answer': counts.idxmax()})
     return df.groupby(group_col, as_index=False).apply(agg_group).reset_index(drop=True)
+'''
 
 def aggregate_answers_trivia(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
     """Normalized string majority vote. Returns [group_col, 'agg_answer', 'answer_variants']"""
@@ -306,6 +315,7 @@ def aggregate_answers_trivia(df: pd.DataFrame, group_col: str = "question_id") -
         return pd.Series({'agg_answer': rep_answer, 'answer_variants': counts.size})
     return df.groupby(group_col, as_index=False).apply(agg_group).reset_index(drop=True)
 
+'''
 def aggregate_answers_gsm8k(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
     """Normalized numeric majority vote. Returns [group_col, 'agg_answer', 'answer_variants']"""
     def norm(x):
@@ -320,6 +330,7 @@ def aggregate_answers_gsm8k(df: pd.DataFrame, group_col: str = "question_id") ->
         rep_answer = rep.iloc[0] if len(rep) else top_norm
         return pd.Series({'agg_answer': rep_answer, 'answer_variants': counts.size})
     return df.groupby(group_col, as_index=False).apply(agg_group).reset_index(drop=True)
+'''
 
 def aggregate_answers_squad(df: pd.DataFrame, group_col: str = "question_id") -> pd.DataFrame:
     """Normalized string majority vote. Returns [group_col, 'agg_answer', 'answer_variants']"""
@@ -340,6 +351,7 @@ def aggregate_answers_squad(df: pd.DataFrame, group_col: str = "question_id") ->
 # Evaluation of aggregated predictions
 # =====================
 
+'''
 def evaluate_boolq_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, group_col: str = "question_id"):
     """
     Evaluate aggregated BoolQ predictions by comparing 'agg_answer' to normalized gold. 
@@ -351,6 +363,7 @@ def evaluate_boolq_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, group
     merged["is_correct"] = merged["agg_answer"] == merged["answer_norm"]
     acc = float(merged["is_correct"].mean()) if len(merged) else 0.0
     return merged, acc
+'''
 
 def evaluate_trivia_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, group_col: str = "question_id"):
     """
@@ -366,6 +379,7 @@ def evaluate_trivia_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, grou
     acc = float(merged["is_correct"].mean()) if len(merged) else 0.0
     return merged, acc
 
+'''
 def evaluate_gsm8k_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, group_col: str = "question_id"):
     """
     Evaluate aggregated GSM8K predictions by numeric-string equality after normalization. 
@@ -377,6 +391,7 @@ def evaluate_gsm8k_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, group
     merged["is_correct"] = merged["agg_answer"].map(normalize_gsm8k_answer) == merged["answer_norm"]
     acc = float(merged["is_correct"].mean()) if len(merged) else 0.0
     return merged, acc
+'''
 
 def evaluate_squad_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, group_col: str = "question_id"):
     """
@@ -398,7 +413,7 @@ def evaluate_squad_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, group
     # Keep is_impossible if present
     if "is_impossible" in df_full.columns:
         flags = df_full[[group_col, "is_impossible"]].drop_duplicates(group_col)
-        eval_df = eval_df.merge(flags, on=group_col, how="left")
+        merged = merged.merge(flags, on=group_col, how="left")
     # Evaluate correctness
     merged["is_correct"] = [
         evaluate_trivia_answer(p, safe_parse_answers(g))
@@ -411,7 +426,7 @@ def evaluate_squad_aggregated(df_agg: pd.DataFrame, df_full: pd.DataFrame, group
 # =====================
 # Pipelines
 # =====================
-
+'''
 def parse_aggregate_evaluate_boolq_multi(df: pd.DataFrame, group_col: str = "question_id"):
     """
     One-call pipeline for BoolQ: parse rows → aggregate by majority vote -> evaluate aggregates. 
@@ -421,6 +436,7 @@ def parse_aggregate_evaluate_boolq_multi(df: pd.DataFrame, group_col: str = "que
     df_agg = aggregate_answers_boolq(df_parsed, group_col=group_col)
     eval_df, accuracy = evaluate_boolq_aggregated(df_agg, df_parsed, group_col=group_col)
     return df_parsed, df_agg, eval_df, accuracy
+'''
 
 def parse_aggregate_evaluate_trivia(df: pd.DataFrame, group_col: str = "question_id"):
     """
@@ -432,6 +448,7 @@ def parse_aggregate_evaluate_trivia(df: pd.DataFrame, group_col: str = "question
     eval_df, accuracy = evaluate_trivia_aggregated(df_agg, df_parsed, group_col=group_col)
     return df_parsed, df_agg, eval_df, accuracy
 
+'''
 def parse_aggregate_evaluate_gsm8k_multi(df: pd.DataFrame, group_col: str = "question_id"):
     """
     One-call pipeline for GSM8K: parse rows -> aggregate by majority vote → evaluate aggregates. 
@@ -441,6 +458,7 @@ def parse_aggregate_evaluate_gsm8k_multi(df: pd.DataFrame, group_col: str = "que
     df_agg = aggregate_answers_gsm8k(df_parsed, group_col=group_col)
     eval_df, accuracy = evaluate_gsm8k_aggregated(df_agg, df_parsed, group_col=group_col)
     return df_parsed, df_agg, eval_df, accuracy
+'''
 
 def parse_aggregate_evaluate_squad_multi(df: pd.DataFrame, group_col: str = "question_id", remove_unanswerable: bool = True):
     """
