@@ -490,13 +490,14 @@ if __name__ == "__main__":
             torch.cuda.ipc_collect() """
 
     models = {
-        "llama": load_llama,
+        # "llama": load_llama,
+        "gemma": load_gemma,
         # other loaders...
     }
 
-    datasets = ["gsm8k"] # ["squad", "trivia", "gsm8k", "boolq"]
-    folder_name = "llm_confidence_elicitation/temp_sweep_llama3B/"
-    temperatures = [0.9, 1.1, 0.5, 0.7, 0.1, 0.3]  # Sweep values
+    datasets = ["squad", "trivia", "boolq"] # ["squad", "trivia", "gsm8k", "boolq"]
+    folder_name = "llm_confidence_elicitation/batch_1000_llama_3B/gemma/"
+    temperatures = [0.7]  # Sweep values
 
     for model_name, model_loader in models.items():
         print(f"\n🚀 Loading model: {model_name}")

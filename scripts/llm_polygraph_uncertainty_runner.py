@@ -147,7 +147,7 @@ def main():
         # "cogito": load_cogito,  # Optional if GPU memory allows
     }
 
-    datasets = ["boolq"] # ["squad", "trivia", "boolq", "gsm8k"]
+    datasets = ["gsm8k"] # ["squad", "trivia", "boolq", "gsm8k"]
     sample_size = 500
     ue_method_class = CocoaMSP
     output_dir = "output/polygraph/CocoaMSP/"

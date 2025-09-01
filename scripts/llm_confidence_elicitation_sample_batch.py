@@ -8,6 +8,10 @@ from pathlib import Path
 from tqdm import tqdm
 from typing import List, Dict
 from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch._dynamo
+torch._dynamo.config.suppress_errors = True
+torch._dynamo.config.cache_size_limit = 64  # optional tweak
+torch._dynamo.disable()  # <- completely bypass dynamo tracing
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -185,16 +189,17 @@ def run_verbalized_confidence_experiment(
 # ─────────────────────────────────────────────────────────────────────────────
 def main():
     models = {
-        "llama": ("meta-llama/Llama-3.2-3B-Instruct", True),
+        # "llama": ("meta-llama/Llama-3.2-3B-Instruct", True),
         # "qwen": ("Qwen/Qwen3-8B", True),
         # "phi2": ("microsoft/phi-2", True),
+        "gemma": ("google/gemma-3-1b-it", True),
     }
 
-    datasets = ["gsm8k"] # "boolq", "squad", "trivia", "gsm8k"
+    datasets = ["boolq", "squad", "trivia", "gsm8k"] # "boolq", "squad", "trivia", "gsm8k"
     sample_size_per_question = 5
-    separate_prompting = False  # True for separate sampling, False for top-k sampling
-    base_output_dir = "output/verbalized_confidence_multi_model_full_results/temp_sweep_llama3B/"
-    temperatures = [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]  # SWEEP LIST [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]
+    separate_prompting = True  # True for separate sampling, False for top-k sampling
+    base_output_dir = "output/verbalized_confidence_multi_model_full_results/seperate_prompting/llama_3B/gemma/"
+    temperatures = [0.7]  # SWEEP LIST [0.1, 0.3, 0.5, 0.7, 0.9, 1.1]
 
     for model_name, (model_id, trust_remote_code) in models.items():
         print(f"\n🚀 Loading model: {model_name}")
@@ -215,7 +220,7 @@ def main():
                     sample_size_per_question=sample_size_per_question,
                     separate_prompting=separate_prompting,
                     output_path=output_file,
-                    n_samples=150,
+                    n_samples=500,
                     temperature=T
                 )
 

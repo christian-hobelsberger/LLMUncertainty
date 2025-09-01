@@ -119,7 +119,11 @@ def build_input_text(row, dataset_name: str) -> str:
             "Answer:"
         )
     elif dataset_name == "gsm8k":
-        return f"You are a math tutor. Solve the following problem carefully and provide only the numerical answer.\nProblem: {row.get('question','')}"
+        return (
+            f"You are a math tutor. Solve the following problem carefully and provide only the numerical answer.\n"
+            f"Problem: {row.get('question','')}\n"
+            "Answer:"
+        )
     else:
         raise ValueError(f"Unsupported dataset: {dataset_name}")
 
@@ -232,14 +236,14 @@ def run_polygraph_inference(
 def main():
     # choose models
     models = {
-        "llama": load_llama,
+        # "llama": load_llama,
         # "qwen":  load_qwen,
         # "phi2":  load_phi2,
-        # "gemma": load_gemma,
+        "gemma": load_gemma,
     }
 
     # datasets you want to run
-    datasets = ["gsm8k"]   # extend with "gsm8k" if needed
+    datasets = ["gsm8k", "boolq", "trivia" "squad"] # ["boolq", "squad", "trivia", "gsm8k"]
     sample_size = 500
 
     ue_method_class = CocoaMSP
