@@ -11,11 +11,12 @@ import torch
 from tqdm import tqdm
 from pathlib import Path
 
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig  
 
 from lm_polygraph import estimate_uncertainty
 from lm_polygraph.utils.model import WhiteboxModel
 from lm_polygraph.estimators import CocoaMSP
+from lm_polygraph.utils.generation_parameters import GenerationParameters
 
 
 # ------------------------- MODEL WRAPPER -------------------------
@@ -120,8 +121,8 @@ def build_input_text(row, dataset_name: str) -> str:
         )
     elif dataset_name == "gsm8k":
         return (
-            f"You are a math tutor. Solve the following problem carefully and provide only the numerical answer.\n"
-            f"Problem: {row.get('question','')}\n"
+            "You are a math problem solver. Solve the following math problem step-by-step. Answer with the exact numerical answer, which is an integer.\n"
+            f"Question: {row.get('question','')}\n"
             "Answer:"
         )
     else:
@@ -175,7 +176,11 @@ def run_polygraph_inference(
     model_name_safe = model_id.split("/")[-1].replace("-", "_").lower()
     tokenizer = model_wrapper.tokenizer
     raw_model = model_wrapper.model
-    polygraph_model = WhiteboxModel(raw_model, tokenizer)
+    gen_params = GenerationParameters(
+        do_sample=False,
+        max_new_tokens=750,
+        )
+    polygraph_model = WhiteboxModel(raw_model, tokenizer, generation_parameters=gen_params)
 
     ue_method = ue_method_class()
 
@@ -236,18 +241,18 @@ def run_polygraph_inference(
 def main():
     # choose models
     models = {
-        # "llama": load_llama,
+        "llama": load_llama,
         # "qwen":  load_qwen,
         # "phi2":  load_phi2,
-        "gemma": load_gemma,
+        # "gemma": load_gemma,
     }
 
     # datasets you want to run
-    datasets = ["gsm8k", "boolq", "trivia" "squad"] # ["boolq", "squad", "trivia", "gsm8k"]
+    datasets = ["gsm8k"] # ["boolq", "squad", "trivia", "gsm8k"]
     sample_size = 500
 
     ue_method_class = CocoaMSP
-    output_dir = "output/polygraph/CocoaMSP/"
+    output_dir = "output/polygraph/CocoaMSP/final/"
 
     for name, loader in models.items():
         print(f"\n🚀 Running model: {name}")
