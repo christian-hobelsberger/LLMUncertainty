@@ -15,7 +15,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
 
 from lm_polygraph import estimate_uncertainty
 from lm_polygraph.utils.model import WhiteboxModel
-from lm_polygraph.estimators import CocoaMSP
+from lm_polygraph.estimators import CocoaMSP, MaximumSequenceProbability
 from lm_polygraph.utils.generation_parameters import GenerationParameters
 
 
@@ -226,7 +226,7 @@ def run_polygraph_inference(
     df["dataset"] = dataset_name
     df["model_id"] = model_id
     df["ue_method"] = ue_method_class.__name__
-    df["schema_version"] = "cocoa_v1"
+    df["schema_version"] = "msp" # ["cocoav1"]
     df["timestamp"] = time.strftime("%Y-%m-%d %H:%M:%S")
 
     # write
@@ -248,11 +248,11 @@ def main():
     }
 
     # datasets you want to run
-    datasets = ["gsm8k"] # ["boolq", "squad", "trivia", "gsm8k"]
+    datasets = ["trivia"] # ["boolq", "squad", "trivia", "gsm8k"]
     sample_size = 500
 
-    ue_method_class = CocoaMSP
-    output_dir = "output/polygraph/CocoaMSP/final/"
+    ue_method_class = MaximumSequenceProbability # CocoaMSP
+    output_dir = "output/polygraph/MSP/final/" # output/polygraph/CocoaMSP/final/
 
     for name, loader in models.items():
         print(f"\n🚀 Running model: {name}")
