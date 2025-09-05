@@ -1,0 +1,5 @@
+model,dataset,decoding,accuracy
+llama3.2-3B,SQuAD 2.0,single,0.864516129032258
+llama3.2-3B,SQuAD 2.0,multi,0.832258064516129
+llama3.2-3B,TriviaQA,single,0.508
+llama3.2-3B,TriviaQA,multi,0.51
