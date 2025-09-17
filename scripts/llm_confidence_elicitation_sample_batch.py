@@ -8,10 +8,10 @@ from pathlib import Path
 from tqdm import tqdm
 from typing import List, Dict
 from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch._dynamo
-torch._dynamo.config.suppress_errors = True
-torch._dynamo.config.cache_size_limit = 64  # optional tweak
-torch._dynamo.disable()  # <- completely bypass dynamo tracing
+# import torch._dynamo
+# torch._dynamo.config.suppress_errors = True
+# torch._dynamo.config.cache_size_limit = 64  # optional tweak
+# torch._dynamo.disable()  # <- completely bypass dynamo tracing
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -189,10 +189,10 @@ def run_verbalized_confidence_experiment(
 # ─────────────────────────────────────────────────────────────────────────────
 def main():
     models = {
-        # "llama": ("meta-llama/Llama-3.2-3B-Instruct", True),
+        "llama": ("meta-llama/Llama-3.2-3B-Instruct", True),
         # "qwen": ("Qwen/Qwen3-8B", True),
         # "phi2": ("microsoft/phi-2", True),
-        "gemma": ("google/gemma-3-1b-it", True),
+        # "gemma": ("google/gemma-3-1b-it", True),
     }
 
     datasets = ["boolq", "squad", "trivia", "gsm8k"] # "boolq", "squad", "trivia", "gsm8k"
