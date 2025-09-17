@@ -478,7 +478,7 @@ if __name__ == "__main__":
             input_file=file_config["input_file"],
             output_file=file_config["output_file"],
             model_output_column=file_config["model_output_column"],
-            use_llm_for_parsing=file_config.get("use_llm_parsing", False),
+            use_llm_for_parsing=file_config.get("use_llm_parsing", True),
             model_wrapper=model_wrapper,
             question_column=file_config["question_column"],
             context_column=file_config.get("context_column")
