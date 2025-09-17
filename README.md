@@ -132,9 +132,7 @@ Depending on confidence, predictions can be used automatically, flagged for revi
 
 ## Team
 
-Project Team Christian Hobelsberger (LMU, Munich Re) & Theresa Winner (LMU)   
-
-
+Project Team: Christian Hobelsberger (LMU, Munich Re) & Theresa Winner (LMU)  
 Project Partners: Dr. Andreas Nawroth & Oliver Mitevski (Munich Re)  
 Project Supervisor: Dr. Anna-Carolina Haensch (LMU)
 
