@@ -1,4 +1,4 @@
-# Evaluating and Reducing Uncertainty in LLM Outputs
+# Systematic Evaluation of Uncertainty Estimation Methods in Large Language Models
 
 This repository contains the official implementation of the project *Evaluating and Reducing Uncertainty in LLM Outputs to Improve Performance and Reliability for Insurance Applications*.  
 
