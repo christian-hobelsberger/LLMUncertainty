@@ -139,5 +139,5 @@ Project Supervisor: Dr. Anna-Carolina Haensch (LMU)
 ---
 
 ## Final Report
-
+Preprint: [https://arxiv.org/abs/2510.20460v1](https://arxiv.org/abs/2510.20460v1)  
 The full scientific report can be requested from the authors.
